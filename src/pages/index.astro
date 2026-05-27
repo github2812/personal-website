@@ -1,11 +1,83 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Brandon Naylor">
+	<main>
+		<div class="hero">
+			<h1>Brandon Naylor</h1>
+			<p>Creator</p>
+			<div class="links">
+				<a href="mailto:your-email@example.com" class="button">Contact Me</a>
+				<a href="https://github.com/your-username" target="_blank" class="button secondary">GitHub</a>
+			</div>
+		</div>
+	</main>
 </Layout>
+
+<style>
+	main {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: 100vh;
+		background: radial-gradient(circle at center, #1a1a2e 0%, #0f0f1a 100%);
+		color: #ffffff;
+		font-family: system-ui, sans-serif;
+		margin: 0;
+	}
+
+	.hero {
+		text-align: center;
+		animation: fadeIn 1.5s ease-out;
+	}
+
+	h1 {
+		font-size: 4rem;
+		margin: 0 0 0.5rem 0;
+		letter-spacing: -1px;
+		background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+
+	p {
+		font-size: 1.5rem;
+		color: #a0aec0;
+		margin: 0 0 2rem 0;
+		font-weight: 300;
+	}
+
+	.links {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+	}
+
+	.button {
+		display: inline-block;
+		padding: 0.8rem 1.6rem;
+		border-radius: 8px;
+		background: #ffffff;
+		color: #0f0f1a;
+		text-decoration: none;
+		font-weight: 600;
+		transition: transform 0.2s, opacity 0.2s;
+	}
+
+	.button:hover {
+		transform: translateY(-2px);
+		opacity: 0.9;
+	}
+
+	.button.secondary {
+		background: transparent;
+		color: #ffffff;
+		border: 2px solid #ffffff;
+	}
+
+	@keyframes fadeIn {
+		from { opacity: 0; transform: translateY(20px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+</style>
