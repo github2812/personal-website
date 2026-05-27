@@ -2,100 +2,50 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Brandon Naylor | Portfolio">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
-
-	<main>
-		<div class="decor-line-top"></div>
-		<div class="decor-line-bottom"></div>
-
-		<div class="portfolio-container">
-			<h1 class="title">Brandon Naylor</h1>
-			<div class="divider"></div>
-			<p class="subtitle">Portfolio</p>
-		</div>
-	</main>
+<Layout title="Brandon Naylor | Home">
+	<div class="hero-container">
+		<h1 class="title">Brandon Naylor</h1>
+		<div class="divider"></div>
+		<p class="subtitle">Portfolio</p>
+	</div>
 </Layout>
 
 <style>
-	main {
+	.hero-container {
+		min-height: 100vh;
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		min-height: 100vh;
-		/* Deep space purple radial gradient matching your image */
-		background: radial-gradient(circle at center, #2c1654 0%, #120924 100%);
-		color: #ffffff;
-		font-family: 'Poppins', sans-serif;
-		margin: 0;
-		overflow: hidden;
-		position: relative;
-	}
-
-	.portfolio-container {
 		text-align: center;
-		z-index: 10;
-		animation: containerFadeIn 1.2s ease-out;
+		padding: 2rem;
+		box-sizing: border-box;
 	}
-
 	.title {
+		font-family: 'Poppins', sans-serif;
 		font-size: 5rem;
 		font-weight: 700;
 		margin: 0;
-		letter-spacing: 1px;
 		color: #ffffff;
 		line-height: 1.1;
 	}
-
-	/* The exact dividing line from your graphic */
 	.divider {
 		height: 3px;
 		width: 100%;
+		max-width: 600px;
 		background: linear-gradient(90deg, transparent 10%, #bc34a4 50%, transparent 90%);
 		margin: 1.5rem 0;
-		box-shadow: 0px 0px 8px rgba(188, 52, 164, 0.6);
 	}
-
 	.subtitle {
+		font-family: 'Poppins', sans-serif;
 		font-size: 3.5rem;
-		font-weight: 300; /* Thin look matching "Portfolio" */
+		font-weight: 300;
 		color: #ffffff;
 		margin: 0;
-		letter-spacing: 2px;
-		opacity: 0.95;
 	}
 
-	/* Subtle ambient geometric glow shapes in the corners */
-	.decor-line-top {
-		position: absolute;
-		top: 10%;
-		right: -5%;
-		width: 300px;
-		height: 300px;
-		background: radial-gradient(circle, rgba(147, 51, 234, 0.2) 0%, transparent 70%);
-		filter: blur(20px);
-	}
-
-	.decor-line-bottom {
-		position: absolute;
-		bottom: -5%;
-		left: -5%;
-		width: 400px;
-		height: 400px;
-		background: radial-gradient(circle, rgba(192, 38, 211, 0.15) 0%, transparent 70%);
-		filter: blur(30px);
-	}
-
-	@keyframes containerFadeIn {
-		from { opacity: 0; transform: translateY(15px); }
-		to { opacity: 1; transform: translateY(0); }
-	}
-
-	/* Responsive design for smaller laptop/mobile viewports */
 	@media (max-width: 768px) {
 		.title { font-size: 3rem; }
-		.subtitle { font-size: 2rem; }
+		.subtitle { font-size: 1.8rem; }
 	}
 </style>

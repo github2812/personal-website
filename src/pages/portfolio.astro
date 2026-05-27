@@ -1,0 +1,148 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Portfolio | Brandon Naylor">
+	<div class="page-container">
+		<h1 class="page-title">Portfolio</h1>
+		
+		<section class="page-content">
+			<div class="project-grid">
+				
+				<div class="project-card">
+					<div class="image-side">
+						<div class="image-placeholder"></div>
+					</div>
+					<div class="text-side">
+						<h3 class="project-title">Template Title One</h3>
+						<h4 class="project-subtitle">Template Subtitle</h4>
+						<p class="template-p">Template paragraph.</p>
+					</div>
+				</div>
+
+				<div class="project-card">
+					<div class="image-side">
+						<div class="image-placeholder"></div>
+					</div>
+					<div class="text-side">
+						<h3 class="project-title">Template Title Two</h3>
+						<h4 class="project-subtitle">Template Subtitle</h4>
+						<p class="template-p">Template paragraph.</p>
+					</div>
+				</div>
+
+				<div class="project-card">
+					<div class="image-side">
+						<div class="image-placeholder"></div>
+					</div>
+					<div class="text-side">
+						<h3 class="project-title">Template Title Three</h3>
+						<h4 class="project-subtitle">Template Subtitle</h4>
+						<p class="template-p">Template paragraph.</p>
+					</div>
+				</div>
+
+			</div>
+		</section>
+	</div>
+</Layout>
+
+<style>
+	.page-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding-top: 18vh;
+		color: white;
+		font-family: 'Poppins', sans-serif;
+	}
+	.page-title {
+		font-family: 'Poppins', sans-serif;
+		font-size: 4rem;
+		font-weight: 700;
+		margin: 0 0 3rem 0;
+		letter-spacing: 1px;
+	}
+	.page-content {
+		max-width: 900px;
+		width: 100%;
+		padding: 0 2rem;
+		box-sizing: border-box;
+	}
+	.project-grid { 
+		display: flex;
+		flex-direction: column;
+		gap: 2.5rem; 
+		margin-bottom: 5rem;
+	}
+	
+	/* Horizontal side-by-side card structure */
+	.project-card {
+		display: flex;
+		background: rgba(255, 255, 255, 0.03);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: 8px;
+		overflow: hidden;
+		min-height: 200px;
+	}
+	
+	/* Left Side: Fixed image box */
+	.image-side {
+		flex: 0 0 35%; /* Takes exactly 35% of the card width */
+		position: relative;
+		background: rgba(0, 0, 0, 0.2);
+		border-right: 1px solid rgba(255, 255, 255, 0.05);
+	}
+	.image-placeholder {
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(188, 52, 164, 0.1) 100%);
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	/* If you add real images later, this handles sizing perfectly */
+	.image-side img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	/* Right Side: Content stacks */
+	.text-side {
+		flex: 1;
+		padding: 2rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		text-align: left;
+	}
+	.project-title { 
+		font-family: 'Poppins', sans-serif;
+		margin: 0 0 0.25rem 0; 
+		color: #ffffff; 
+		font-size: 1.6rem; 
+		font-weight: 700;
+	}
+	.project-subtitle {
+		font-family: 'Poppins', sans-serif;
+		margin: 0 0 1rem 0;
+		color: #bc34a4;
+		font-size: 1rem;
+		font-weight: 400;
+		letter-spacing: 0.5px;
+	}
+	.template-p { 
+		font-family: 'Poppins', sans-serif; 
+		opacity: 0.8; 
+		line-height: 1.6; 
+		margin: 0;
+	}
+
+	/* Mobile Responsive Wrap styling */
+	@media (max-width: 768px) { 
+		.page-title { font-size: 2.5rem; } 
+		.project-card { flex-direction: column; }
+		.image-side { min-height: 180px; width: 100%; }
+	}
+</style>

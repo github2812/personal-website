@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Experience | Brandon Naylor">
+	<div class="page-container">
+		<h1 class="page-title">Experience</h1>
+
+		<section class="page-content">
+			<div class="timeline">
+				
+				<div class="timeline-item">
+					<div class="time-meta">
+						<span class="role">Template Title One</span>
+						<span class="date">Template Time</span>
+					</div>
+					<p class="template-p">Template paragraph.</p>
+				</div>
+
+				<div class="timeline-item">
+					<div class="time-meta">
+						<span class="role">Template Title Two</span>
+						<span class="date">Template Time</span>
+					</div>
+					<p class="template-p">Template paragraph.</p>
+				</div>
+
+				<div class="timeline-item">
+					<div class="time-meta">
+						<span class="role">Template Title Three</span>
+						<span class="date">Template Time</span>
+					</div>
+					<p class="template-p">Template paragraph.</p>
+				</div>
+
+			</div>
+		</section>
+	</div>
+</Layout>
+
+<style>
+	.page-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding-top: 18vh;
+		color: white;
+		font-family: 'Poppins', sans-serif;
+	}
+	.page-title {
+		font-family: 'Poppins', sans-serif;
+		font-size: 4rem;
+		font-weight: 700;
+		margin: 0 0 3rem 0;
+		letter-spacing: 1px;
+	}
+	.page-content {
+		max-width: 800px;
+		width: 100%;
+		padding: 0 2rem;
+		box-sizing: border-box;
+	}
+	.timeline { 
+		border-left: 2px solid rgba(255, 255, 255, 0.1); 
+		padding-left: 2rem; 
+		margin-bottom: 5rem;
+	}
+	.timeline-item { position: relative; margin-bottom: 3.5rem; }
+	.timeline-item:last-child { margin-bottom: 0; }
+	
+	/* Chronological node dots */
+	.timeline-item::before {
+		content: '';
+		position: absolute;
+		left: calc(-2rem - 7px);
+		top: 6px;
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		background: #bc34a4;
+		box-shadow: 0 0 8px #bc34a4;
+	}
+	.time-meta { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-family: 'Poppins', sans-serif; }
+	.role { font-weight: 700; font-size: 1.3rem; color: #ffffff; }
+	.date { opacity: 0.6; font-size: 1rem; }
+	.template-p { font-family: 'Poppins', sans-serif; opacity: 0.8; line-height: 1.6; margin: 0; }
+	
+	@media (max-width: 768px) { 
+		.page-title { font-size: 2.5rem; } 
+		.time-meta { flex-direction: column; gap: 0.25rem; } 
+	}
+</style>
