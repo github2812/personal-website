@@ -8,7 +8,7 @@ import Layout from '../layouts/Layout.astro';
 		<section class="experience-hero">
 			<div class="hero-content-block">
 				<h1 class="page-title">Experience</h1>
-				<p class="hero-description-text">desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc </p>
+				<p class="hero-description-text">This contains a list of relevant skills, grouped into categories, as well as work/volunteer experience from high school to present.</p>
 
 				<div class="jump-links">
 					<a href="#skills" class="jump-btn">Skills</a>
@@ -25,32 +25,45 @@ import Layout from '../layouts/Layout.astro';
 					<div class="skills-grid">
 						
 						<div class="skill-category">
-							<h3>tech</h3>
+							<h3>Technology</h3>
 							<ul>
-								<li>JavaScript / TypeScript</li>
-								<li>HTML5 & CSS3</li>
-								<li>React & Astro</li>
-								<li>Python</li>
+								<li>C++</li>
+								<li>C#</li>
+								<li>JavaScript</li>
+								<li>HTML5</li>
+								<li>Unity Game Engine</li>
+								<li>Astro Development</li>
+								<li>Cloudflare Deployment</li>
+								<li>GitHub</li>
+								<li>Excel/Sheets</li>
+								<li>Google Suite</li>
+								<li>Canva Design</li>
+								<li>Final Cut Pro</li>
+								<li>iMovie</li>
 							</ul>
 						</div>
 						
 						<div class="skill-category">
-							<h3>music</h3>
+							<h3>Music</h3>
 							<ul>
-								<li>Drum Set & Percussion</li>
-								<li>Music Composition</li>
-								<li>Logic Pro / Ableton</li>
-								<li>Live Sound Mixing</li>
+								<li>Drumset/Percussion Performance</li>
+								<li>Percussion Instruction</li>
+								<li>Logic Pro Composition/Production</li>
+								<li>MuseScore Composition/Notation</li>
+								<li>Audio Engineering</li>
+								<li>Live Mixing</li>
 							</ul>
 						</div>
 						
 						<div class="skill-category">
-							<h3>miscellaneous</h3>
+							<h3>Miscellaneous</h3>
 							<ul>
-								<li>Team Leadership</li>
-								<li>Public Speaking</li>
-								<li>Project Planning</li>
-								<li>Technical Instruction</li>
+								<li>Teaching</li>
+								<li>Cooking/Baking</li>
+								<li>Lego Construction</li>
+								<li>Flexibility</li>
+								<li>Organization</li>
+								<li>Patience</li>
 							</ul>
 						</div>
 						
@@ -58,7 +71,7 @@ import Layout from '../layouts/Layout.astro';
 				</section>
 
 				<section id="work" class="experience-section">
-					<h2 class="section-heading">Work & Volunteer</h2>
+					<h2 class="section-heading">Work & Volunteer Experience</h2>
 					<div class="timeline">
 						<div class="timeline-item">
 							<div class="time-meta">
@@ -103,10 +116,10 @@ import Layout from '../layouts/Layout.astro';
 		background-color: #ffffff; color: #1a1a2e; width: 100%; display: flex; justify-content: center; padding: 6rem 2rem; position: relative; z-index: 10;
 	}
 
-	.page-content-container { max-width: 900px; width: 100%; }
+	.page-content-container { max-width: 920px; width: 100%; }
 	.experience-section { margin-bottom: 6rem; scroll-margin-top: 140px; }
+	.experience-section:last-child { margin-bottom: 0; }
 	
-	/* Dark Purple Group Headings */
 	.section-heading { font-size: 2.2rem; font-weight: 700; color: #2a1454; margin-bottom: 2.5rem; border-bottom: 2px solid #f0f0f5; padding-bottom: 0.5rem; }
 
 	.timeline { border-left: 2px solid #f0f0f5; padding-left: 2.5rem; max-width: 800px; margin-left: auto; margin-right: auto; }
@@ -114,19 +127,33 @@ import Layout from '../layouts/Layout.astro';
 	.timeline-item::before { content: ''; position: absolute; left: calc(-2.5rem - 7px); top: 6px; width: 12px; height: 12px; border-radius: 50%; background: #bc34a4; }
 	.time-meta { display: flex; justify-content: space-between; margin-bottom: 0.6rem; }
 	
-	/* Black/Gray Shades for core strings */
 	.role { font-weight: 700; font-size: 1.3rem; color: #111111; }
 	.date { color: #555555; font-weight: 600; }
 	.template-p { color: #555555; line-height: 1.7; margin: 0; font-size: 1.05rem; }
 	
-	.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
-	.skill-category { background: #ffffff; border: 1px solid #f0f0f5; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 16px rgba(0,0,0,0.02); }
+	.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; align-items: start; }
+	.skill-category { background: #ffffff; border: 1px solid #f0f0f5; border-radius: 12px; padding: 2.2rem 2rem; box-shadow: 0 4px 16px rgba(0,0,0,0.02); }
 	
-	/* Skill Category Box Headers (Enforces uncapitalized rules cleanly) */
-	.skill-category h3 { font-size: 1.4rem; font-weight: 700; color: #2a1454; margin: 0 0 1.5rem 0; border-bottom: 2px solid #fafaff; padding-bottom: 0.5rem; text-transform: lowercase; letter-spacing: 0.5px; }
+	.skill-category h3 { font-size: 1.4rem; font-weight: 700; color: #2a1454; margin: 0 0 1.5rem 0; border-bottom: 2px solid #f0f0f5; padding-bottom: 0.5rem; letter-spacing: 0.5px; }
 	.skill-category ul { list-style: none; padding: 0; margin: 0; }
-	.skill-category li { font-size: 1.05rem; margin-bottom: 0.8rem; color: #555555; display: flex; align-items: center; }
-	.skill-category li::before { content: '▹'; color: #bc34a4; margin-right: 10px; font-weight: bold; }
+	
+	.skill-category li { 
+		font-size: 1.05rem; 
+		margin-bottom: 0.8rem; 
+		color: #555555; 
+		display: flex; 
+		align-items: center;
+		line-height: 1.45; 
+	}
+	
+	.skill-category li::before { 
+		content: '▹'; 
+		color: #bc34a4; 
+		margin-right: 10px; 
+		font-weight: bold; 
+		flex-shrink: 0; 
+	}
 
-	@media (max-width: 768px) { .page-title { font-size: 2.8rem; } .time-meta { flex-direction: column; } }
+	@media (max-width: 990px) { .skills-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
+	@media (max-width: 768px) { .page-title { font-size: 2.8rem; } .time-meta { flex-direction: column; gap: 0.25rem; } }
 </style>
