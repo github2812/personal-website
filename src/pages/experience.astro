@@ -92,21 +92,23 @@ import Layout from '../layouts/Layout.astro';
 	.split-page-wrapper { width: 100%; display: flex; flex-direction: column; }
 	
 	.experience-hero {
-		height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; z-index: 5; padding: 0 2rem;
+		height: 100dvh; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; z-index: 5; padding: 0 2rem;
 	}
-	
-	.hero-content-block { max-width: 750px; width: 100%; display: flex; flex-direction: column; align-items: center; }
 
+	.hero-content-block { position: relative; z-index: 5; max-width: 750px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+
+	/* FLUID TYPOGRAPHY SCALING */
 	.page-title { 
-		font-size: 3.8rem; font-weight: 700; margin: 0 0 1.5rem 0; letter-spacing: 1px; color: #ffffff;
-		text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+		font-size: clamp(3.2rem, 10vw, 5rem); font-weight: 700; margin: 0 0 1.5rem 0; letter-spacing: 1px; color: #ffffff;
+		text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6); animation: scaleEase 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 	}
 
 	.hero-description-text {
 		font-size: 1.15rem; line-height: 1.6; color: rgba(255, 255, 255, 0.85); margin: 0 0 3rem 0; max-width: 620px; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); text-wrap: balance;
+		animation: scaleEase 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; opacity: 0;
 	}
 	
-	.jump-links { display: flex; gap: 1rem; }
+	.jump-links { display: flex; gap: 1rem; animation: scaleEase 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; opacity: 0; }
 	.jump-btn { 
 		background: rgba(255, 255, 255, 0.04); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.15); padding: 0.8rem 1.6rem; border-radius: 30px; text-decoration: none; font-weight: 600; transition: all 0.25s ease; 
 	}
@@ -154,6 +156,8 @@ import Layout from '../layouts/Layout.astro';
 		flex-shrink: 0; 
 	}
 
+	@keyframes scaleEase { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+
 	@media (max-width: 990px) { .skills-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
-	@media (max-width: 768px) { .page-title { font-size: 2.8rem; } .time-meta { flex-direction: column; gap: 0.25rem; } }
+	@media (max-width: 768px) { .time-meta { flex-direction: column; gap: 0.25rem; } }
 </style>

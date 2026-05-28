@@ -11,7 +11,7 @@ const { title } = Astro.props;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Brandon Naylor - Personal Portfolio" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
@@ -99,6 +99,11 @@ const { title } = Astro.props;
 	function animateParticles() {
 		if (!ctx || !canvas) return;
 
+		if (document.visibilityState !== 'visible') {
+			requestAnimationFrame(animateParticles);
+			return;
+		}
+
 		ctx.fillStyle = '#120924';
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -153,8 +158,12 @@ const { title } = Astro.props;
 	}
 
 	html, body {
-		margin: 0; padding: 0; width: 100%; min-height: 100vh;
-		background-color: var(--bg-dark); color: var(--text-light);
+		margin: 0; padding: 0; width: 100%; min-height: 100dvh;
+		background-color: var(--bg-dark); 
+		/* Fallback gradient added to perfectly mask iOS overscroll bounces */
+		background-image: radial-gradient(circle at center, #2c1654 0%, #120924 100%);
+		background-attachment: fixed;
+		color: var(--text-light);
 	}
 
 	html, body, button, input, select, textarea, a, span, div, h1, h2, h3, h4 {
@@ -164,17 +173,20 @@ const { title } = Astro.props;
 	* { box-sizing: border-box; }
 
 	#global-particle-canvas {
-		position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: none;
+		/* Switched from 100vw/100dvh to 100% to lock strictly to the viewport edges and fix mobile clipping */
+		position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;
 	}
 
 	.global-layout-wrapper {
-		width: 100%; position: relative; z-index: 2; display: flex; flex-direction: column; min-height: 100vh;
+		width: 100%; position: relative; z-index: 2; display: flex; flex-direction: column; min-height: 100dvh;
 	}
 
 	.global-main-content { width: 100%; position: relative; flex: 1; }
 
+	/* --- HEADER & NAV --- */
 	.site-header {
-		position: fixed; top: 0; left: 0; width: 100%; z-index: 4000; display: flex; justify-content: center; padding: 1.8rem 2rem; 
+		position: fixed; top: 0; left: 0; width: 100%; z-index: 4000; display: flex; justify-content: center; 
+		padding: clamp(1rem, 3vw, 1.8rem) clamp(1rem, 5vw, 2rem); 
 	}
 
 	.site-header::before {
@@ -183,9 +195,12 @@ const { title } = Astro.props;
 		backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); z-index: -1; pointer-events: none;
 	}
 
-	.main-nav { display: flex; gap: 3rem; align-items: center; }
+	.main-nav { display: flex; gap: clamp(1rem, 4vw, 3rem); align-items: center; }
+	
 	.nav-link {
-		color: var(--text-light); text-decoration: none; font-size: 1.1rem; font-weight: 600; transition: color 0.2s ease; letter-spacing: 0.5px;
+		color: var(--text-light); text-decoration: none; 
+		font-size: clamp(0.85rem, 2.5vw, 1.1rem); 
+		font-weight: 600; transition: color 0.2s ease; letter-spacing: 0.5px;
 	}
 	.nav-link:hover { color: var(--accent-magenta); }
 
@@ -206,12 +221,9 @@ const { title } = Astro.props;
 	}
 	.dropdown-content a:hover { background: rgba(255, 255, 255, 0.05); color: var(--accent-violet); }
 
+	/* --- FOOTER --- */
 	.site-footer { width: 100%; text-align: center; padding: 1.5rem 2rem; background: transparent; position: relative; z-index: 10; margin-top: auto; }
 	.site-footer p { margin: 0; font-size: 0.8rem; font-weight: 400; color: rgba(255, 255, 255, 0.3); letter-spacing: 0.5px; }
 
-	.light-page-content + .site-footer p, .light-theme-footer-flag p {
-		color: rgba(26, 26, 46, 0.4) !important;
-	}
-
-	@media (max-width: 768px) { .main-nav { gap: 1.5rem; } .nav-link { font-size: 0.9rem; } .dropdown-content { min-width: 165px; } }
+	.light-page-content + .site-footer p, .light-theme-footer-flag p { color: rgba(26, 26, 46, 0.4) !important; }
 </style>

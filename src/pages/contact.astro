@@ -101,28 +101,32 @@ import Layout from '../layouts/Layout.astro';
 
 <style>
 	.contact-page-fullscreen-wrapper {
-		width: 100%; display: flex; flex-direction: column; align-items: center; min-height: 75vh;
+		width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100dvh; position: relative; overflow: hidden;
 	}
+	
 	.page-container {
 		display: flex; flex-direction: column; align-items: center; color: #ffffff; position: relative; z-index: 5; width: 100%;
-		padding-top: 22vh; 
 	}
+	
+	/* FLUID TYPOGRAPHY */
 	.page-title {
-		font-size: 4rem; font-weight: 700; margin: 0 0 4rem 0; letter-spacing: 1px;
-		text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+		font-size: clamp(3.2rem, 10vw, 5rem); font-weight: 700; margin: 0 0 4rem 0; letter-spacing: 1px;
+		text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6); animation: scaleEase 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 	}
-	.page-content { max-width: 600px; width: 100%; padding: 0 2rem; }
+	
+	.page-content { max-width: 600px; width: 100%; padding: 0 2rem; animation: scaleEase 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; opacity: 0; }
 	.contact-links-container { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: 100%; }
 	
+	/* BUTTON BUG FIX: Removed fixed max-width and media query override, added responsive clamp sizing */
 	.contact-button {
-		display: flex; justify-content: center; align-items: center; width: 100%; max-width: 280px; height: 55px; border: none; border-radius: 6px;
+		display: flex; justify-content: center; align-items: center; width: 100%; max-width: clamp(280px, 80vw, 340px); height: 55px; border: none; border-radius: 6px;
 		background: #ffffff; color: #120924; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.5px; cursor: pointer;
 		transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 	}
 	.contact-button:hover { transform: scale(1.04); box-shadow: 0 8px 24px rgba(188, 52, 164, 0.25); }
 	
 	.contact-panel-dropdown {
-		width: 100%; max-width: 280px; max-height: 0; opacity: 0; overflow: hidden; background: #1a0d33; border: 1px solid transparent; border-radius: 6px;
+		width: 100%; max-width: clamp(280px, 80vw, 340px); max-height: 0; opacity: 0; overflow: hidden; background: #1a0d33; border: 1px solid transparent; border-radius: 6px;
 		transition: max-height 0.34s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.22s ease;
 	}
 	
@@ -133,7 +137,6 @@ import Layout from '../layouts/Layout.astro';
 	.panel-link:hover { color: #bc34a4 !important; }
 	.professional-anchor { font-weight: 600; text-decoration: underline !important; letter-spacing: 0.5px; font-size: 0.95rem; }
 	
-	/* Core structural layout sizing controls for buttons */
 	.panel-copy-icon-btn,
 	.copy-button-container { 
 		position: relative; background: transparent; border: none; cursor: pointer; padding: 6px; 
@@ -162,10 +165,9 @@ import Layout from '../layouts/Layout.astro';
 		pointer-events: none; 
 		transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease; 
 		box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-		z-index: 50; /* Layers popup element safely on top */
+		z-index: 50;
 	}
 
-	/* --- Hover state trigger logic maps --- */
 	.panel-copy-icon-btn:hover .tooltip-box,
 	.copy-button-container:hover .tooltip-box,
 	.tooltip-box.visible { 
@@ -176,5 +178,5 @@ import Layout from '../layouts/Layout.astro';
 
 	.tooltip-box::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border-width: 5px; border-style: solid; border-color: #ffffff transparent transparent transparent; }
 
-	@media (max-width: 768px) { .page-title { font-size: 2.7rem; } .contact-button, .contact-panel-dropdown { max-width: 100%; } }
+	@keyframes scaleEase { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
 </style>
