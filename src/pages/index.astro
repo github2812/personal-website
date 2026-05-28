@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 
-// Ensure these filenames match the files in your project explorer exactly (all lowercase, no spaces)
 import fullShot from '../assets/homepage/brandon.jpeg';
 import drumShot from '../assets/homepage/brandondrums.jpeg';
 import dogPhoto from '../assets/homepage/dogs.jpeg';
@@ -75,18 +74,25 @@ import signatureImg from '../assets/homepage/signature.png';
 			<div class="explore-container">
 				<h2 class="section-title light-text">Explore</h2>
 				<div class="explore-grid">
+					
 					<a href="/portfolio" class="explore-card">
 						<h3>Portfolio</h3>
-						<p>Dive into my computer science applications, musical compositions, and personal passion projects.</p>
+						<p class="explore-desc">A showcase of my computer, music, and passion projects.</p>
+						<span class="explore-subtitle">(click to view)</span>
 					</a>
+					
 					<a href="/experience" class="explore-card">
 						<h3>Experience</h3>
-						<p>View my professional work history, volunteer roles, and technical programming and audio skills.</p>
+						<p class="explore-desc">A summary of my work history, volunteer roles, and skills.</p>
+						<span class="explore-subtitle">(click to view)</span>
 					</a>
+					
 					<a href="/contact" class="explore-card">
 						<h3>Contact</h3>
-						<p>Get in touch via email or connect with me on LinkedIn to collaborate on future projects.</p>
+						<p class="explore-desc">Reach out directly via email or connect with my LinkedIn profile.</p>
+						<span class="explore-subtitle">(click to view)</span>
 					</a>
+					
 				</div>
 			</div>
 		</section>
@@ -94,7 +100,6 @@ import signatureImg from '../assets/homepage/signature.png';
 </Layout>
 
 <script>
-	// --- Audio Waves Local Canvas Animation ---
 	const canvas = document.getElementById('home-animation-canvas') as HTMLCanvasElement;
 	const ctx = canvas?.getContext('2d');
 
@@ -158,25 +163,18 @@ import signatureImg from '../assets/homepage/signature.png';
 
 	if (canvas) animateWaves();
 
-	// --- Scroll Indicator Fade Controller ---
 	const indicator = document.getElementById('dynamic-scroll-indicator');
+	let isPermanentlyHidden = false;
+
+	if (indicator && window.scrollY > 40) {
+		isPermanentlyHidden = true;
+		indicator.style.display = 'none';
+	}
+
 	window.addEventListener('scroll', () => {
-		if (indicator) {
-			const currentScroll = window.scrollY;
-			const fadeDistance = 200; 
-
-			let targetOpacity = 0.7 * (1 - (currentScroll / fadeDistance));
-			
-			if (targetOpacity < 0) targetOpacity = 0;
-			if (targetOpacity > 0.7) targetOpacity = 0.7;
-
-			indicator.style.opacity = targetOpacity.toString();
-
-			if (targetOpacity === 0) {
-				indicator.style.pointerEvents = 'none';
-			} else {
-				indicator.style.pointerEvents = 'auto';
-			}
+		if (!isPermanentlyHidden && indicator && window.scrollY > 40) {
+			isPermanentlyHidden = true; 
+			indicator.classList.add('hidden-fade');
 		}
 	}, { passive: true });
 </script>
@@ -199,26 +197,66 @@ import signatureImg from '../assets/homepage/signature.png';
 	.divider-line { height: 3px; width: 100%; background: linear-gradient(90deg, transparent 10%, #ffffff 50%, transparent 90%); animation: lineGrow 1.4s cubic-bezier(0.25, 1, 0.5, 1) 0.6s forwards; max-width: 0%; }
 	.portfolio-text { font-size: 2.8rem; font-weight: 300; color: #ffffff; margin: 0; opacity: 0; letter-spacing: 4px; text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.8), 0px 8px 25px rgba(0, 0, 0, 0.85); animation: scaleEase 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards; }
 
-	.scroll-indicator { position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%); display: flex; justify-content: center; align-items: center; z-index: 5; opacity: 0.7; will-change: opacity; }
-	.scroll-text { font-size: 0.85rem; font-weight: 400; color: #ffffff; margin: 0; letter-spacing: 2.5px; text-transform: uppercase; text-shadow: 0px 4px 12px rgba(0, 0, 0, 0.9); animation: slideUpFromBottom 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.5s forwards; }
+	.scroll-indicator { 
+		position: absolute; 
+		bottom: 3rem; 
+		left: 50%; 
+		transform: translateX(-50%); 
+		display: flex; 
+		justify-content: center; 
+		align-items: center; 
+		z-index: 5; 
+		opacity: 0;
+		animation: scaleEaseIndicator 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.5s forwards;
+		will-change: opacity, transform, filter;
+	}
+	
+	.scroll-indicator.hidden-fade {
+		animation: cinematicEvaporate 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+		pointer-events: none;
+	}
+
+	.scroll-text { 
+		font-size: 0.85rem; 
+		font-weight: 400; 
+		color: #ffffff; 
+		margin: 0; 
+		letter-spacing: 2.5px; 
+		text-transform: uppercase; 
+		text-shadow: 0px 4px 12px rgba(0, 0, 0, 0.9); 
+		animation: rhythmicWave 2.4s ease-in-out infinite;
+		will-change: transform;
+	}
+
+	@keyframes scaleEaseIndicator {
+		from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+		to { opacity: 0.7; transform: translateX(-50%) translateY(0); }
+	}
+
+	@keyframes cinematicEvaporate {
+		0% { opacity: 0.7; transform: translateX(-50%) translateY(0); filter: blur(0px); }
+		100% { opacity: 0; transform: translateX(-50%) translateY(-20px); filter: blur(4px); visibility: hidden; }
+	}
+
+	@keyframes rhythmicWave {
+		0%, 100% { transform: translateY(0); }
+		50% { transform: translateY(-8px); }
+	}
 
 	/* --- ABOUT SECTION --- */
 	.about-section { background-color: #d8d8de; color: #120924; width: 100%; display: flex; justify-content: center; padding: 6rem 2rem; box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.12); position: relative; z-index: 5; }
 	.about-container { max-width: 1000px; width: 100%; }
 	.section-title { font-size: 3.5rem; font-weight: 700; margin: 0 0 4rem 0; text-align: center; }
-	.section-title.light-text { color: #ffffff; }
+	.section-title.light-text { 
+		color: #ffffff; 
+		text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 12px 32px rgba(0, 0, 0, 0.3);
+	}
 
 	.about-grid { display: flex; flex-direction: column; gap: 5rem; }
 	.about-row { display: flex; align-items: center; gap: 4rem; }
 	.about-row.reverse { flex-direction: row-reverse; }
+	.about-image-wrapper { flex: 1; display: flex; justify-content: center; }
 	
-	.about-image-wrapper { 
-		flex: 1; 
-		display: flex; 
-		justify-content: center; 
-	}
-	
-	/* Shadows returned back to original clean config */
 	.about-image { 
 		width: 100%; 
 		max-width: 400px; 
@@ -235,14 +273,69 @@ import signatureImg from '../assets/homepage/signature.png';
 	.signature-image { max-width: 200px; height: auto; }
 
 	/* --- EXPLORE SECTION --- */
-	.explore-section { background-color: #120924; color: #ffffff; width: 100%; display: flex; justify-content: center; padding: 6rem 2rem 8rem 2rem; position: relative; z-index: 5; }
+	.explore-section { 
+		background: transparent; 
+		color: #ffffff; 
+		width: 100%; 
+		display: flex; 
+		justify-content: center; 
+		padding: 6rem 2rem 8rem 2rem; 
+		position: relative; 
+		z-index: 5; 
+	}
+	
 	.explore-container { max-width: 1000px; width: 100%; }
 	.explore-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; }
 	
-	.explore-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 2.5rem 2rem; text-align: center; text-decoration: none; color: inherit; transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease; }
-	.explore-card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.06); border-color: rgba(217, 70, 239, 0.4); }
-	.explore-card h3 { font-size: 1.8rem; font-weight: 600; color: #d946ef; margin: 0 0 1rem 0; }
-	.explore-card p { font-size: 1.05rem; line-height: 1.6; color: #e4e4e8; margin: 0; opacity: 0.9; }
+	.explore-card { 
+		background: transparent; 
+		border: 1px solid rgba(255, 255, 255, 0.08); 
+		border-radius: 12px; 
+		padding: 2.5rem 2rem; 
+		text-align: center; 
+		text-decoration: none; 
+		color: inherit; 
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between; 
+		align-items: center;
+		min-height: 230px; /* Bumped up safely from 190px to protect your padding channels */
+		transition: transform 0.28s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.28s ease, box-shadow 0.28s ease; 
+	}
+	
+	.explore-card:hover { 
+		transform: scale(1.03); 
+		border-color: rgba(217, 70, 239, 0.6); 
+		box-shadow: 0 12px 30px rgba(217, 70, 239, 0.12);
+	}
+	
+	.explore-card h3 { 
+		font-size: 1.8rem; 
+		font-weight: 600; 
+		color: #d946ef; 
+		margin: 0 0 1rem 0; /* Re-applied bottom separation padding */
+		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+	}
+	
+	.explore-desc { 
+		font-size: 1.05rem; 
+		line-height: 1.5; 
+		color: #e4e4e8; 
+		margin: 0 auto; 
+		opacity: 0.85; 
+		max-width: 320px; 
+		text-wrap: balance; 
+		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+	}
+	
+	.explore-subtitle {
+		font-size: 0.85rem;
+		font-weight: 400;
+		color: rgba(255, 255, 255, 0.4);
+		margin: 1.2rem 0 0 0; /* Re-applied top separation padding */
+		letter-spacing: 0.5px;
+		text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+	}
 
 	@keyframes scaleEase { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
 	@keyframes lineGrow { from { max-width: 0%; } to { max-width: 100%; } }

@@ -188,19 +188,17 @@ const { title } = Astro.props;
 		z-index: 2000;
 		display: flex;
 		justify-content: center;
-		padding: 2rem 2rem; 
+		padding: 1.8rem 2rem; 
 	}
 
+	/* --- Fixed Double Layering: Bound elements directly onto the container box --- */
 	.site-header::before {
 		content: '';
 		position: absolute;
-		top: 0; left: 0; right: 0; 
-		bottom: -30px;
-		background: linear-gradient(to bottom, rgba(18, 9, 36, 0.85) 0%, rgba(18, 9, 36, 0.4) 70%, rgba(18, 9, 36, 0) 100%);
-		backdrop-filter: blur(12px);
-		-webkit-backdrop-filter: blur(12px);
-		mask-image: linear-gradient(to bottom, rgba(0,0,0,1) calc(100% - 30px), rgba(0,0,0,0) 100%);
-		-webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) calc(100% - 30px), rgba(0,0,0,0) 100%);
+		top: 0; left: 0; right: 0; bottom: 0;
+		background: linear-gradient(to bottom, rgba(18, 9, 36, 0.92) 0%, rgba(18, 9, 36, 0) 100%);
+		backdrop-filter: blur(5px); /* Toned down perfectly from 12px */
+		-webkit-backdrop-filter: blur(5px);
 		z-index: -1;
 		pointer-events: none;
 	}
