@@ -1,11 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { Image } from 'astro:assets';
 
-// Image paths mapped directly to your directory structure
-import brandonImg from '../assets/homepage/brandon.jpeg';
-import drumImg from '../assets/homepage/brandondrums.jpeg';
-import dogImg from '../assets/homepage/dogs.jpeg';
+// Image paths configured directly to target your exact file naming directory structure
+import fullShot from '../assets/homepage/brandon.jpeg';
+import drumShot from '../assets/homepage/brandondrums.jpeg';
+import dogPhoto from '../assets/homepage/dogs.jpeg';
 import signatureImg from '../assets/homepage/signature.png';
 ---
 
@@ -15,7 +14,7 @@ import signatureImg from '../assets/homepage/signature.png';
 			<canvas id="home-animation-canvas"></canvas>
 
 			<div class="title-group">
-				<h1 class="title">Brandon Naylor</h1>
+				<h1 class="title">Brandon Naylor2</h1>
 				
 				<div class="divider-container">
 					<div class="divider-line"></div>
@@ -36,10 +35,10 @@ import signatureImg from '../assets/homepage/signature.png';
 				<div class="about-grid">
 					<div class="about-row">
 						<div class="about-image-wrapper">
-							<Image src={brandonImg} alt="Brandon Naylor" class="about-image" />
+							<img src={fullShot.src} alt="full shot" class="about-image" />
 						</div>
 						<div class="about-text" style="transform: translateY(-8px);">
-							<p>My life is driven by creativity and curiosity. I love to learn, and over time my interests have leaned toward two fields: computer science and music.</p>
+							<p>My life is driven by creativity and curiosity. I love to learn, and as seen in my full shot, my interests have leaned toward two fields: computer science and music.</p>
 							<p>On one hand, I enjoy designing video games, mastering new software, and building digital experiences. Since computer science is a fascinating, constantly changing field, creating intuitive software is a skill I am always eager to refine.</p>
 							<p>Although they might seem different on the surface, programming and music each take logic, such as code or sheet music, and turn it into experiences people genuinely connect with. This is what makes these two interests so important to me.</p>
 						</div>
@@ -47,23 +46,23 @@ import signatureImg from '../assets/homepage/signature.png';
 
 					<div class="about-row reverse">
 						<div class="about-image-wrapper">
-							<Image src={drumImg} alt="Brandon playing the drum set" class="about-image" />
+							<img src={drumShot.src} alt="drum shot" class="about-image" />
 						</div>
 						<div class="about-text" style="transform: translateY(-4px);">
-							<p>On the other hand, I love to teach music, learn new concepts, and perform with people. Music allows people to connect in a way that is unparalleled by other mediums, and I’m so excited to be a part of spreading that joy. As shown on the right, I play the drum set. Although I play various other instruments, I prefer the drum kit. Its versatility allows me to play with as many groups as possible, which is one of my passions.</p>
+							<p>On the other hand, I love to teach music, learn new concepts, and perform with people. Music allows people to connect in a way that is unparalleled by other mediums, and I’m so excited to be a part of spreading that joy. As shown in the drum shot, I play the drum kit. Its versatility allows me to play with as many groups as possible, which is one of my passions.</p>
 							<p>Beyond creating my own projects, I’ve found that I really enjoy teaching. I’m currently working as a drumline instructor, and I’m so grateful for the opportunity to pass on my knowledge to incredible and dedicated groups of kids.</p>
 						</div>
 					</div>
 
 					<div class="about-row">
 						<div class="about-image-wrapper">
-							<Image src={dogImg} alt="Brandon's dachshunds, Juno and Bella" class="about-image" />
+							<img src={dogPhoto.src} alt="dog photo" class="about-image" />
 						</div>
 						<div class="about-text">
-							<p>Finally, I couldn’t do any of that without the support of the many wonderful people/animals in my life: my family, my friends, my colleagues, and my amazing dogs, Juno (left), and Bella (right). Thank you!</p>
+							<p>Finally, I couldn’t do any of that without the support of the many wonderful people and animals in my life: my family, my friends, my colleagues, and my amazing dogs shown in the dog photo, Juno (left), and Bella (right). Thank you!</p>
 							
 							<div class="signature-container">
-								<Image src={signatureImg} alt="Brandon Naylor Signature" class="signature-image" />
+								<img src={signatureImg.src} alt="Brandon Naylor Signature" class="signature-image" />
 							</div>
 						</div>
 					</div>
@@ -225,10 +224,10 @@ import signatureImg from '../assets/homepage/signature.png';
 	.signature-container { margin-top: 2rem; text-align: right; opacity: 0.9; }
 	.signature-image { max-width: 200px; height: auto; }
 
-	/* --- EXPLORE SECTION: FULL SCREEN --- */
+	/* --- EXPLORE SECTION --- */
 	.explore-section { 
 		background: transparent; color: #ffffff; width: 100%; 
-		height: calc(100vh - 50px); /* Full screen minus footer padding height */
+		height: calc(100vh - 50px); 
 		display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 5; 
 	}
 	

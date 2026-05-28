@@ -29,7 +29,15 @@ import Layout from '../layouts/Layout.astro';
 							<div class="text-side">
 								<h3 class="project-title">CS Project One</h3>
 								<h4 class="project-subtitle">Tech Stack Used</h4>
-								<p class="template-p">Description of the technical challenges faced and how they were solved.</p>
+								<p class="template-p">desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc </p>
+							</div>
+						</div>
+						<div class="project-card">
+							<div class="image-side"></div>
+							<div class="text-side">
+								<h3 class="project-title">CS Project Two</h3>
+								<h4 class="project-subtitle">Tech Stack Used</h4>
+								<p class="template-p">desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc </p>
 							</div>
 						</div>
 					</div>
@@ -43,7 +51,37 @@ import Layout from '../layouts/Layout.astro';
 							<div class="text-side">
 								<h3 class="project-title">Music Project One</h3>
 								<h4 class="project-subtitle">Composition / Arrangement</h4>
-								<p class="template-p">Description of the musical piece or production workflow.</p>
+								<p class="template-p">desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc </p>
+							</div>
+						</div>
+						<div class="project-card">
+							<div class="image-side"></div>
+							<div class="text-side">
+								<h3 class="project-title">Music Project Two</h3>
+								<h4 class="project-subtitle">Composition / Arrangement</h4>
+								<p class="template-p">desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc </p>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section id="passion" class="portfolio-section">
+					<h2 class="section-heading">Passion Projects</h2>
+					<div class="project-grid">
+						<div class="project-card">
+							<div class="image-side"></div>
+							<div class="text-side">
+								<h3 class="project-title">Passion Project One</h3>
+								<h4 class="project-subtitle">Personal Endeavor</h4>
+								<p class="template-p">desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc </p>
+							</div>
+						</div>
+						<div class="project-card">
+							<div class="image-side"></div>
+							<div class="text-side">
+								<h3 class="project-title">Passion Project Two</h3>
+								<h4 class="project-subtitle">Personal Endeavor</h4>
+								<p class="template-p">desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc </p>
 							</div>
 						</div>
 					</div>
@@ -65,8 +103,7 @@ import Layout from '../layouts/Layout.astro';
 
 	.page-title { 
 		font-size: 3.8rem; font-weight: 700; margin: 0 0 1.5rem 0; letter-spacing: 1px; color: #ffffff;
-		/* Heaviest shadow architecture requested */
-		text-shadow: 0 5px 15px rgba(0,0,0,0.8), 0 15px 40px rgba(0,0,0,0.9);
+		text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6); /* Lowered slightly for cleaner anti-aliasing text profiles */
 	}
 
 	.hero-description-text {
@@ -85,20 +122,24 @@ import Layout from '../layouts/Layout.astro';
 
 	.page-content-container { max-width: 900px; width: 100%; }
 	.portfolio-section { margin-bottom: 6rem; scroll-margin-top: 140px; }
+	.portfolio-section:last-child { margin-bottom: 0; }
 	
-	.section-heading { font-size: 2.2rem; font-weight: 700; color: #bc34a4; margin-bottom: 2rem; border-bottom: 2px solid #f0f0f5; padding-bottom: 0.5rem; }
+	/* Refactored Section Titles to Dark Purple */
+	.section-heading { font-size: 2.2rem; font-weight: 700; color: #2a1454; margin-bottom: 2rem; border-bottom: 2px solid #f0f0f5; padding-bottom: 0.5rem; }
 	.project-grid { display: flex; flex-direction: column; gap: 2.5rem; }
 	
 	.project-card { 
 		display: flex; background: #ffffff; border: 1px solid #f0f0f5; border-radius: 12px; overflow: hidden; min-height: 220px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04); transition: transform 0.3s ease;
 	}
-    .project-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(188, 52, 164, 0.05); border-color: #e2e2ec; }
+	.project-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(188, 52, 164, 0.05); border-color: #e2e2ec; }
 
 	.image-side { flex: 0 0 35%; background: #fdfdff; border-right: 1px solid #f0f0f5; }
+	
+	/* Lock details into neutral black and clean slate/gray shades */
 	.text-side { flex: 1; padding: 2.2rem; display: flex; flex-direction: column; justify-content: center; }
-	.project-title { margin: 0 0 0.35rem 0; font-size: 1.6rem; font-weight: 700; color: #120924; }
-	.project-subtitle { margin: 0 0 1rem 0; color: #8b5cf6; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; }
-	.template-p { color: #555; line-height: 1.7; margin: 0; font-size: 1.05rem; }
+	.project-title { margin: 0 0 0.35rem 0; font-size: 1.6rem; font-weight: 700; color: #111111; }
+	.project-subtitle { margin: 0 0 1rem 0; color: #555555; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; }
+	.template-p { color: #555555; line-height: 1.7; margin: 0; font-size: 1.05rem; }
 
 	@media (max-width: 768px) { .page-title { font-size: 2.8rem; } .project-card { flex-direction: column; } .image-side { min-height: 180px; width: 100%; } }
 </style>

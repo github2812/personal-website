@@ -23,24 +23,37 @@ import Layout from '../layouts/Layout.astro';
 				<section id="skills" class="experience-section">
 					<h2 class="section-heading">Skills</h2>
 					<div class="skills-grid">
+						
 						<div class="skill-category">
-							<h3>Languages</h3>
+							<h3>tech</h3>
 							<ul>
 								<li>JavaScript / TypeScript</li>
 								<li>HTML5 & CSS3</li>
-								<li>Python</li>
-								<li>C# / C++</li>
-							</ul>
-						</div>
-						<div class="skill-category">
-							<h3>Technologies</h3>
-							<ul>
 								<li>React & Astro</li>
-								<li>Node.js</li>
-								<li>Unity Engine</li>
-								<li>Git / GitHub</li>
+								<li>Python</li>
 							</ul>
 						</div>
+						
+						<div class="skill-category">
+							<h3>music</h3>
+							<ul>
+								<li>Drum Set & Percussion</li>
+								<li>Music Composition</li>
+								<li>Logic Pro / Ableton</li>
+								<li>Live Sound Mixing</li>
+							</ul>
+						</div>
+						
+						<div class="skill-category">
+							<h3>miscellaneous</h3>
+							<ul>
+								<li>Team Leadership</li>
+								<li>Public Speaking</li>
+								<li>Project Planning</li>
+								<li>Technical Instruction</li>
+							</ul>
+						</div>
+						
 					</div>
 				</section>
 
@@ -52,7 +65,7 @@ import Layout from '../layouts/Layout.astro';
 								<span class="role">Instructor</span>
 								<span class="date">Present</span>
 							</div>
-							<p class="template-p">Leading technical and musical education for various student groups.</p>
+							<p class="template-p">desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc </p>
 						</div>
 					</div>
 				</section>
@@ -73,7 +86,7 @@ import Layout from '../layouts/Layout.astro';
 
 	.page-title { 
 		font-size: 3.8rem; font-weight: 700; margin: 0 0 1.5rem 0; letter-spacing: 1px; color: #ffffff;
-		text-shadow: 0 5px 15px rgba(0,0,0,0.8), 0 15px 40px rgba(0,0,0,0.9);
+		text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 	}
 
 	.hero-description-text {
@@ -93,21 +106,26 @@ import Layout from '../layouts/Layout.astro';
 	.page-content-container { max-width: 900px; width: 100%; }
 	.experience-section { margin-bottom: 6rem; scroll-margin-top: 140px; }
 	
-	.section-heading { font-size: 2.2rem; font-weight: 700; color: #bc34a4; margin-bottom: 2.5rem; border-bottom: 2px solid #f0f0f5; padding-bottom: 0.5rem; }
+	/* Dark Purple Group Headings */
+	.section-heading { font-size: 2.2rem; font-weight: 700; color: #2a1454; margin-bottom: 2.5rem; border-bottom: 2px solid #f0f0f5; padding-bottom: 0.5rem; }
 
 	.timeline { border-left: 2px solid #f0f0f5; padding-left: 2.5rem; max-width: 800px; margin-left: auto; margin-right: auto; }
 	.timeline-item { position: relative; margin-bottom: 3.5rem; }
 	.timeline-item::before { content: ''; position: absolute; left: calc(-2.5rem - 7px); top: 6px; width: 12px; height: 12px; border-radius: 50%; background: #bc34a4; }
 	.time-meta { display: flex; justify-content: space-between; margin-bottom: 0.6rem; }
-	.role { font-weight: 700; font-size: 1.3rem; color: #120924; }
-	.date { color: #8b5cf6; font-weight: 600; }
-	.template-p { color: #555; line-height: 1.7; margin: 0; font-size: 1.05rem; }
+	
+	/* Black/Gray Shades for core strings */
+	.role { font-weight: 700; font-size: 1.3rem; color: #111111; }
+	.date { color: #555555; font-weight: 600; }
+	.template-p { color: #555555; line-height: 1.7; margin: 0; font-size: 1.05rem; }
 	
 	.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
 	.skill-category { background: #ffffff; border: 1px solid #f0f0f5; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 16px rgba(0,0,0,0.02); }
-	.skill-category h3 { font-size: 1.4rem; font-weight: 700; color: #8b5cf6; margin: 0 0 1.5rem 0; border-bottom: 2px solid #fafaff; padding-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+	
+	/* Skill Category Box Headers (Enforces uncapitalized rules cleanly) */
+	.skill-category h3 { font-size: 1.4rem; font-weight: 700; color: #2a1454; margin: 0 0 1.5rem 0; border-bottom: 2px solid #fafaff; padding-bottom: 0.5rem; text-transform: lowercase; letter-spacing: 0.5px; }
 	.skill-category ul { list-style: none; padding: 0; margin: 0; }
-	.skill-category li { font-size: 1.05rem; margin-bottom: 0.8rem; color: #555; display: flex; align-items: center; }
+	.skill-category li { font-size: 1.05rem; margin-bottom: 0.8rem; color: #555555; display: flex; align-items: center; }
 	.skill-category li::before { content: '▹'; color: #bc34a4; margin-right: 10px; font-weight: bold; }
 
 	@media (max-width: 768px) { .page-title { font-size: 2.8rem; } .time-meta { flex-direction: column; } }
