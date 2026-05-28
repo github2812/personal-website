@@ -4,160 +4,164 @@ interface Props {
 }
 
 const { title } = Astro.props;
-const currentPath = Astro.url.pathname;
-const isHome = currentPath === "/";
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Brandon Naylor Portfolio" />
+		<meta name="description" content="Brandon Naylor - Personal Portfolio" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
-		
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
 	</head>
 	<body>
+		<canvas id="global-particle-canvas"></canvas>
+
 		<header class="site-header">
-			<nav class="nav-menu">
-				<a href="/" class={currentPath === "/" ? "nav-link active" : "nav-link"}>Home</a>
-				<a href="/portfolio" class={currentPath === "/portfolio" || currentPath === "/portfolio/" ? "nav-link active" : "nav-link"}>Portfolio</a>
-				<a href="/experience" class={currentPath === "/experience" || currentPath === "/experience/" ? "nav-link active" : "nav-link"}>Experience</a>
-				<a href="/contact" class={currentPath === "/contact" || currentPath === "/contact/" ? "nav-link active" : "nav-link"}>Contact</a>
+			<nav class="main-nav">
+				<a href="/" class="nav-link">Home</a>
+				
+				<div class="nav-dropdown">
+					<a href="/portfolio" class="nav-link">Portfolio</a>
+					<div class="dropdown-content">
+						<a href="/portfolio#cs">CS Projects</a>
+						<a href="/portfolio#music">Music Projects</a>
+						<a href="/portfolio#passion">Passion Projects</a>
+					</div>
+				</div>
+
+				<div class="nav-dropdown">
+					<a href="/experience" class="nav-link">Experience</a>
+					<div class="dropdown-content">
+						<a href="/experience#skills">Skills</a>
+						<a href="/experience#work">Work/Volunteer</a>
+					</div>
+				</div>
+
+				<a href="/contact" class="nav-link">Contact</a>
 			</nav>
 		</header>
 
-		{!isHome && <canvas id="global-wave-canvas" class="fixed-on-page"></canvas>}
-
-		<div class="page-layout-root">
-			<slot />
+		<div class="global-layout-wrapper">
+			<main class="global-main-content">
+				<slot />
+			</main>
 		</div>
-
-		{!isHome && (
-			<script>
-				const canvas = document.getElementById('global-wave-canvas') as HTMLCanvasElement;
-				const ctx = canvas?.getContext('2d');
-
-				function resizeCanvas() {
-					if (canvas) {
-						canvas.width = window.innerWidth;
-						canvas.height = window.innerHeight;
-					}
-				}
-				if (canvas) {
-					resizeCanvas();
-					window.addEventListener('resize', resizeCanvas);
-				}
-
-				let increment = 0;
-				const particles: any[] = [];
-				for (let i = 0; i < 18; i++) {
-					particles.push({
-						x: Math.random() * window.innerWidth,
-						y: Math.random() * window.innerHeight,
-						radius: Math.random() * 5 + 2,
-						speed: Math.random() * 0.15 + 0.1,
-						offset: Math.random() * Math.PI * 2,
-						type: 'circle'
-					});
-				}
-				for (let i = 0; i < 12; i++) {
-					particles.push({
-						x: Math.random() * window.innerWidth,
-						y: Math.random() * window.innerHeight,
-						size: Math.random() * 6 + 4,
-						speed: Math.random() * 0.12 + 0.05,
-						offset: Math.random() * Math.PI * 2,
-						type: 'plus'
-					});
-				}
-
-				function animate() {
-					if (!ctx || !canvas) return;
-					ctx.fillStyle = '#120924';
-					ctx.fillRect(0, 0, canvas.width, canvas.height);
-					
-					const radialGlow = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 10, canvas.width/2, canvas.height/2, canvas.width);
-					radialGlow.addColorStop(0, '#2c1654');
-					radialGlow.addColorStop(1, '#120924');
-					ctx.fillStyle = radialGlow;
-					ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-					particles.forEach(p => {
-						p.y -= p.speed;
-						if (p.y < -10) p.y = canvas.height + 10;
-						const currentX = p.x + Math.sin(increment * 0.5 + p.offset) * 15;
-
-						if (p.type === 'circle') {
-							ctx.beginPath();
-							ctx.arc(currentX, p.y, p.radius, 0, Math.PI * 2);
-							ctx.fillStyle = `rgba(188, 52, 164, 0.3)`;
-							ctx.fill();
-						} else {
-							ctx.beginPath();
-							ctx.moveTo(currentX - p.size, p.y);
-							ctx.lineTo(currentX + p.size, p.y);
-							ctx.moveTo(currentX, p.y - p.size);
-							ctx.lineTo(currentX, p.y + p.size);
-							ctx.strokeStyle = `rgba(139, 92, 246, 0.4)`;
-							ctx.lineWidth = p.size * 0.45; 
-							ctx.stroke();
-						}
-					});
-
-					increment += 0.004;
-					requestAnimationFrame(animate);
-				}
-				if (canvas) animate();
-			</script>
-		)}
 	</body>
 </html>
 
+<script>
+	const canvas = document.getElementById('global-particle-canvas') as HTMLCanvasElement;
+	const ctx = canvas?.getContext('2d');
+
+	function resizeCanvas() {
+		if (canvas) {
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+		}
+	}
+	
+	if (canvas) {
+		resizeCanvas();
+		window.addEventListener('resize', resizeCanvas);
+	}
+
+	let increment = 0;
+	const particles: any[] = [];
+	
+	for (let i = 0; i < 22; i++) {
+		particles.push({
+			x: Math.random() * window.innerWidth,
+			y: Math.random() * window.innerHeight,
+			radius: Math.random() * 5 + 2,
+			speed: Math.random() * 0.4 + 0.2,
+			offset: Math.random() * Math.PI * 2,
+			type: 'circle'
+		});
+	}
+	for (let i = 0; i < 12; i++) {
+		particles.push({
+			x: Math.random() * window.innerWidth,
+			y: Math.random() * window.innerHeight,
+			size: Math.random() * 6 + 4,
+			speed: Math.random() * 0.3 + 0.1,
+			offset: Math.random() * Math.PI * 2,
+			type: 'plus'
+		});
+	}
+
+	function animateParticles() {
+		if (!ctx || !canvas) return;
+
+		ctx.fillStyle = '#120924';
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+		const radialGlow = ctx.createRadialGradient(canvas.width / 2, canvas.height / 2, 10, canvas.width / 2, canvas.height / 2, Math.max(canvas.width, canvas.height));
+		radialGlow.addColorStop(0, '#2c1654');
+		radialGlow.addColorStop(1, '#120924');
+		ctx.fillStyle = radialGlow;
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+		const brightnessModifier = 0.7 + Math.sin(increment * 0.3) * 0.3;
+
+		particles.forEach(p => {
+			p.y -= p.speed;
+			if (p.y < -20) p.y = canvas.height + 20;
+
+			const currentX = p.x + Math.sin(increment * 0.5 + p.offset) * 15;
+
+			if (p.type === 'circle') {
+				ctx.beginPath();
+				ctx.arc(currentX, p.y, p.radius, 0, Math.PI * 2);
+				ctx.fillStyle = `rgba(188, 52, 164, ${0.35 * brightnessModifier})`;
+				ctx.fill();
+			} else {
+				ctx.beginPath();
+				ctx.moveTo(currentX - p.size, p.y);
+				ctx.lineTo(currentX + p.size, p.y);
+				ctx.moveTo(currentX, p.y - p.size);
+				ctx.lineTo(currentX, p.y + p.size);
+				ctx.strokeStyle = `rgba(139, 92, 246, ${0.4 * brightnessModifier})`;
+				ctx.lineWidth = p.size * 0.45; 
+				ctx.stroke();
+			}
+		});
+
+		increment += 0.0025;
+		requestAnimationFrame(animateParticles);
+	}
+
+	if (canvas) animateParticles();
+</script>
+
 <style is:global>
+	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+	:root {
+		--bg-color: #120924;
+		--text-main: #ffffff;
+		--accent-magenta: #bc34a4;
+		--accent-violet: #8b5cf6;
+	}
+
 	html, body {
 		margin: 0;
 		padding: 0;
 		width: 100%;
-		height: 100%;
-		background-color: #120924;
-		overflow-x: hidden;
-		font-family: 'Poppins', sans-serif;
+		min-height: 100vh;
+		background-color: var(--bg-color);
+		color: var(--text-main);
 	}
 
-	.site-header {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		z-index: 100;
-		display: flex;
-		justify-content: center;
-		padding: 1.5rem 0;
-		background: linear-gradient(to bottom, rgba(18, 9, 36, 0.85) 0%, rgba(18, 9, 36, 0) 100%);
-		backdrop-filter: blur(6px);
-		-webkit-backdrop-filter: blur(6px);
+	html, body, button, input, select, textarea, a, span, div, h1, h2, h3, h4 {
+		font-family: 'Poppins', sans-serif !important;
 	}
 
-	.nav-menu { display: flex; gap: 3rem; }
-	
-	.nav-link {
-		font-family: 'Poppins', sans-serif;
-		color: #ffffff !important;
-		text-decoration: none !important;
-		font-size: 1.1rem;
-		opacity: 0.7;
-		transition: 0.3s ease;
-	}
-	.nav-link:hover, .nav-link.active { opacity: 1; }
-	.nav-link.active { border-bottom: 2px solid #bc34a4; padding-bottom: 4px; }
+	* { box-sizing: border-box; }
 
-	.fixed-on-page {
+	#global-particle-canvas {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -167,15 +171,98 @@ const isHome = currentPath === "/";
 		pointer-events: none;
 	}
 
-	.page-layout-root {
-		position: relative;
-		z-index: 5;
+	.global-layout-wrapper {
 		width: 100%;
-		min-height: 100vh;
+		position: relative;
+		z-index: 2;
 	}
 
+	.global-main-content {
+		width: 100%;
+		position: relative;
+	}
+
+	.site-header {
+		position: fixed;
+		top: 0; left: 0; width: 100%;
+		z-index: 2000;
+		display: flex;
+		justify-content: center;
+		padding: 2rem 2rem; 
+	}
+
+	.site-header::before {
+		content: '';
+		position: absolute;
+		top: 0; left: 0; right: 0; 
+		bottom: -30px;
+		background: linear-gradient(to bottom, rgba(18, 9, 36, 0.85) 0%, rgba(18, 9, 36, 0.4) 70%, rgba(18, 9, 36, 0) 100%);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		mask-image: linear-gradient(to bottom, rgba(0,0,0,1) calc(100% - 30px), rgba(0,0,0,0) 100%);
+		-webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) calc(100% - 30px), rgba(0,0,0,0) 100%);
+		z-index: -1;
+		pointer-events: none;
+	}
+
+	.main-nav { display: flex; gap: 3rem; align-items: center; }
+	.nav-link {
+		color: var(--text-main);
+		text-decoration: none;
+		font-size: 1.1rem;
+		font-weight: 600;
+		transition: color 0.2s ease;
+		letter-spacing: 0.5px;
+	}
+	.nav-link:hover { color: var(--accent-magenta); }
+
+	.nav-dropdown {
+		position: relative;
+		display: inline-block;
+		padding-bottom: 10px;
+		margin-bottom: -10px;
+	}
+
+	.dropdown-content {
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		transform: translateX(-50%) translateY(15px);
+		background: #1a0d33; 
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: 8px;
+		display: flex;
+		flex-direction: column;
+		min-width: 195px; 
+		padding: 0.4rem 0;
+		opacity: 0;
+		visibility: hidden;
+		transition: all 0.2s ease;
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+		z-index: 2100;
+	}
+
+	.nav-dropdown:hover .dropdown-content {
+		opacity: 1;
+		visibility: visible;
+		transform: translateX(-50%) translateY(0);
+	}
+
+	.dropdown-content a {
+		color: var(--text-main);
+		text-decoration: none;
+		padding: 0.55rem 1.2rem; 
+		font-size: 0.9rem; 
+		font-weight: 400;
+		transition: background 0.2s ease, color 0.2s ease;
+		text-align: center;
+		white-space: nowrap;
+	}
+	.dropdown-content a:hover { background: rgba(255, 255, 255, 0.05); color: var(--accent-violet); }
+
 	@media (max-width: 768px) {
-		.nav-menu { gap: 1.5rem; }
+		.main-nav { gap: 1.5rem; }
 		.nav-link { font-size: 0.9rem; }
+		.dropdown-content { min-width: 165px; }
 	}
 </style>

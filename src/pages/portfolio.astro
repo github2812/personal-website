@@ -6,143 +6,82 @@ import Layout from '../layouts/Layout.astro';
 	<div class="page-container">
 		<h1 class="page-title">Portfolio</h1>
 		
-		<section class="page-content">
-			<div class="project-grid">
-				
-				<div class="project-card">
-					<div class="image-side">
-						<div class="image-placeholder"></div>
-					</div>
-					<div class="text-side">
-						<h3 class="project-title">Template Title One</h3>
-						<h4 class="project-subtitle">Template Subtitle</h4>
-						<p class="template-p">Template paragraph.</p>
-					</div>
-				</div>
-
-				<div class="project-card">
-					<div class="image-side">
-						<div class="image-placeholder"></div>
-					</div>
-					<div class="text-side">
-						<h3 class="project-title">Template Title Two</h3>
-						<h4 class="project-subtitle">Template Subtitle</h4>
-						<p class="template-p">Template paragraph.</p>
+		<div class="jump-links">
+			<a href="#cs" class="jump-btn">CS Projects</a>
+			<a href="#music" class="jump-btn">Music Projects</a>
+			<a href="#passion" class="jump-btn">Passion Projects</a>
+		</div>
+		
+		<div class="page-content">
+			<section id="cs" class="portfolio-section">
+				<h2 class="section-heading">Computer Science Projects</h2>
+				<div class="project-grid">
+					<div class="project-card">
+						<div class="image-side"><div class="image-placeholder"></div></div>
+						<div class="text-side">
+							<h3 class="project-title">CS Project One</h3>
+							<h4 class="project-subtitle">Tech Stack Used</h4>
+							<p class="template-p">Template paragraph detailing the problem solved and the technology used.</p>
+						</div>
 					</div>
 				</div>
+			</section>
 
-				<div class="project-card">
-					<div class="image-side">
-						<div class="image-placeholder"></div>
-					</div>
-					<div class="text-side">
-						<h3 class="project-title">Template Title Three</h3>
-						<h4 class="project-subtitle">Template Subtitle</h4>
-						<p class="template-p">Template paragraph.</p>
+			<section id="music" class="portfolio-section">
+				<h2 class="section-heading">Music Projects</h2>
+				<div class="project-grid">
+					<div class="project-card">
+						<div class="image-side"><div class="image-placeholder"></div></div>
+						<div class="text-side">
+							<h3 class="project-title">Music Project One</h3>
+							<h4 class="project-subtitle">Composition / Performance</h4>
+							<p class="template-p">Template paragraph detailing the musical piece, ensemble, or performance.</p>
+						</div>
 					</div>
 				</div>
+			</section>
 
-			</div>
-		</section>
+			<section id="passion" class="portfolio-section">
+				<h2 class="section-heading">Passion Projects</h2>
+				<div class="project-grid">
+					<div class="project-card">
+						<div class="image-side"><div class="image-placeholder"></div></div>
+						<div class="text-side">
+							<h3 class="project-title">Passion Project One</h3>
+							<h4 class="project-subtitle">Personal Endeavor</h4>
+							<p class="template-p">Template paragraph detailing a personal hobby, game design, or side project.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
 	</div>
 </Layout>
 
 <style>
-	.page-container {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding-top: 18vh;
-		color: white;
-		font-family: 'Poppins', sans-serif;
-	}
-	.page-title {
-		font-family: 'Poppins', sans-serif;
-		font-size: 4rem;
-		font-weight: 700;
-		margin: 0 0 3rem 0;
-		letter-spacing: 1px;
-	}
-	.page-content {
-		max-width: 900px;
-		width: 100%;
-		padding: 0 2rem;
-		box-sizing: border-box;
-	}
-	.project-grid { 
-		display: flex;
-		flex-direction: column;
-		gap: 2.5rem; 
-		margin-bottom: 5rem;
-	}
-	
-	/* Horizontal side-by-side card structure */
-	.project-card {
-		display: flex;
-		background: rgba(255, 255, 255, 0.03);
-		border: 1px solid rgba(255, 255, 255, 0.1);
-		border-radius: 8px;
-		overflow: hidden;
-		min-height: 200px;
-	}
-	
-	/* Left Side: Fixed image box */
-	.image-side {
-		flex: 0 0 35%; /* Takes exactly 35% of the card width */
-		position: relative;
-		background: rgba(0, 0, 0, 0.2);
-		border-right: 1px solid rgba(255, 255, 255, 0.05);
-	}
-	.image-placeholder {
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(188, 52, 164, 0.1) 100%);
-		position: absolute;
-		top: 0;
-		left: 0;
-	}
-	/* If you add real images later, this handles sizing perfectly */
-	.image-side img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
+	.page-container { display: flex; flex-direction: column; align-items: center; padding-top: 18vh; color: white; }
+	.page-title { font-size: 4rem; font-weight: 700; margin: 0 0 2rem 0; letter-spacing: 1px; }
 
-	/* Right Side: Content stacks */
-	.text-side {
-		flex: 1;
-		padding: 2rem;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		text-align: left;
+	.jump-links { display: flex; gap: 1rem; margin-bottom: 4rem; flex-wrap: wrap; justify-content: center; }
+	.jump-btn {
+		background: rgba(255, 255, 255, 0.05); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 0.8rem 1.5rem; border-radius: 30px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;
 	}
-	.project-title { 
-		font-family: 'Poppins', sans-serif;
-		margin: 0 0 0.25rem 0; 
-		color: #ffffff; 
-		font-size: 1.6rem; 
-		font-weight: 700;
-	}
-	.project-subtitle {
-		font-family: 'Poppins', sans-serif;
-		margin: 0 0 1rem 0;
-		color: #bc34a4;
-		font-size: 1rem;
-		font-weight: 400;
-		letter-spacing: 0.5px;
-	}
-	.template-p { 
-		font-family: 'Poppins', sans-serif; 
-		opacity: 0.8; 
-		line-height: 1.6; 
-		margin: 0;
-	}
+	.jump-btn:hover { background: rgba(188, 52, 164, 0.2); border-color: #bc34a4; transform: translateY(-2px); }
+	
+	.page-content { max-width: 900px; width: 100%; padding: 0 2rem; box-sizing: border-box; }
+	.portfolio-section { margin-bottom: 6rem; scroll-margin-top: 140px; }
+	.section-heading { font-size: 2rem; font-weight: 600; color: #d946ef; margin-bottom: 2rem; border-bottom: 2px solid rgba(217, 70, 239, 0.3); padding-bottom: 0.5rem; }
+	.project-grid { display: flex; flex-direction: column; gap: 2.5rem; }
+	
+	.project-card { display: flex; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; overflow: hidden; min-height: 200px; }
+	.image-side { flex: 0 0 35%; position: relative; background: rgba(0, 0, 0, 0.2); border-right: 1px solid rgba(255, 255, 255, 0.05); }
+	.image-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(188, 52, 164, 0.1) 100%); position: absolute; top: 0; left: 0; }
+	.image-side img { width: 100%; height: 100%; object-fit: cover; }
 
-	/* Mobile Responsive Wrap styling */
-	@media (max-width: 768px) { 
-		.page-title { font-size: 2.5rem; } 
-		.project-card { flex-direction: column; }
-		.image-side { min-height: 180px; width: 100%; }
-	}
+	.text-side { flex: 1; padding: 2rem; display: flex; flex-direction: column; justify-content: center; }
+	.project-title { margin: 0 0 0.25rem 0; font-size: 1.6rem; font-weight: 700; }
+	.project-subtitle { margin: 0 0 1rem 0; color: #bc34a4; font-size: 1rem; font-weight: 400; }
+	.template-p { opacity: 0.8; line-height: 1.6; margin: 0; }
+
+	@media (max-width: 768px) { .page-title { font-size: 2.5rem; } .project-card { flex-direction: column; } .image-side { min-height: 180px; width: 100%; } }
 </style>

@@ -1,12 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import brandonImg from '../assets/homepage/brandon.jpeg';
+import drumsImg from '../assets/homepage/brandondrums.jpeg';
+import dogsImg from '../assets/homepage/dogs.jpeg';
+import signatureImg from '../assets/homepage/signature.png';
 ---
 
 <Layout title="Brandon Naylor | Home">
 	<div class="home-scroll-wrapper">
 		<section class="hero-section">
 			<canvas id="home-animation-canvas"></canvas>
-			
+
 			<div class="title-group">
 				<h1 class="title">Brandon Naylor</h1>
 				
@@ -17,21 +22,77 @@ import Layout from '../layouts/Layout.astro';
 				<p class="portfolio-text">Personal Website</p>
 			</div>
 
-			<div class="scroll-indicator">
+			<div class="scroll-indicator" id="dynamic-scroll-indicator">
 				<p class="scroll-text">Scroll down for more info</p>
 			</div>
 		</section>
 
 		<section class="about-section">
 			<div class="about-container">
-				<h2 class="about-title">About Me</h2>
-				<p class="about-p">Template paragraph.</p>
+				<h2 class="section-title">About Me</h2>
+				
+				<div class="about-grid">
+					<div class="about-row">
+						<div class="about-image-wrapper">
+							<Image src={brandonImg} alt="Brandon Naylor" class="about-image" />
+						</div>
+						<div class="about-text" style="transform: translateY(-8px);">
+							<p>My life is driven by creativity and curiosity. I love to learn, and over time my interests have leaned toward two fields: computer science and music.</p>
+							<p>On one hand, I enjoy designing video games, mastering new software, and building digital experiences. Since computer science is a fascinating, constantly changing field, creating intuitive software is a skill I am always eager to refine.</p>
+							<p>Although they might seem different on the surface, programming and music each take logic, such as code or sheet music, and turn it into experiences people genuinely connect with. This is what makes these two interests so important to me.</p>
+						</div>
+					</div>
+
+					<div class="about-row reverse">
+						<div class="about-image-wrapper">
+							<Image src={drumsImg} alt="Brandon playing the drum set" class="about-image" />
+						</div>
+						<div class="about-text" style="transform: translateY(-4px);">
+							<p>On the other hand, I love to teach music, learn new concepts, and perform with people. Music allows people to connect in a way that is unparalleled by other mediums, and I’m so excited to be a part of spreading that joy. As shown on the right, I play the drum set. Although I play various other instruments, I prefer the drum kit. Its versatility allows me to play with as many groups as possible, which is one of my passions.</p>
+							<p>Beyond creating my own projects, I’ve found that I really enjoy teaching. I’m currently working as a drumline instructor, and I’m so grateful for the opportunity to pass on my knowledge to incredible and dedicated groups of kids.</p>
+						</div>
+					</div>
+
+					<div class="about-row">
+						<div class="about-image-wrapper">
+							<Image src={dogsImg} alt="Brandon's dachshunds, Juno and Bella" class="about-image" />
+						</div>
+						<div class="about-text">
+							<p>Finally, I couldn’t do any of that without the support of the many wonderful people/animals in my life: my family, my friends, my colleagues, and my amazing dogs, Juno (left), and Bella (right). Thank you!</p>
+							
+							<div class="signature-container">
+								<Image src={signatureImg} alt="Brandon Naylor Signature" class="signature-image" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="explore-section">
+			<div class="explore-container">
+				<h2 class="section-title light-text">Explore</h2>
+				<div class="explore-grid">
+					<a href="/portfolio" class="explore-card">
+						<h3>Portfolio</h3>
+						<p>Dive into my computer science applications, musical compositions, and personal passion projects.</p>
+					</a>
+					<a href="/experience" class="explore-card">
+						<h3>Experience</h3>
+						<p>View my professional work history, volunteer roles, and technical programming and audio skills.</p>
+					</a>
+					<a href="/contact" class="explore-card">
+						<h3>Contact</h3>
+						<p>Get in touch via email or connect with me on LinkedIn to collaborate on future projects.</p>
+					</a>
+				</div>
 			</div>
 		</section>
 	</div>
 </Layout>
 
 <script>
+	// --- Audio Waves Rendering Canvas ---
 	const canvas = document.getElementById('home-animation-canvas') as HTMLCanvasElement;
 	const ctx = canvas?.getContext('2d');
 
@@ -48,99 +109,39 @@ import Layout from '../layouts/Layout.astro';
 
 	const waveLayerCount = 4;
 	let increment = 0;
-	
 	let waveXProgress = 0;
-	const targetProgress = 1;
-	const easeFactor = 0.012; 
 
-	const particles: any[] = [];
-	for (let i = 0; i < 18; i++) {
-		particles.push({
-			x: Math.random() * window.innerWidth,
-			y: Math.random() * window.innerHeight,
-			radius: Math.random() * 5 + 2,
-			speed: Math.random() * 0.15 + 0.1,
-			offset: Math.random() * Math.PI * 2,
-			type: 'circle'
-		});
-	}
-	for (let i = 0; i < 12; i++) {
-		particles.push({
-			x: Math.random() * window.innerWidth,
-			y: Math.random() * window.innerHeight,
-			size: Math.random() * 6 + 4,
-			speed: Math.random() * 0.12 + 0.05,
-			offset: Math.random() * Math.PI * 2,
-			type: 'plus'
-		});
-	}
-
-	function animateHome() {
+	function animateWaves() {
 		if (!ctx || !canvas) return;
 
-		ctx.fillStyle = '#120924';
-		ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-		const radialGlow = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 10, canvas.width/2, canvas.height/2, canvas.width);
-		radialGlow.addColorStop(0, '#2c1654');
-		radialGlow.addColorStop(1, '#120924');
-		ctx.fillStyle = radialGlow;
-		ctx.fillRect(0, 0, canvas.width, canvas.height);
-
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		const brightnessModifier = 0.7 + Math.sin(increment * 0.3) * 0.3;
 
-		particles.forEach(p => {
-			p.y -= p.speed;
-			if (p.y < -10) p.y = canvas.height + 10;
-			const currentX = p.x + Math.sin(increment * 0.5 + p.offset) * 15;
-
-			if (p.type === 'circle') {
-				ctx.beginPath();
-				ctx.arc(currentX, p.y, p.radius, 0, Math.PI * 2);
-				ctx.fillStyle = `rgba(188, 52, 164, ${0.4 * brightnessModifier})`;
-				ctx.fill();
-			} else {
-				ctx.beginPath();
-				ctx.moveTo(currentX - p.size, p.y);
-				ctx.lineTo(currentX + p.size, p.y);
-				ctx.moveTo(currentX, p.y - p.size);
-				ctx.lineTo(currentX, p.y + p.size);
-				ctx.strokeStyle = `rgba(139, 92, 246, ${0.5 * brightnessModifier})`;
-				ctx.lineWidth = p.size * 0.45; 
-				ctx.stroke();
-			}
-		});
-
-		if (waveXProgress < targetProgress) {
-			waveXProgress += (targetProgress - waveXProgress) * easeFactor;
+		if (waveXProgress < 1) {
+			waveXProgress += 0.0035 + (1 - waveXProgress) * 0.015;
+			if (waveXProgress > 1) waveXProgress = 1;
 		}
 
-		// Shifted the entire wave rendering up by 5 pixels (now just +5 instead of +10)
 		const baseYOffset = (canvas.height * 0.42) + 5;
 
 		for (let i = 0; i < waveLayerCount; i++) {
 			ctx.beginPath();
-			
 			const baseAlpha = 0.8 - (i * 0.15);
 			const alpha = baseAlpha * brightnessModifier;
 			ctx.strokeStyle = i % 2 === 0 ? `rgba(139, 92, 246, ${alpha})` : `rgba(217, 70, 239, ${alpha})`;
-			
 			ctx.lineWidth = 2.0 - (i * 0.3);
 
 			const drawWidthLimit = canvas.width * waveXProgress;
 
 			for (let x = 0; x <= drawWidthLimit; x += 2) {
-				
 				const freq1 = Math.sin(x * (0.04 + (i * 0.01)) + (increment * (4 + i)));
 				const freq2 = Math.cos(x * 0.07 - (increment * 2));
 				const signal = freq1 * freq2;
-
 				const rawEnv = Math.sin(x * 0.0025 - increment + (i * 0.5));
 				const envelope = Math.pow(rawEnv, 2); 
 
 				const maxAmplitude = 120 - (i * 15);
 				const finalAmplitude = maxAmplitude * envelope * signal;
-
 				const y = baseYOffset + finalAmplitude;
 				
 				if (x === 0) ctx.moveTo(x, y);
@@ -150,191 +151,101 @@ import Layout from '../layouts/Layout.astro';
 		}
 
 		increment += 0.0025;
-		requestAnimationFrame(animateHome);
+		requestAnimationFrame(animateWaves);
 	}
 
-	if (canvas) animateHome();
+	if (canvas) animateWaves();
+
+	// --- Linear Scroll-Fade Controller (No snapping jitter loops) ---
+	const indicator = document.getElementById('dynamic-scroll-indicator');
+	window.addEventListener('scroll', () => {
+		if (indicator) {
+			const currentScroll = window.scrollY;
+			const fadeDistance = 200; // Complete fading point metric in pixels
+
+			// Calculate a clean proportional opacity map
+			let targetOpacity = 0.7 * (1 - (currentScroll / fadeDistance));
+			
+			if (targetOpacity < 0) targetOpacity = 0;
+			if (targetOpacity > 0.7) targetOpacity = 0.7;
+
+			indicator.style.opacity = targetOpacity.toString();
+
+			if (targetOpacity === 0) {
+				indicator.style.pointerEvents = 'none';
+			} else {
+				indicator.style.pointerEvents = 'auto';
+			}
+		}
+	}, { passive: true });
 </script>
 
 <style>
-	.home-scroll-wrapper {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		position: relative;
-	}
-
-	.hero-section {
-		height: 100vh;
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		text-align: center;
-		position: relative;
-		z-index: 2;
-		overflow: hidden;
-	}
-
+	.home-scroll-wrapper { width: 100%; display: flex; flex-direction: column; }
+	.hero-section { height: 100vh; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; }
+	
 	#home-animation-canvas {
 		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
+		top: 0; left: 0;
+		width: 100%; height: 100%;
 		z-index: 1;
 		pointer-events: none;
 	}
 
-	.title-group {
-		position: relative;
-		z-index: 5;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
+	.title-group { position: relative; z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+	.title { font-size: 5rem; font-weight: 700; margin: 0; color: #ffffff; line-height: 1.1; text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.9), 0px 10px 30px rgba(0, 0, 0, 0.9); animation: scaleEase 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+	.divider-container { width: 100%; max-width: 800px; height: 3px; margin: calc(1rem + 15px) 0 1rem 0; display: flex; justify-content: center; filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.95)); }
+	.divider-line { height: 3px; width: 100%; background: linear-gradient(90deg, transparent 10%, #ffffff 50%, transparent 90%); animation: lineGrow 1.4s cubic-bezier(0.25, 1, 0.5, 1) 0.6s forwards; max-width: 0%; }
+	.portfolio-text { font-size: 2.8rem; font-weight: 300; color: #ffffff; margin: 0; opacity: 0; letter-spacing: 4px; text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.8), 0px 8px 25px rgba(0, 0, 0, 0.85); animation: scaleEase 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards; }
 
-	.title {
-		font-family: 'Poppins', sans-serif;
-		font-size: 5rem;
-		font-weight: 700;
-		margin: 0;
-		color: #ffffff;
-		line-height: 1.1;
-		text-shadow: 
-			0px 2px 4px rgba(0, 0, 0, 0.9),
-			0px 10px 30px rgba(0, 0, 0, 0.9);
-		animation: scaleEase 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-		will-change: transform, opacity;
-		opacity: 0;
+	.scroll-indicator { 
+		position: absolute; 
+		bottom: 3rem; 
+		left: 50%; 
+		transform: translateX(-50%); 
+		display: flex; 
+		justify-content: center; 
+		align-items: center; 
+		z-index: 5; 
+		opacity: 0.7;
+		will-change: opacity;
 	}
+	.scroll-text { font-size: 0.85rem; font-weight: 400; color: #ffffff; margin: 0; letter-spacing: 2.5px; text-transform: uppercase; text-shadow: 0px 4px 12px rgba(0, 0, 0, 0.9); animation: slideUpFromBottom 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.5s forwards; }
 
-	.divider-container {
-		width: 100%;
-		max-width: 800px;
-		height: 3px;
-		margin: calc(1rem + 15px) 0 1rem 0; 
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		position: relative;
-		z-index: 10;
-		filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.95));
-	}
+	/* --- ABOUT SECTION --- */
+	.about-section { background-color: #d8d8de; color: #120924; width: 100%; display: flex; justify-content: center; padding: 6rem 2rem; box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.12); position: relative; z-index: 5; }
+	.about-container { max-width: 1000px; width: 100%; }
+	.section-title { font-size: 3.5rem; font-weight: 700; margin: 0 0 4rem 0; text-align: center; }
+	.section-title.light-text { color: #ffffff; }
+
+	.about-grid { display: flex; flex-direction: column; gap: 5rem; }
+	.about-row { display: flex; align-items: center; gap: 4rem; }
+	.about-row.reverse { flex-direction: row-reverse; }
+	.about-image-wrapper { flex: 1; display: flex; justify-content: center; }
+	.about-image { width: 100%; max-width: 400px; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); object-fit: cover; }
+	.about-text { flex: 1.2; font-size: 1.15rem; line-height: 1.8; color: #2a2a35; }
+	.about-text p { margin-bottom: 1.5rem; }
+	.about-text p:last-child { margin-bottom: 0; }
+	.signature-container { margin-top: 2rem; text-align: right; opacity: 0.8; }
+	.signature-image { max-width: 200px; height: auto; }
+
+	/* --- EXPLORE SECTION --- */
+	.explore-section { background-color: #120924; color: #ffffff; width: 100%; display: flex; justify-content: center; padding: 6rem 2rem 8rem 2rem; position: relative; z-index: 5; }
+	.explore-container { max-width: 1000px; width: 100%; }
+	.explore-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; }
 	
-	.divider-line {
-		height: 3px;
-		width: 100%;
-		background: linear-gradient(90deg, transparent 10%, #ffffff 50%, transparent 90%);
-		animation: lineGrow 1.4s cubic-bezier(0.25, 1, 0.5, 1) 0.6s forwards;
-		will-change: max-width;
-		max-width: 0%;
-	}
+	.explore-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 2.5rem 2rem; text-align: center; text-decoration: none; color: inherit; transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease; }
+	.explore-card:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.06); border-color: rgba(217, 70, 239, 0.4); }
+	.explore-card h3 { font-size: 1.8rem; font-weight: 600; color: #d946ef; margin: 0 0 1rem 0; }
+	.explore-card p { font-size: 1.05rem; line-height: 1.6; color: #e4e4e8; margin: 0; opacity: 0.9; }
 
-	.portfolio-text {
-		font-family: 'Poppins', sans-serif;
-		font-size: 2.8rem;
-		font-weight: 300;
-		color: #ffffff;
-		margin: 0;
-		opacity: 0;
-		letter-spacing: 4px;
-		text-shadow: 
-			0px 2px 4px rgba(0, 0, 0, 0.8),
-			0px 8px 25px rgba(0, 0, 0, 0.85);
-		animation: scaleEase 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
-		will-change: transform, opacity;
-	}
+	@keyframes scaleEase { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+	@keyframes lineGrow { from { max-width: 0%; } to { max-width: 100%; } }
+	@keyframes slideUpFromBottom { from { opacity: 0; transform: translateY(30px); } to { opacity: 0.7; transform: translateY(0); } }
 
-	.scroll-indicator {
-		position: absolute;
-		bottom: 3rem;
-		left: 0;
-		width: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		overflow: hidden; 
-		padding-top: 10px;
-		z-index: 5;
-	}
-	
-	.scroll-text {
-		font-family: 'Poppins', sans-serif;
-		font-size: 0.85rem; 
-		font-weight: 400;
-		color: #ffffff;
-		margin: 0;
-		opacity: 0;
-		letter-spacing: 2.5px;
-		text-transform: uppercase;
-		text-shadow: 0px 4px 12px rgba(0, 0, 0, 0.9);
-		animation: slideUpFromBottom 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.5s forwards;
-		will-change: transform, opacity;
-	}
-
-	.about-section {
-		background-color: #d8d8de; 
-		color: #120924; 
-		min-height: 80vh;
-		width: 100%;
-		position: relative;
-		z-index: 10; 
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		padding: 6rem 2rem;
-		box-sizing: border-box;
-		box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.12); 
-	}
-
-	.about-container {
-		max-width: 800px;
-		width: 100%;
-		text-align: left;
-	}
-
-	.about-title {
-		font-family: 'Poppins', sans-serif;
-		font-size: 3rem;
-		font-weight: 700;
-		margin: 0 0 1.5rem 0;
-	}
-
-	.about-p {
-		font-family: 'Poppins', sans-serif;
-		font-size: 1.15rem;
-		line-height: 1.7;
-		opacity: 0.85;
-		margin: 0;
-	}
-
-	@keyframes scaleEase {
-		from { opacity: 0; transform: scale(0.92); }
-		to { opacity: 1; transform: scale(1); }
-	}
-	
-	@keyframes lineGrow {
-		from { max-width: 0%; }
-		to { max-width: 100%; }
-	}
-	
-	@keyframes slideUpFromBottom {
-		from {
-			opacity: 0;
-			transform: translateY(30px); 
-		}
-		to {
-			opacity: 0.7;
-			transform: translateY(0);
-		}
-	}
-
-	@media (max-width: 768px) {
-		.title { font-size: 3.2rem; }
-		.portfolio-text { font-size: 2rem; }
-		.scroll-text { font-size: 0.7rem; }
+	@media (max-width: 900px) {
+		.about-row, .about-row.reverse { flex-direction: column; gap: 2.5rem; text-align: center; align-items: center; }
+		.about-text { transform: none !important; }
+		.signature-container { text-align: center; }
 	}
 </style>
