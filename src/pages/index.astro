@@ -121,7 +121,9 @@ import signatureImg from '../assets/homepage/signature.png';
 	function animateWaves() {
 		if (!ctx || !canvas || !isCanvasVisible) return;
 
+		// Changed to match the transparent behavior of Layout.astro
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		
 		const brightnessModifier = 0.7 + Math.sin(increment * 0.3) * 0.3;
 
 		if (waveXProgress < 1) {
@@ -188,12 +190,13 @@ import signatureImg from '../assets/homepage/signature.png';
 	.hero-section { height: 100dvh; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; }
 	
 	#home-animation-canvas {
-		position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;
+		position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh; z-index: 1; pointer-events: none;
 	}
 
 	.title-group { position: relative; z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; padding: 0 1rem; }
 	
-	.title { font-size: clamp(3.2rem, 10vw, 5rem); font-weight: 700; margin: 0; color: #ffffff; line-height: 1.1; text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.9), 0px 10px 30px rgba(0, 0, 0, 0.9); animation: scaleEase 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+	/* Tuned title scaling to keep it on one line as long as possible naturally */
+	.title { font-size: clamp(2.4rem, 9vw, 5rem); font-weight: 700; margin: 0; color: #ffffff; line-height: 1.1; text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.9), 0px 10px 30px rgba(0, 0, 0, 0.9); animation: scaleEase 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 	.portfolio-text { font-size: clamp(1.5rem, 5vw, 2.8rem); font-weight: 300; color: #ffffff; margin: 0; opacity: 0; letter-spacing: 4px; text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.8), 0px 8px 25px rgba(0, 0, 0, 0.85); animation: scaleEase 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards; }
 	.section-title { font-size: clamp(2.4rem, 8vw, 3.5rem); font-weight: 700; margin: 0 0 4rem 0; text-align: center; }
 
@@ -230,26 +233,24 @@ import signatureImg from '../assets/homepage/signature.png';
 	.signature-container { margin-top: 2rem; text-align: right; opacity: 0.9; }
 	.signature-image { max-width: 200px; height: auto; }
 
-	/* --- EXPLORE SECTION --- */
+	/* --- EXPLORE SECTION (FIXED OVERLAP) --- */
 	.explore-section { 
 		background: transparent; 
-		color: #ffffff; width: 100%; 
-		min-height: calc(100dvh - 50px);
-		padding-top: 8rem; 
-		padding-bottom: 4rem;
-		display: flex; flex-direction: column; 
-		justify-content: flex-start; 
-		align-items: center; position: relative; z-index: 5; 
+		color: #ffffff; 
+		width: 100%; 
+		padding-top: 6rem; /* Converted from flex-centering to rigid top/bottom block padding to completely block overlapping */
+		padding-bottom: 6rem;
+		position: relative; z-index: 5; 
 	}
 	
 	.explore-container-wrapper { 
 		max-width: 1000px; 
 		width: 100%; 
-		padding: 0 2rem; /* Reverted back to static padding */
+		padding: 0 2rem;
+		margin: 0 auto;
 		text-align: center; 
 	}
 	
-	/* Reverted grid constraint back to fixed min size to preserve squares */
 	.explore-grid { 
         display: grid; 
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 

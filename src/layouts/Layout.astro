@@ -17,6 +17,8 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
+		<div id="global-background-layer"></div>
+		
 		<canvas id="global-particle-canvas"></canvas>
 
 		<header class="site-header">
@@ -104,14 +106,9 @@ const { title } = Astro.props;
 			return;
 		}
 
-		ctx.fillStyle = '#120924';
-		ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-		const radialGlow = ctx.createRadialGradient(canvas.width / 2, canvas.height / 2, 10, canvas.width / 2, canvas.height / 2, Math.max(canvas.width, canvas.height));
-		radialGlow.addColorStop(0, '#2c1654');
-		radialGlow.addColorStop(1, '#120924');
-		ctx.fillStyle = radialGlow;
-		ctx.fillRect(0, 0, canvas.width, canvas.height);
+		// FIX: Clears the canvas entirely transparent instead of drawing a gradient box. 
+		// The CSS background layer underneath does the heavy lifting now.
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 		const brightnessModifier = 0.7 + Math.sin(increment * 0.3) * 0.3;
 
@@ -159,11 +156,7 @@ const { title } = Astro.props;
 
 	html, body {
 		margin: 0; padding: 0; width: 100%; min-height: 100dvh;
-		background-color: var(--bg-dark); 
-		/* Fallback gradient added to perfectly mask iOS overscroll bounces */
-		background-image: radial-gradient(circle at center, #2c1654 0%, #120924 100%);
-		background-attachment: fixed;
-		color: var(--text-light);
+		background-color: var(--bg-dark); color: var(--text-light);
 	}
 
 	html, body, button, input, select, textarea, a, span, div, h1, h2, h3, h4 {
@@ -172,9 +165,15 @@ const { title } = Astro.props;
 
 	* { box-sizing: border-box; }
 
+	/* Pure CSS Background Layer Fix */
+	#global-background-layer {
+		position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh;
+		background-image: radial-gradient(circle at center, #2c1654 0%, #120924 100%);
+		z-index: 0; pointer-events: none;
+	}
+
 	#global-particle-canvas {
-		/* Switched from 100vw/100dvh to 100% to lock strictly to the viewport edges and fix mobile clipping */
-		position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;
+		position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh; z-index: 1; pointer-events: none;
 	}
 
 	.global-layout-wrapper {
