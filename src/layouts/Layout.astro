@@ -48,6 +48,10 @@ const { title } = Astro.props;
 			<main class="global-main-content">
 				<slot />
 			</main>
+			
+			<footer class="site-footer">
+				<p>&copy; 2026 Brandon Naylor. All rights reserved.</p>
+			</footer>
 		</div>
 	</body>
 </html>
@@ -140,19 +144,17 @@ const { title } = Astro.props;
 	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
 	:root {
-		--bg-color: #120924;
-		--text-main: #ffffff;
+		--bg-dark: #120924;
+		--bg-light: #ffffff; 
+		--text-dark: #1a1a2e;
+		--text-light: #ffffff;
 		--accent-magenta: #bc34a4;
 		--accent-violet: #8b5cf6;
 	}
 
 	html, body {
-		margin: 0;
-		padding: 0;
-		width: 100%;
-		min-height: 100vh;
-		background-color: var(--bg-color);
-		color: var(--text-main);
+		margin: 0; padding: 0; width: 100%; min-height: 100vh;
+		background-color: var(--bg-dark); color: var(--text-light);
 	}
 
 	html, body, button, input, select, textarea, a, span, div, h1, h2, h3, h4 {
@@ -162,105 +164,54 @@ const { title } = Astro.props;
 	* { box-sizing: border-box; }
 
 	#global-particle-canvas {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100vw;
-		height: 100vh;
-		z-index: 1;
-		pointer-events: none;
+		position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: none;
 	}
 
 	.global-layout-wrapper {
-		width: 100%;
-		position: relative;
-		z-index: 2;
+		width: 100%; position: relative; z-index: 2; display: flex; flex-direction: column; min-height: 100vh;
 	}
 
-	.global-main-content {
-		width: 100%;
-		position: relative;
-	}
+	.global-main-content { width: 100%; position: relative; flex: 1; }
 
 	.site-header {
-		position: fixed;
-		top: 0; left: 0; width: 100%;
-		z-index: 2000;
-		display: flex;
-		justify-content: center;
-		padding: 1.8rem 2rem; 
+		position: fixed; top: 0; left: 0; width: 100%; z-index: 4000; display: flex; justify-content: center; padding: 1.8rem 2rem; 
 	}
 
-	/* --- Fixed Double Layering: Bound elements directly onto the container box --- */
 	.site-header::before {
-		content: '';
-		position: absolute;
-		top: 0; left: 0; right: 0; bottom: 0;
-		background: linear-gradient(to bottom, rgba(18, 9, 36, 0.92) 0%, rgba(18, 9, 36, 0) 100%);
-		backdrop-filter: blur(5px); /* Toned down perfectly from 12px */
-		-webkit-backdrop-filter: blur(5px);
-		z-index: -1;
-		pointer-events: none;
+		content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+		background: linear-gradient(to bottom, rgba(18, 9, 36, 0.95) 0%, rgba(18, 9, 36, 0) 100%);
+		backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); z-index: -1; pointer-events: none;
 	}
 
 	.main-nav { display: flex; gap: 3rem; align-items: center; }
 	.nav-link {
-		color: var(--text-main);
-		text-decoration: none;
-		font-size: 1.1rem;
-		font-weight: 600;
-		transition: color 0.2s ease;
-		letter-spacing: 0.5px;
+		color: var(--text-light); text-decoration: none; font-size: 1.1rem; font-weight: 600; transition: color 0.2s ease; letter-spacing: 0.5px;
 	}
 	.nav-link:hover { color: var(--accent-magenta); }
 
-	.nav-dropdown {
-		position: relative;
-		display: inline-block;
-		padding-bottom: 10px;
-		margin-bottom: -10px;
-	}
+	.nav-dropdown { position: relative; display: inline-block; padding-bottom: 10px; margin-bottom: -10px; }
 
 	.dropdown-content {
-		position: absolute;
-		top: 100%;
-		left: 50%;
-		transform: translateX(-50%) translateY(15px);
-		background: #1a0d33; 
-		border: 1px solid rgba(255, 255, 255, 0.1);
-		border-radius: 8px;
-		display: flex;
-		flex-direction: column;
-		min-width: 195px; 
-		padding: 0.4rem 0;
-		opacity: 0;
-		visibility: hidden;
-		transition: all 0.2s ease;
-		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-		z-index: 2100;
+		position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(15px);
+		background: #1a0d33; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px;
+		display: flex; flex-direction: column; min-width: 195px; padding: 0.4rem 0; opacity: 0; visibility: hidden;
+		transition: all 0.2s ease; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); z-index: 4100;
 	}
 
-	.nav-dropdown:hover .dropdown-content {
-		opacity: 1;
-		visibility: visible;
-		transform: translateX(-50%) translateY(0);
-	}
+	.nav-dropdown:hover .dropdown-content { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
 
 	.dropdown-content a {
-		color: var(--text-main);
-		text-decoration: none;
-		padding: 0.55rem 1.2rem; 
-		font-size: 0.9rem; 
-		font-weight: 400;
-		transition: background 0.2s ease, color 0.2s ease;
-		text-align: center;
-		white-space: nowrap;
+		color: var(--text-light); text-decoration: none; padding: 0.55rem 1.2rem; font-size: 0.9rem; font-weight: 400;
+		transition: background 0.2s ease, color 0.2s ease; text-align: center; white-space: nowrap;
 	}
 	.dropdown-content a:hover { background: rgba(255, 255, 255, 0.05); color: var(--accent-violet); }
 
-	@media (max-width: 768px) {
-		.main-nav { gap: 1.5rem; }
-		.nav-link { font-size: 0.9rem; }
-		.dropdown-content { min-width: 165px; }
+	.site-footer { width: 100%; text-align: center; padding: 1.5rem 2rem; background: transparent; position: relative; z-index: 10; margin-top: auto; }
+	.site-footer p { margin: 0; font-size: 0.8rem; font-weight: 400; color: rgba(255, 255, 255, 0.3); letter-spacing: 0.5px; }
+
+	.light-page-content + .site-footer p, .light-theme-footer-flag p {
+		color: rgba(26, 26, 46, 0.4) !important;
 	}
+
+	@media (max-width: 768px) { .main-nav { gap: 1.5rem; } .nav-link { font-size: 0.9rem; } .dropdown-content { min-width: 165px; } }
 </style>

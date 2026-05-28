@@ -3,108 +3,112 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Brandon Naylor | Experience">
-	<div class="page-container">
-		<h1 class="page-title">Experience</h1>
+	<div class="split-page-wrapper">
+		
+		<section class="experience-hero">
+			<div class="hero-content-block">
+				<h1 class="page-title">Experience</h1>
+				<p class="hero-description-text">desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc </p>
 
-		<div class="jump-links">
-			<a href="#skills" class="jump-btn">Skills</a>
-			<a href="#work" class="jump-btn">Work/Volunteer</a>
-		</div>
-
-		<div class="page-content">
-			
-			<section id="skills" class="experience-section">
-				<h2 class="section-heading">Skills</h2>
-				<div class="skills-grid">
-					<div class="skill-category">
-						<h3>Languages</h3>
-						<ul>
-							<li>JavaScript / TypeScript</li>
-							<li>HTML5 & CSS3</li>
-							<li>Python</li>
-							<li>C# / C++</li>
-						</ul>
-					</div>
-					<div class="skill-category">
-						<h3>Technologies</h3>
-						<ul>
-							<li>React & Astro</li>
-							<li>Node.js</li>
-							<li>Git & GitHub</li>
-							<li>Unity Engine</li>
-						</ul>
-					</div>
-					<div class="skill-category">
-						<h3>Music & Audio</h3>
-						<ul>
-							<li>Drum Set & Percussion</li>
-							<li>Music Composition</li>
-							<li>Logic Pro / Ableton</li>
-							<li>Live Sound Mixing</li>
-						</ul>
-					</div>
+				<div class="jump-links">
+					<a href="#skills" class="jump-btn">Skills</a>
+					<a href="#work" class="jump-btn">Work/Volunteer</a>
 				</div>
-			</section>
+			</div>
+		</section>
 
-			<section id="work" class="experience-section">
-				<h2 class="section-heading">Work & Volunteer Experience</h2>
-				<div class="timeline">
-					<div class="timeline-item">
-						<div class="time-meta">
-							<span class="role">Template Title One</span>
-							<span class="date">Template Time</span>
+		<div class="light-page-content">
+			<div class="page-content-container">
+				
+				<section id="skills" class="experience-section">
+					<h2 class="section-heading">Skills</h2>
+					<div class="skills-grid">
+						<div class="skill-category">
+							<h3>Languages</h3>
+							<ul>
+								<li>JavaScript / TypeScript</li>
+								<li>HTML5 & CSS3</li>
+								<li>Python</li>
+								<li>C# / C++</li>
+							</ul>
 						</div>
-						<p class="template-p">Template paragraph detailing your role, responsibilities, and achievements.</p>
-					</div>
-					<div class="timeline-item">
-						<div class="time-meta">
-							<span class="role">Template Title Two</span>
-							<span class="date">Template Time</span>
+						<div class="skill-category">
+							<h3>Technologies</h3>
+							<ul>
+								<li>React & Astro</li>
+								<li>Node.js</li>
+								<li>Unity Engine</li>
+								<li>Git / GitHub</li>
+							</ul>
 						</div>
-						<p class="template-p">Template paragraph detailing your role, responsibilities, and achievements.</p>
 					</div>
-				</div>
-			</section>
+				</section>
 
+				<section id="work" class="experience-section">
+					<h2 class="section-heading">Work & Volunteer</h2>
+					<div class="timeline">
+						<div class="timeline-item">
+							<div class="time-meta">
+								<span class="role">Instructor</span>
+								<span class="date">Present</span>
+							</div>
+							<p class="template-p">Leading technical and musical education for various student groups.</p>
+						</div>
+					</div>
+				</section>
+
+			</div>
 		</div>
 	</div>
 </Layout>
 
 <style>
-	.page-container { display: flex; flex-direction: column; align-items: center; padding-top: 18vh; color: white; position: relative; z-index: 5; }
-	.page-title { font-size: 4rem; font-weight: 700; margin: 0 0 2rem 0; letter-spacing: 1px; }
+	.split-page-wrapper { width: 100%; display: flex; flex-direction: column; }
 	
-	.jump-links { display: flex; gap: 1rem; margin-bottom: 4rem; }
-	.jump-btn { background: rgba(255, 255, 255, 0.05); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 0.8rem 1.5rem; border-radius: 30px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }
-	.jump-btn:hover { background: rgba(188, 52, 164, 0.2); border-color: #bc34a4; transform: translateY(-2px); }
-
-	.page-content { max-width: 900px; width: 100%; padding: 0 2rem; box-sizing: border-box; }
-	.experience-section { margin-bottom: 6rem; scroll-margin-top: 140px; }
-	.section-heading { font-size: 2rem; font-weight: 600; color: #d946ef; margin-bottom: 2.5rem; border-bottom: 2px solid rgba(217, 70, 239, 0.3); padding-bottom: 0.5rem; }
-
-	/* --- TIMELINE AREA --- */
-	.timeline { border-left: 2px solid rgba(255, 255, 255, 0.1); padding-left: 2.5rem; max-width: 800px; margin-left: auto; margin-right: auto; }
-	.timeline-item { position: relative; margin-bottom: 3.5rem; }
-	.timeline-item:last-child { margin-bottom: 0; }
-	.timeline-item::before { content: ''; position: absolute; left: calc(-2.5rem - 7px); top: 6px; width: 12px; height: 12px; border-radius: 50%; background: #bc34a4; box-shadow: 0 0 8px #bc34a4; }
-	.time-meta { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
-	.role { font-weight: 700; font-size: 1.3rem; color: #ffffff; }
-	.date { opacity: 0.6; font-size: 1rem; }
-	.template-p { opacity: 0.8; line-height: 1.6; margin: 0; }
-	
-	/* --- SKILLS BLOCKS --- */
-	.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
-	.skill-category { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 2rem; transition: transform 0.3s ease, background 0.3s ease; }
-	.skill-category:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.06); }
-	.skill-category h3 { font-size: 1.5rem; font-weight: 600; color: #d946ef; margin: 0 0 1.5rem 0; border-bottom: 2px solid rgba(217, 70, 239, 0.3); padding-bottom: 0.5rem; }
-	.skill-category ul { list-style: none; padding: 0; margin: 0; }
-	.skill-category li { font-size: 1.1rem; margin-bottom: 0.8rem; color: #e4e4e8; display: flex; align-items: center; }
-	.skill-category li::before { content: '▹'; color: #8b5cf6; margin-right: 10px; font-size: 1.2rem; }
-
-	@media (max-width: 768px) { 
-		.page-title { font-size: 2.5rem; } 
-		.time-meta { flex-direction: column; gap: 0.25rem; } 
-		.jump-links { flex-direction: column; align-items: center; }
-		.jump-btn { width: 100%; max-width: 250px; text-align: center; }
+	.experience-hero {
+		height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; z-index: 5; padding: 0 2rem;
 	}
+	
+	.hero-content-block { max-width: 750px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+
+	.page-title { 
+		font-size: 3.8rem; font-weight: 700; margin: 0 0 1.5rem 0; letter-spacing: 1px; color: #ffffff;
+		text-shadow: 0 5px 15px rgba(0,0,0,0.8), 0 15px 40px rgba(0,0,0,0.9);
+	}
+
+	.hero-description-text {
+		font-size: 1.15rem; line-height: 1.6; color: rgba(255, 255, 255, 0.85); margin: 0 0 3rem 0; max-width: 620px; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); text-wrap: balance;
+	}
+	
+	.jump-links { display: flex; gap: 1rem; }
+	.jump-btn { 
+		background: rgba(255, 255, 255, 0.04); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.15); padding: 0.8rem 1.6rem; border-radius: 30px; text-decoration: none; font-weight: 600; transition: all 0.25s ease; 
+	}
+	.jump-btn:hover { background: rgba(188, 52, 164, 0.1); border-color: #bc34a4; transform: translateY(-2px); }
+
+	.light-page-content {
+		background-color: #ffffff; color: #1a1a2e; width: 100%; display: flex; justify-content: center; padding: 6rem 2rem; position: relative; z-index: 10;
+	}
+
+	.page-content-container { max-width: 900px; width: 100%; }
+	.experience-section { margin-bottom: 6rem; scroll-margin-top: 140px; }
+	
+	.section-heading { font-size: 2.2rem; font-weight: 700; color: #bc34a4; margin-bottom: 2.5rem; border-bottom: 2px solid #f0f0f5; padding-bottom: 0.5rem; }
+
+	.timeline { border-left: 2px solid #f0f0f5; padding-left: 2.5rem; max-width: 800px; margin-left: auto; margin-right: auto; }
+	.timeline-item { position: relative; margin-bottom: 3.5rem; }
+	.timeline-item::before { content: ''; position: absolute; left: calc(-2.5rem - 7px); top: 6px; width: 12px; height: 12px; border-radius: 50%; background: #bc34a4; }
+	.time-meta { display: flex; justify-content: space-between; margin-bottom: 0.6rem; }
+	.role { font-weight: 700; font-size: 1.3rem; color: #120924; }
+	.date { color: #8b5cf6; font-weight: 600; }
+	.template-p { color: #555; line-height: 1.7; margin: 0; font-size: 1.05rem; }
+	
+	.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+	.skill-category { background: #ffffff; border: 1px solid #f0f0f5; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 16px rgba(0,0,0,0.02); }
+	.skill-category h3 { font-size: 1.4rem; font-weight: 700; color: #8b5cf6; margin: 0 0 1.5rem 0; border-bottom: 2px solid #fafaff; padding-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+	.skill-category ul { list-style: none; padding: 0; margin: 0; }
+	.skill-category li { font-size: 1.05rem; margin-bottom: 0.8rem; color: #555; display: flex; align-items: center; }
+	.skill-category li::before { content: '▹'; color: #bc34a4; margin-right: 10px; font-weight: bold; }
+
+	@media (max-width: 768px) { .page-title { font-size: 2.8rem; } .time-meta { flex-direction: column; } }
 </style>

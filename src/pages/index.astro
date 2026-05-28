@@ -2,9 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 
-import fullShot from '../assets/homepage/brandon.jpeg';
-import drumShot from '../assets/homepage/brandondrums.jpeg';
-import dogPhoto from '../assets/homepage/dogs.jpeg';
+// Image paths mapped directly to your directory structure
+import brandonImg from '../assets/homepage/brandon.jpeg';
+import drumImg from '../assets/homepage/brandondrums.jpeg';
+import dogImg from '../assets/homepage/dogs.jpeg';
 import signatureImg from '../assets/homepage/signature.png';
 ---
 
@@ -35,7 +36,7 @@ import signatureImg from '../assets/homepage/signature.png';
 				<div class="about-grid">
 					<div class="about-row">
 						<div class="about-image-wrapper">
-							<Image src={fullShot} alt="Brandon Naylor" class="about-image" />
+							<Image src={brandonImg} alt="Brandon Naylor" class="about-image" />
 						</div>
 						<div class="about-text" style="transform: translateY(-8px);">
 							<p>My life is driven by creativity and curiosity. I love to learn, and over time my interests have leaned toward two fields: computer science and music.</p>
@@ -46,7 +47,7 @@ import signatureImg from '../assets/homepage/signature.png';
 
 					<div class="about-row reverse">
 						<div class="about-image-wrapper">
-							<Image src={drumShot} alt="Brandon playing the drum set" class="about-image" />
+							<Image src={drumImg} alt="Brandon playing the drum set" class="about-image" />
 						</div>
 						<div class="about-text" style="transform: translateY(-4px);">
 							<p>On the other hand, I love to teach music, learn new concepts, and perform with people. Music allows people to connect in a way that is unparalleled by other mediums, and I’m so excited to be a part of spreading that joy. As shown on the right, I play the drum set. Although I play various other instruments, I prefer the drum kit. Its versatility allows me to play with as many groups as possible, which is one of my passions.</p>
@@ -56,7 +57,7 @@ import signatureImg from '../assets/homepage/signature.png';
 
 					<div class="about-row">
 						<div class="about-image-wrapper">
-							<Image src={dogPhoto} alt="Brandon's dachshunds, Juno and Bella" class="about-image" />
+							<Image src={dogImg} alt="Brandon's dachshunds, Juno and Bella" class="about-image" />
 						</div>
 						<div class="about-text">
 							<p>Finally, I couldn’t do any of that without the support of the many wonderful people/animals in my life: my family, my friends, my colleagues, and my amazing dogs, Juno (left), and Bella (right). Thank you!</p>
@@ -71,7 +72,7 @@ import signatureImg from '../assets/homepage/signature.png';
 		</section>
 
 		<section class="explore-section">
-			<div class="explore-container">
+			<div class="explore-container-wrapper">
 				<h2 class="section-title light-text">Explore</h2>
 				<div class="explore-grid">
 					
@@ -135,7 +136,7 @@ import signatureImg from '../assets/homepage/signature.png';
 			ctx.beginPath();
 			const baseAlpha = 0.8 - (i * 0.15);
 			const alpha = baseAlpha * brightnessModifier;
-			ctx.strokeStyle = i % 2 === 0 ? `rgba(139, 92, 246, ${alpha})` : `rgba(217, 70, 239, ${alpha})`;
+			ctx.strokeStyle = i % 2 === 0 ? `rgba(188, 52, 164, ${alpha})` : `rgba(139, 92, 246, ${alpha})`;
 			ctx.lineWidth = 2.0 - (i * 0.3);
 
 			const drawWidthLimit = canvas.width * waveXProgress;
@@ -184,11 +185,7 @@ import signatureImg from '../assets/homepage/signature.png';
 	.hero-section { height: 100vh; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; }
 	
 	#home-animation-canvas {
-		position: absolute;
-		top: 0; left: 0;
-		width: 100%; height: 100%;
-		z-index: 1;
-		pointer-events: none;
+		position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;
 	}
 
 	.title-group { position: relative; z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center; }
@@ -198,152 +195,58 @@ import signatureImg from '../assets/homepage/signature.png';
 	.portfolio-text { font-size: 2.8rem; font-weight: 300; color: #ffffff; margin: 0; opacity: 0; letter-spacing: 4px; text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.8), 0px 8px 25px rgba(0, 0, 0, 0.85); animation: scaleEase 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards; }
 
 	.scroll-indicator { 
-		position: absolute; 
-		bottom: 3rem; 
-		left: 50%; 
-		transform: translateX(-50%); 
-		display: flex; 
-		justify-content: center; 
-		align-items: center; 
-		z-index: 5; 
-		opacity: 0;
-		animation: scaleEaseIndicator 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.5s forwards;
-		will-change: opacity, transform, filter;
+		position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%); display: flex; justify-content: center; align-items: center; z-index: 5; opacity: 0;
+		animation: scaleEaseIndicator 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.5s forwards; will-change: opacity, transform, filter;
 	}
 	
-	.scroll-indicator.hidden-fade {
-		animation: cinematicEvaporate 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-		pointer-events: none;
-	}
+	.scroll-indicator.hidden-fade { animation: cinematicEvaporate 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards; pointer-events: none; }
 
 	.scroll-text { 
-		font-size: 0.85rem; 
-		font-weight: 400; 
-		color: #ffffff; 
-		margin: 0; 
-		letter-spacing: 2.5px; 
-		text-transform: uppercase; 
-		text-shadow: 0px 4px 12px rgba(0, 0, 0, 0.9); 
-		animation: rhythmicWave 2.4s ease-in-out infinite;
-		will-change: transform;
+		font-size: 0.85rem; font-weight: 400; color: #ffffff; margin: 0; letter-spacing: 2.5px; text-transform: uppercase; text-shadow: 0px 4px 12px rgba(0, 0, 0, 0.9); animation: rhythmicWave 2.4s ease-in-out infinite; will-change: transform;
 	}
 
-	@keyframes scaleEaseIndicator {
-		from { opacity: 0; transform: translateX(-50%) translateY(10px); }
-		to { opacity: 0.7; transform: translateX(-50%) translateY(0); }
-	}
-
-	@keyframes cinematicEvaporate {
-		0% { opacity: 0.7; transform: translateX(-50%) translateY(0); filter: blur(0px); }
-		100% { opacity: 0; transform: translateX(-50%) translateY(-20px); filter: blur(4px); visibility: hidden; }
-	}
-
-	@keyframes rhythmicWave {
-		0%, 100% { transform: translateY(0); }
-		50% { transform: translateY(-8px); }
-	}
+	@keyframes scaleEaseIndicator { from { opacity: 0; transform: translateX(-50%) translateY(10px); } to { opacity: 0.7; transform: translateX(-50%) translateY(0); } }
+	@keyframes cinematicEvaporate { 0% { opacity: 0.7; transform: translateX(-50%) translateY(0); filter: blur(0px); } 100% { opacity: 0; transform: translateX(-50%) translateY(-20px); filter: blur(4px); visibility: hidden; } }
+	@keyframes rhythmicWave { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
 	/* --- ABOUT SECTION --- */
-	.about-section { background-color: #d8d8de; color: #120924; width: 100%; display: flex; justify-content: center; padding: 6rem 2rem; box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.12); position: relative; z-index: 5; }
+	.about-section { background-color: #f8f8fc; color: #120924; width: 100%; display: flex; justify-content: center; padding: 6rem 2rem; box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.05); position: relative; z-index: 5; }
 	.about-container { max-width: 1000px; width: 100%; }
 	.section-title { font-size: 3.5rem; font-weight: 700; margin: 0 0 4rem 0; text-align: center; }
-	.section-title.light-text { 
-		color: #ffffff; 
-		text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 12px 32px rgba(0, 0, 0, 0.3);
-	}
+	.section-title.light-text { color: #ffffff; text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); }
 
 	.about-grid { display: flex; flex-direction: column; gap: 5rem; }
 	.about-row { display: flex; align-items: center; gap: 4rem; }
 	.about-row.reverse { flex-direction: row-reverse; }
 	.about-image-wrapper { flex: 1; display: flex; justify-content: center; }
 	
-	.about-image { 
-		width: 100%; 
-		max-width: 400px; 
-		height: auto; 
-		border-radius: 12px; 
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
-		object-fit: cover; 
-	}
-	
-	.about-text { flex: 1.2; font-size: 1.15rem; line-height: 1.8; color: #2a2a35; }
-	.about-text p { margin-bottom: 1.5rem; }
-	.about-text p:last-child { margin-bottom: 0; }
-	.signature-container { margin-top: 2rem; text-align: right; opacity: 0.8; }
+	.about-image { width: 100%; max-width: 400px; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); object-fit: cover; }
+	.about-text { flex: 1.2; font-size: 1.15rem; line-height: 1.8; color: #333; }
+	.signature-container { margin-top: 2rem; text-align: right; opacity: 0.9; }
 	.signature-image { max-width: 200px; height: auto; }
 
-	/* --- EXPLORE SECTION --- */
+	/* --- EXPLORE SECTION: FULL SCREEN --- */
 	.explore-section { 
-		background: transparent; 
-		color: #ffffff; 
-		width: 100%; 
-		display: flex; 
-		justify-content: center; 
-		padding: 6rem 2rem 8rem 2rem; 
-		position: relative; 
-		z-index: 5; 
+		background: transparent; color: #ffffff; width: 100%; 
+		height: calc(100vh - 50px); /* Full screen minus footer padding height */
+		display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; z-index: 5; 
 	}
 	
-	.explore-container { max-width: 1000px; width: 100%; }
-	.explore-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; }
+	.explore-container-wrapper { max-width: 1000px; width: 100%; text-align: center; }
+	.explore-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; margin-top: 4rem; }
 	
 	.explore-card { 
-		background: transparent; 
-		border: 1px solid rgba(255, 255, 255, 0.08); 
-		border-radius: 12px; 
-		padding: 2.5rem 2rem; 
-		text-align: center; 
-		text-decoration: none; 
-		color: inherit; 
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between; 
-		align-items: center;
-		min-height: 230px; /* Bumped up safely from 190px to protect your padding channels */
-		transition: transform 0.28s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.28s ease, box-shadow 0.28s ease; 
+		background: transparent; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 2.5rem 2rem; text-align: center; text-decoration: none; color: inherit; display: flex; flex-direction: column; justify-content: space-between; align-items: center; min-height: 230px; transition: transform 0.28s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.28s ease, box-shadow 0.28s ease; 
 	}
 	
-	.explore-card:hover { 
-		transform: scale(1.03); 
-		border-color: rgba(217, 70, 239, 0.6); 
-		box-shadow: 0 12px 30px rgba(217, 70, 239, 0.12);
-	}
+	.explore-card:hover { transform: scale(1.03); border-color: #bc34a4; box-shadow: 0 12px 30px rgba(188, 52, 164, 0.2); }
 	
-	.explore-card h3 { 
-		font-size: 1.8rem; 
-		font-weight: 600; 
-		color: #d946ef; 
-		margin: 0 0 1rem 0; /* Re-applied bottom separation padding */
-		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-	}
-	
-	.explore-desc { 
-		font-size: 1.05rem; 
-		line-height: 1.5; 
-		color: #e4e4e8; 
-		margin: 0 auto; 
-		opacity: 0.85; 
-		max-width: 320px; 
-		text-wrap: balance; 
-		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-	}
-	
-	.explore-subtitle {
-		font-size: 0.85rem;
-		font-weight: 400;
-		color: rgba(255, 255, 255, 0.4);
-		margin: 1.2rem 0 0 0; /* Re-applied top separation padding */
-		letter-spacing: 0.5px;
-		text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
-	}
+	.explore-card h3 { font-size: 1.8rem; font-weight: 600; color: #bc34a4; margin: 0; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+	.explore-desc { font-size: 1.05rem; line-height: 1.5; color: #e2e8f0; margin: auto 0; opacity: 0.85; max-width: 320px; text-wrap: balance; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); }
+	.explore-subtitle { font-size: 0.85rem; font-weight: 400; color: rgba(255, 255, 255, 0.3); margin: 0; letter-spacing: 0.5px; }
 
 	@keyframes scaleEase { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
 	@keyframes lineGrow { from { max-width: 0%; } to { max-width: 100%; } }
-	@keyframes slideUpFromBottom { from { opacity: 0; transform: translateY(30px); } to { opacity: 0.7; transform: translateY(0); } }
 
-	@media (max-width: 900px) {
-		.about-row, .about-row.reverse { flex-direction: column; gap: 2.5rem; text-align: center; align-items: center; }
-		.about-text { transform: none !important; }
-		.signature-container { text-align: center; }
-	}
+	@media (max-width: 900px) { .about-row, .about-row.reverse { flex-direction: column; gap: 2.5rem; text-align: center; align-items: center; } .signature-container { text-align: center; } }
 </style>

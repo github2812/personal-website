@@ -3,85 +3,102 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Brandon Naylor | Portfolio">
-	<div class="page-container">
-		<h1 class="page-title">Portfolio</h1>
+	<div class="split-page-wrapper">
 		
-		<div class="jump-links">
-			<a href="#cs" class="jump-btn">CS Projects</a>
-			<a href="#music" class="jump-btn">Music Projects</a>
-			<a href="#passion" class="jump-btn">Passion Projects</a>
-		</div>
+		<section class="portfolio-hero">
+			<div class="hero-content-block">
+				<h1 class="page-title">Portfolio</h1>
+				<p class="hero-description-text">desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc </p>
+				
+				<div class="jump-links">
+					<a href="#cs" class="jump-btn">CS Projects</a>
+					<a href="#music" class="jump-btn">Music Projects</a>
+					<a href="#passion" class="jump-btn">Passion Projects</a>
+				</div>
+			</div>
+		</section>
 		
-		<div class="page-content">
-			<section id="cs" class="portfolio-section">
-				<h2 class="section-heading">Computer Science Projects</h2>
-				<div class="project-grid">
-					<div class="project-card">
-						<div class="image-side"><div class="image-placeholder"></div></div>
-						<div class="text-side">
-							<h3 class="project-title">CS Project One</h3>
-							<h4 class="project-subtitle">Tech Stack Used</h4>
-							<p class="template-p">Template paragraph detailing the problem solved and the technology used.</p>
+		<div class="light-page-content">
+			<div class="page-content-container">
+				
+				<section id="cs" class="portfolio-section">
+					<h2 class="section-heading">Computer Science Projects</h2>
+					<div class="project-grid">
+						<div class="project-card">
+							<div class="image-side"></div>
+							<div class="text-side">
+								<h3 class="project-title">CS Project One</h3>
+								<h4 class="project-subtitle">Tech Stack Used</h4>
+								<p class="template-p">Description of the technical challenges faced and how they were solved.</p>
+							</div>
 						</div>
 					</div>
-				</div>
-			</section>
+				</section>
 
-			<section id="music" class="portfolio-section">
-				<h2 class="section-heading">Music Projects</h2>
-				<div class="project-grid">
-					<div class="project-card">
-						<div class="image-side"><div class="image-placeholder"></div></div>
-						<div class="text-side">
-							<h3 class="project-title">Music Project One</h3>
-							<h4 class="project-subtitle">Composition / Performance</h4>
-							<p class="template-p">Template paragraph detailing the musical piece, ensemble, or performance.</p>
+				<section id="music" class="portfolio-section">
+					<h2 class="section-heading">Music Projects</h2>
+					<div class="project-grid">
+						<div class="project-card">
+							<div class="image-side"></div>
+							<div class="text-side">
+								<h3 class="project-title">Music Project One</h3>
+								<h4 class="project-subtitle">Composition / Arrangement</h4>
+								<p class="template-p">Description of the musical piece or production workflow.</p>
+							</div>
 						</div>
 					</div>
-				</div>
-			</section>
-
-			<section id="passion" class="portfolio-section">
-				<h2 class="section-heading">Passion Projects</h2>
-				<div class="project-grid">
-					<div class="project-card">
-						<div class="image-side"><div class="image-placeholder"></div></div>
-						<div class="text-side">
-							<h3 class="project-title">Passion Project One</h3>
-							<h4 class="project-subtitle">Personal Endeavor</h4>
-							<p class="template-p">Template paragraph detailing a personal hobby, game design, or side project.</p>
-						</div>
-					</div>
-				</div>
-			</section>
+				</section>
+				
+			</div>
 		</div>
 	</div>
 </Layout>
 
 <style>
-	.page-container { display: flex; flex-direction: column; align-items: center; padding-top: 18vh; color: white; }
-	.page-title { font-size: 4rem; font-weight: 700; margin: 0 0 2rem 0; letter-spacing: 1px; }
+	.split-page-wrapper { width: 100%; display: flex; flex-direction: column; }
 
-	.jump-links { display: flex; gap: 1rem; margin-bottom: 4rem; flex-wrap: wrap; justify-content: center; }
-	.jump-btn {
-		background: rgba(255, 255, 255, 0.05); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); padding: 0.8rem 1.5rem; border-radius: 30px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;
+	.portfolio-hero {
+		height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; z-index: 5; padding: 0 2rem;
 	}
-	.jump-btn:hover { background: rgba(188, 52, 164, 0.2); border-color: #bc34a4; transform: translateY(-2px); }
+
+	.hero-content-block { max-width: 750px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+
+	.page-title { 
+		font-size: 3.8rem; font-weight: 700; margin: 0 0 1.5rem 0; letter-spacing: 1px; color: #ffffff;
+		/* Heaviest shadow architecture requested */
+		text-shadow: 0 5px 15px rgba(0,0,0,0.8), 0 15px 40px rgba(0,0,0,0.9);
+	}
+
+	.hero-description-text {
+		font-size: 1.15rem; line-height: 1.6; color: rgba(255, 255, 255, 0.85); margin: 0 0 3rem 0; max-width: 620px; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); text-wrap: balance;
+	}
+
+	.jump-links { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+	.jump-btn {
+		background: rgba(255, 255, 255, 0.04); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.15); padding: 0.8rem 1.6rem; border-radius: 30px; text-decoration: none; font-weight: 600; transition: all 0.25s ease;
+	}
+	.jump-btn:hover { background: rgba(188, 52, 164, 0.1); border-color: #bc34a4; transform: translateY(-2px); }
 	
-	.page-content { max-width: 900px; width: 100%; padding: 0 2rem; box-sizing: border-box; }
+	.light-page-content {
+		background-color: #ffffff; color: #1a1a2e; width: 100%; display: flex; justify-content: center; padding: 6rem 2rem; position: relative; z-index: 10;
+	}
+
+	.page-content-container { max-width: 900px; width: 100%; }
 	.portfolio-section { margin-bottom: 6rem; scroll-margin-top: 140px; }
-	.section-heading { font-size: 2rem; font-weight: 600; color: #d946ef; margin-bottom: 2rem; border-bottom: 2px solid rgba(217, 70, 239, 0.3); padding-bottom: 0.5rem; }
+	
+	.section-heading { font-size: 2.2rem; font-weight: 700; color: #bc34a4; margin-bottom: 2rem; border-bottom: 2px solid #f0f0f5; padding-bottom: 0.5rem; }
 	.project-grid { display: flex; flex-direction: column; gap: 2.5rem; }
 	
-	.project-card { display: flex; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; overflow: hidden; min-height: 200px; }
-	.image-side { flex: 0 0 35%; position: relative; background: rgba(0, 0, 0, 0.2); border-right: 1px solid rgba(255, 255, 255, 0.05); }
-	.image-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(188, 52, 164, 0.1) 100%); position: absolute; top: 0; left: 0; }
-	.image-side img { width: 100%; height: 100%; object-fit: cover; }
+	.project-card { 
+		display: flex; background: #ffffff; border: 1px solid #f0f0f5; border-radius: 12px; overflow: hidden; min-height: 220px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04); transition: transform 0.3s ease;
+	}
+    .project-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(188, 52, 164, 0.05); border-color: #e2e2ec; }
 
-	.text-side { flex: 1; padding: 2rem; display: flex; flex-direction: column; justify-content: center; }
-	.project-title { margin: 0 0 0.25rem 0; font-size: 1.6rem; font-weight: 700; }
-	.project-subtitle { margin: 0 0 1rem 0; color: #bc34a4; font-size: 1rem; font-weight: 400; }
-	.template-p { opacity: 0.8; line-height: 1.6; margin: 0; }
+	.image-side { flex: 0 0 35%; background: #fdfdff; border-right: 1px solid #f0f0f5; }
+	.text-side { flex: 1; padding: 2.2rem; display: flex; flex-direction: column; justify-content: center; }
+	.project-title { margin: 0 0 0.35rem 0; font-size: 1.6rem; font-weight: 700; color: #120924; }
+	.project-subtitle { margin: 0 0 1rem 0; color: #8b5cf6; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; }
+	.template-p { color: #555; line-height: 1.7; margin: 0; font-size: 1.05rem; }
 
-	@media (max-width: 768px) { .page-title { font-size: 2.5rem; } .project-card { flex-direction: column; } .image-side { min-height: 180px; width: 100%; } }
+	@media (max-width: 768px) { .page-title { font-size: 2.8rem; } .project-card { flex-direction: column; } .image-side { min-height: 180px; width: 100%; } }
 </style>
