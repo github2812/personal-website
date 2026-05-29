@@ -1,5 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+// Asset Imports (This is the Astro "trick" that ensures Cloudflare properly bundles your images for the live site!)
+import bellis1 from '../assets/experience/bellis1.jpeg';
+import bellis2 from '../assets/experience/bellis2.jpeg';
+import darksky1 from '../assets/experience/darksky1.jpeg';
+import darksky2 from '../assets/experience/darksky2.jpeg';
+import dragonflicks1 from '../assets/experience/dragonflicks1.jpeg';
+import dragonflicks2 from '../assets/experience/dragonflicks2.jpeg';
+import pacifica1 from '../assets/experience/pacifica1.jpeg';
+import pacifica2 from '../assets/experience/pacifica2.jpeg';
+import santiago from '../assets/experience/santiago.jpeg';
 ---
 
 <Layout title="Brandon Naylor | Experience">
@@ -8,9 +19,10 @@ import Layout from '../layouts/Layout.astro';
 		<section class="experience-hero">
 			<div class="hero-content-block">
 				<h1 class="page-title">Experience</h1>
-				<p class="hero-description-text">This contains a list of relevant skills, grouped into categories, as well as work/volunteer experience from high school to present.</p>
+				<p class="hero-description-text">This contains my concise resume, as well as a more comprehensive list of skills and work/volunteer experience from high school to present.</p>
 
 				<div class="jump-links">
+					<a href="#resume" class="jump-btn">Resume</a>
 					<a href="#skills" class="jump-btn">Skills</a>
 					<a href="#work" class="jump-btn">Work/Volunteer</a>
 				</div>
@@ -20,6 +32,26 @@ import Layout from '../layouts/Layout.astro';
 		<div class="light-page-content">
 			<div class="page-content-container">
 				
+				<section id="resume" class="experience-section">
+					<h2 class="section-heading">Resume</h2>
+					
+					<div class="resume-actions-container">
+						<a href="/Resume.pdf" class="resume-direct-link" download="Resume - Brandon Naylor.pdf">
+							Download Resume 
+							<svg viewBox="0 0 24 24" class="action-icon-svg" aria-hidden="true">
+								<path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+							</svg>
+						</a>
+					</div>
+
+					<div class="pdf-viewer-space">
+						<iframe src="/Resume.pdf#toolbar=0&navpanes=0&scrollbar=0&view=Fit" width="100%" height="100%" class="pdf-embed" title="Brandon Naylor Resume">
+							<p class="pdf-placeholder-text">Your browser doesn't support embedded PDFs. <a href="/Resume.pdf" download="Resume - Brandon Naylor.pdf" style="color:#bc34a4;">Download it here</a>.</p>
+						</iframe>
+					</div>
+					
+				</section>
+
 				<section id="skills" class="experience-section">
 					<h2 class="section-heading">Skills</h2>
 					<div class="skills-grid">
@@ -50,6 +82,7 @@ import Layout from '../layouts/Layout.astro';
 								<li>Percussion Instruction</li>
 								<li>Logic Pro Composition/Production</li>
 								<li>MuseScore Composition/Notation</li>
+								<li>Mainstage</li>
 								<li>Audio Engineering</li>
 								<li>Live Mixing</li>
 							</ul>
@@ -59,6 +92,7 @@ import Layout from '../layouts/Layout.astro';
 							<h3>Miscellaneous</h3>
 							<ul>
 								<li>Teaching</li>
+								<li>Workout Programming</li>
 								<li>Cooking/Baking</li>
 								<li>Lego Construction</li>
 								<li>Flexibility</li>
@@ -73,13 +107,96 @@ import Layout from '../layouts/Layout.astro';
 				<section id="work" class="experience-section">
 					<h2 class="section-heading">Work & Volunteer Experience</h2>
 					<div class="timeline">
+						
 						<div class="timeline-item">
 							<div class="time-meta">
-								<span class="role">Instructor</span>
-								<span class="date">Present</span>
+								<span class="role">Santiago High School - Front Ensemble Instructor, now Caption Head</span>
+								<span class="date">2025-present</span>
 							</div>
-							<p class="template-p">desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc desc </p>
+							<div class="timeline-content">
+								<p class="template-p">Taught a wide range of percussion and electronic instruments. Promoted to caption head to manage all logistics, communication, and leadership.</p>
+								<div class="timeline-photo-row">
+									<img src={santiago.src} alt="Santiago High School" class="polaroid-img tilt-right" />
+								</div>
+							</div>
 						</div>
+
+						<div class="timeline-item">
+							<div class="time-meta">
+								<span class="role">Pacifica High School - Front Ensemble Instructor and Audio Technician</span>
+								<span class="date">2025-present</span>
+							</div>
+							<div class="timeline-content">
+								<p class="template-p">Educated students on a variety of instruments including drumset, mallet percussion, and electronics. Wrote custom music and managed the band’s live audio system.</p>
+								<div class="timeline-photo-row">
+									<img src={pacifica1.src} alt="Pacifica High School 1" class="polaroid-img tilt-left" />
+									<img src={pacifica2.src} alt="Pacifica High School 2" class="polaroid-img tilt-right" />
+								</div>
+							</div>
+						</div>
+
+						<div class="timeline-item">
+							<div class="time-meta">
+								<span class="role">Dark Sky Percussion - Drumset Player</span>
+								<span class="date">2024-2026</span>
+							</div>
+							<div class="timeline-content">
+								<p class="template-p">Performed highly technical, advanced repertoire as the drumset player for an independent world-class indoor percussion ensemble in a highly competitive environment.</p>
+								<div class="timeline-photo-row">
+									<img src={darksky1.src} alt="Dark Sky 1" class="polaroid-img tilt-right" />
+									<img src={darksky2.src} alt="Dark Sky 2" class="polaroid-img tilt-left" />
+								</div>
+							</div>
+						</div>
+
+						<div class="timeline-item">
+							<div class="time-meta">
+								<span class="role">Dragon Flicks - Stage Manager/Audio Engineer</span>
+								<span class="date">2022-2024</span>
+							</div>
+							<div class="timeline-content">
+								<p class="template-p">Coordinated lighting, audio, scheduling, and other aspects of our school performances to ensure a smooth production.</p>
+								<div class="timeline-photo-row">
+									<img src={dragonflicks1.src} alt="Dragon Flicks 1" class="polaroid-img tilt-left" />
+									<img src={dragonflicks2.src} alt="Dragon Flicks 2" class="polaroid-img tilt-right" />
+								</div>
+							</div>
+						</div>
+
+						<div class="timeline-item">
+							<div class="time-meta">
+								<span class="role">Giving Bach - Member</span>
+								<span class="date">2021-2024</span>
+							</div>
+							<div class="timeline-content">
+								<p class="template-p">Performed at elementary schools, retirement homes, and concerts to spread music throughout the community.</p>
+							</div>
+						</div>
+
+						<div class="timeline-item">
+							<div class="time-meta">
+								<span class="role">Codely - Teacher</span>
+								<span class="date">2021-2022</span>
+							</div>
+							<div class="timeline-content">
+								<p class="template-p">Taught the basics of coding such as functions and variables in Scratch/Java. Developed engaging lesson plans, designed helpful assignments, and managed classroom instruction.</p>
+							</div>
+						</div>
+
+						<div class="timeline-item">
+							<div class="time-meta">
+								<span class="role">Bellis Music Camp - Counselor</span>
+								<span class="date">2021-2023</span>
+							</div>
+							<div class="timeline-content">
+								<p class="template-p">Led classes and rehearsals, prepared engaging activities, inspired and motivated campers, and helped them improve their musical skills.</p>
+								<div class="timeline-photo-row">
+									<img src={bellis1.src} alt="Bellis Music Camp 1" class="polaroid-img tilt-right" />
+									<img src={bellis2.src} alt="Bellis Music Camp 2" class="polaroid-img tilt-left" />
+								</div>
+							</div>
+						</div>
+
 					</div>
 				</section>
 
@@ -87,6 +204,31 @@ import Layout from '../layouts/Layout.astro';
 		</div>
 	</div>
 </Layout>
+
+<script>
+	// Scroll Reveal Observer to gracefully fade in the polaroid photos as they enter the screen
+	document.addEventListener("DOMContentLoaded", () => {
+		const observerOptions = {
+			root: null,
+			rootMargin: '0px 0px -50px 0px',
+			threshold: 0.15
+		};
+
+		const photoObserver = new IntersectionObserver((entries, observer) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('visible');
+					observer.unobserve(entry.target); // Stop observing once it's revealed
+				}
+			});
+		}, observerOptions);
+
+		// Attach observer to all polaroid images
+		document.querySelectorAll('.polaroid-img').forEach(img => {
+			photoObserver.observe(img);
+		});
+	});
+</script>
 
 <style>
 	.split-page-wrapper { width: 100%; display: flex; flex-direction: column; }
@@ -108,7 +250,7 @@ import Layout from '../layouts/Layout.astro';
 		animation: scaleEase 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; opacity: 0;
 	}
 	
-	.jump-links { display: flex; gap: 1rem; animation: scaleEase 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; opacity: 0; }
+	.jump-links { display: flex; gap: 1rem; animation: scaleEase 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; opacity: 0; flex-wrap: wrap; justify-content: center;}
 	.jump-btn { 
 		background: rgba(255, 255, 255, 0.04); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.15); padding: 0.8rem 1.6rem; border-radius: 30px; text-decoration: none; font-weight: 600; transition: all 0.25s ease; 
 	}
@@ -124,15 +266,28 @@ import Layout from '../layouts/Layout.astro';
 	
 	.section-heading { font-size: 2.2rem; font-weight: 700; color: #2a1454; margin-bottom: 2.5rem; border-bottom: 2px solid #f0f0f5; padding-bottom: 0.5rem; }
 
-	.timeline { border-left: 2px solid #f0f0f5; padding-left: 2.5rem; max-width: 800px; margin-left: auto; margin-right: auto; }
-	.timeline-item { position: relative; margin-bottom: 3.5rem; }
-	.timeline-item::before { content: ''; position: absolute; left: calc(-2.5rem - 7px); top: 6px; width: 12px; height: 12px; border-radius: 50%; background: #bc34a4; }
-	.time-meta { display: flex; justify-content: space-between; margin-bottom: 0.6rem; }
+	/* --- RESUME STYLES --- */
+	.resume-actions-container { margin-bottom: 2rem; display: flex; justify-content: flex-start; }
 	
-	.role { font-weight: 700; font-size: 1.3rem; color: #111111; }
-	.date { color: #555555; font-weight: 600; }
-	.template-p { color: #555555; line-height: 1.7; margin: 0; font-size: 1.05rem; }
+	.resume-direct-link {
+		display: inline-flex; justify-content: space-between; align-items: center; width: 100%; max-width: 280px; padding: 1.1rem 1.5rem; border: 1px solid #f0f0f5; border-radius: 8px;
+		background: #ffffff; color: #111111; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.5px; text-decoration: none;
+		transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1); box-shadow: 0 4px 16px rgba(0,0,0,0.02);
+	}
+	.resume-direct-link:hover { border-color: #bc34a4; box-shadow: 0 8px 24px rgba(188, 52, 164, 0.1); transform: translateY(-3px); }
 	
+	.action-icon-svg { width: 22px; height: 22px; fill: #bc34a4; transition: transform 0.3s ease; }
+	.resume-direct-link:hover .action-icon-svg { transform: translateY(2px); }
+
+	/* FIXED PDF VIEWER: max-width increased to 100% to fill the entire content container gracefully */
+	.pdf-viewer-space {
+		width: 100%; max-width: 100%; margin: 0 auto; aspect-ratio: 8.5 / 11; background-color: #323639; border: 2px dashed #e2e2ec; border-radius: 12px; overflow: hidden;
+		display: flex; justify-content: center; align-items: center; text-align: center;
+	}
+	.pdf-embed { width: 100%; height: 100%; border: none; }
+	.pdf-placeholder-text { color: #888899; font-weight: 600; font-size: 1.2rem; letter-spacing: 1px; }
+
+	/* --- SKILLS STYLES --- */
 	.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; align-items: start; }
 	.skill-category { background: #ffffff; border: 1px solid #f0f0f5; border-radius: 12px; padding: 2.2rem 2rem; box-shadow: 0 4px 16px rgba(0,0,0,0.02); }
 	
@@ -140,24 +295,66 @@ import Layout from '../layouts/Layout.astro';
 	.skill-category ul { list-style: none; padding: 0; margin: 0; }
 	
 	.skill-category li { 
-		font-size: 1.05rem; 
-		margin-bottom: 0.8rem; 
-		color: #555555; 
-		display: flex; 
-		align-items: center;
-		line-height: 1.45; 
+		font-size: 1.05rem; margin-bottom: 0.8rem; color: #555555; display: flex; align-items: center; line-height: 1.45; 
+	}
+	.skill-category li::before { 
+		content: '▹'; color: #bc34a4; margin-right: 10px; font-weight: bold; flex-shrink: 0; 
+	}
+
+	/* --- TIMELINE & SCRAPBOOK POLAROID STYLES --- */
+	.timeline { border-left: 2px solid #f0f0f5; padding-left: 2.5rem; max-width: 860px; margin-left: auto; margin-right: auto; }
+	.timeline-item { position: relative; margin-bottom: 4rem; }
+	.timeline-item::before { content: ''; position: absolute; left: calc(-2.5rem - 7px); top: 6px; width: 12px; height: 12px; border-radius: 50%; background: #bc34a4; }
+	
+	.time-meta { display: flex; flex-direction: column; margin-bottom: 1rem; }
+	.role { font-weight: 700; font-size: 1.4rem; color: #2a1454; line-height: 1.3; margin-bottom: 0.3rem;}
+	.date { color: #bc34a4; font-weight: 600; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px;}
+	
+	.timeline-content { width: 100%; display: flex; flex-direction: column; }
+	.template-p { color: #555555; line-height: 1.7; margin: 0; font-size: 1.05rem; }
+
+	.timeline-photo-row { 
+		display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 1.8rem; 
 	}
 	
-	.skill-category li::before { 
-		content: '▹'; 
-		color: #bc34a4; 
-		margin-right: 10px; 
-		font-weight: bold; 
-		flex-shrink: 0; 
+	/* FIXED POLAROID ANIMATION: Using CSS variables for tilt preserves rotation on hover and prevents flashing */
+	.polaroid-img { 
+		--tilt: 0deg;
+		height: 180px; width: auto; max-width: 100%;
+		border: 6px solid #ffffff; border-bottom-width: 22px; border-radius: 4px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+		
+		/* Initial hidden state for the Scroll Observer to reveal */
+		opacity: 0;
+		transform: translateY(30px) rotate(var(--tilt)) translateZ(0);
+
+		/* Hardware acceleration for smooth scaling without pixel snapping */
+		-webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
+		will-change: transform, box-shadow, opacity;
+		transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, opacity 0.5s ease;
 	}
+	
+	/* The class added by our JS Intersection Observer */
+	.polaroid-img.visible {
+		opacity: 1;
+		transform: translateY(0) rotate(var(--tilt)) translateZ(0);
+	}
+
+	.polaroid-img.visible:hover { 
+		transform: scale(1.08) translateY(-5px) rotate(var(--tilt)) translateZ(0); 
+		box-shadow: 0 12px 25px rgba(188, 52, 164, 0.15); 
+		z-index: 10; position: relative; 
+	}
+	
+	.tilt-left { --tilt: -3deg; }
+	.tilt-right { --tilt: 3deg; }
 
 	@keyframes scaleEase { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
 
 	@media (max-width: 990px) { .skills-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
-	@media (max-width: 768px) { .time-meta { flex-direction: column; gap: 0.25rem; } }
+	@media (max-width: 768px) { 
+		.polaroid-img { height: 140px; } 
+		.timeline-photo-row { justify-content: center; }
+	}
 </style>

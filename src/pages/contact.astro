@@ -10,7 +10,9 @@ import Layout from '../layouts/Layout.astro';
 			<section class="page-content">
 				<div class="contact-links-container">
 					
-					<button id="email-toggle-btn" class="contact-button">Email</button>
+					<button id="email-toggle-btn" class="contact-button">
+						View Email <span class="dropdown-icon">▼</span>
+					</button>
 					<div id="email-dropdown" class="contact-panel-dropdown">
 						<div class="inner-panel-content">
 							<a href="mailto:bnaylor0504@gmail.com" class="panel-link">bnaylor0504@gmail.com</a>
@@ -21,7 +23,9 @@ import Layout from '../layouts/Layout.astro';
 						</div>
 					</div>
 					
-					<button id="linkedin-toggle-btn" class="contact-button">LinkedIn</button>
+					<button id="linkedin-toggle-btn" class="contact-button">
+						View LinkedIn <span class="dropdown-icon">▼</span>
+					</button>
 					<div id="linkedin-dropdown" class="contact-panel-dropdown">
 						<div class="inner-panel-content">
 							<a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" class="panel-link professional-anchor">LinkedIn</a>
@@ -50,7 +54,11 @@ import Layout from '../layouts/Layout.astro';
 		emailBtn.addEventListener('click', (e) => {
 			e.stopPropagation();
 			emailDropdown.classList.toggle('show');
+			emailBtn.classList.toggle('open'); // Flips the arrow
+			
+			// Close LinkedIn if open
 			document.getElementById('linkedin-dropdown')?.classList.remove('show');
+			document.getElementById('linkedin-toggle-btn')?.classList.remove('open');
 		});
 	}
 
@@ -77,7 +85,11 @@ import Layout from '../layouts/Layout.astro';
 		linkedinBtn.addEventListener('click', (e) => {
 			e.stopPropagation();
 			linkedinDropdown.classList.toggle('show');
+			linkedinBtn.classList.toggle('open'); // Flips the arrow
+			
+			// Close Email if open
 			document.getElementById('email-dropdown')?.classList.remove('show');
+			document.getElementById('email-toggle-btn')?.classList.remove('open');
 		});
 	}
 
@@ -93,9 +105,12 @@ import Layout from '../layouts/Layout.astro';
 		});
 	}
 
+	// Close everything if clicking outside
 	document.addEventListener('click', () => {
 		emailDropdown?.classList.remove('show');
 		linkedinDropdown?.classList.remove('show');
+		emailBtn?.classList.remove('open');
+		linkedinBtn?.classList.remove('open');
 	});
 </script>
 
@@ -119,12 +134,16 @@ import Layout from '../layouts/Layout.astro';
 	
 	/* BUTTON BUG FIX: Removed fixed max-width and media query override, added responsive clamp sizing */
 	.contact-button {
-		display: flex; justify-content: center; align-items: center; width: 100%; max-width: clamp(280px, 80vw, 340px); height: 55px; border: none; border-radius: 6px;
-		background: #ffffff; color: #120924; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.5px; cursor: pointer;
+		display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: clamp(280px, 80vw, 340px); height: 55px; border: none; border-radius: 6px;
+		background: #ffffff; color: #120924; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.5px; cursor: pointer; padding: 0 1.5rem;
 		transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 	}
 	.contact-button:hover { transform: scale(1.04); box-shadow: 0 8px 24px rgba(188, 52, 164, 0.25); }
 	
+	/* Dropdown Arrow Animation Styles */
+	.dropdown-icon { font-size: 0.8rem; color: #bc34a4; transition: transform 0.3s ease; }
+	.contact-button.open .dropdown-icon { transform: rotate(180deg); }
+
 	.contact-panel-dropdown {
 		width: 100%; max-width: clamp(280px, 80vw, 340px); max-height: 0; opacity: 0; overflow: hidden; background: #1a0d33; border: 1px solid transparent; border-radius: 6px;
 		transition: max-height 0.34s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.22s ease;
@@ -141,8 +160,7 @@ import Layout from '../layouts/Layout.astro';
 	.copy-button-container { 
 		position: relative; background: transparent; border: none; cursor: pointer; padding: 6px; 
 		display: flex; align-items: center; justify-content: center; 
-		flex-shrink: 0;
-		width: 32px; height: 32px;
+		flex-shrink: 0; width: 32px; height: 32px;
 	}
 	
 	.vector-svg { width: 18px; height: 18px; fill: rgba(255, 255, 255, 0.85); transition: fill 0.2s ease; }
