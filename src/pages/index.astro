@@ -1,0 +1,374 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+import fullShot from '../assets/homepage/brandon.jpeg';
+import drumShot from '../assets/homepage/brandondrums.jpeg';
+import dogPhoto from '../assets/homepage/dogs.jpeg';
+import signatureImg from '../assets/homepage/signature.png';
+
+// CHIIKAWA go brr
+import chiikawa1 from '../assets/homepage/chiikawa1.webp';
+import chiikawa2 from '../assets/homepage/chiikawa2.webp';
+import chiikawa3 from '../assets/homepage/chiikawa3.webp';
+import chiikawa4 from '../assets/homepage/chiikawa4.webp';
+import chiikawa5 from '../assets/homepage/chiikawa5.webp';
+import chiikawa6 from '../assets/homepage/chiikawa6.webp';
+---
+
+<Layout title="Brandon Naylor | Home">
+	<div class="home-scroll-wrapper">
+		<section class="hero-section">
+			<canvas id="home-animation-canvas"></canvas>
+
+			<div class="title-group">
+				<h1 class="title">Brandon Naylor</h1>
+				
+				<div class="divider-container">
+					<div class="divider-line"></div>
+				</div>
+
+				<p class="portfolio-text">Personal Website</p>
+			</div>
+
+			<div class="scroll-indicator" id="dynamic-scroll-indicator">
+				<p class="scroll-text">Scroll down for more info</p>
+			</div>
+		</section>
+
+		<section class="about-section">
+			<div class="about-container">
+				<h2 class="section-title">About Me</h2>
+				
+				<div class="about-grid">
+					<div class="about-row">
+						<div class="about-image-wrapper">
+							<img src={fullShot.src} alt="full shot" class="about-image" />
+							<p class="photo-credit">Photo by Michelle Naylor</p>
+						</div>
+						<div class="about-text" style="transform: translateY(-8px);">
+							<p>My life is driven by creativity and curiosity. I love to learn, and my interests have leaned toward two fields: computer science and music.</p>
+							<p>Although they might seem different on the surface, programming and music each take logic, such as code or sheet music, and turn it into experiences people genuinely connect with. This is what makes these two interests so important to me.</p>
+							<p>On one hand, I enjoy designing video games, mastering new software, and building digital experiences. Since computer science is a fascinating, constantly changing field, creating intuitive software is a skill I am always eager to refine.</p>
+						</div>
+					</div>
+
+					<div class="about-row reverse">
+						<div class="about-image-wrapper">
+							<img src={drumShot.src} alt="drum shot" class="about-image" />
+							<p class="photo-credit">Photo by David Yu</p>
+						</div>
+						<div class="about-text" style="transform: translateY(-4px);">
+							<p>On the other hand, I love to teach music, learn new concepts, and perform with people. Music allows people to connect in a way that is unparalleled by other mediums, and I'm so excited to be a part of spreading that joy. As shown in the drum shot, I play the drum set. Its versatility allows me to play with as many groups as possible, which is one of my passions.</p>
+							<p>Beyond creating my own projects, I've found that I really enjoy teaching. I'm currently working as a drumline instructor, and I'm so grateful for the opportunity to pass on my knowledge to incredible and dedicated groups of kids.</p>
+						</div>
+					</div>
+
+					<div class="about-row">
+						<div class="about-image-wrapper">
+							<img src={dogPhoto.src} alt="dog photo" class="about-image" />
+						</div>
+						<div class="about-text">
+							<p>Finally, I couldn't do any of that without the support of the many wonderful people and animals in my life: my family, my friends, my colleagues, and my amazing dogs shown in the dog photo, Juno (left), and Bella (right). Thank you!</p>
+							
+							<div class="signature-container">
+								<img src={signatureImg.src} alt="Brandon Naylor Signature" class="signature-image" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="explore-section">
+			<div class="explore-container-wrapper">
+				<h2 class="section-title light-text">Explore</h2>
+				<div class="explore-grid">
+					
+					<a href="/portfolio" class="explore-card">
+						<h3>Portfolio</h3>
+						<p class="explore-desc">A showcase of my computer, music, and passion projects.</p>
+						<span class="explore-subtitle">(click to view)</span>
+					</a>
+					
+					<a href="/experience" class="explore-card">
+						<h3>Experience</h3>
+						<p class="explore-desc">A summary of my work history, volunteer roles, and skills.</p>
+						<span class="explore-subtitle">(click to view)</span>
+					</a>
+					
+					<a href="/contact" class="explore-card">
+						<h3>Contact</h3>
+						<p class="explore-desc">Reach out directly via email or connect with my LinkedIn profile.</p>
+						<span class="explore-subtitle">(click to view)</span>
+					</a>
+					
+				</div>
+			</div>
+		</section>
+		
+		<div id="chiikawa-data" data-srcs={JSON.stringify([chiikawa1.src, chiikawa2.src, chiikawa3.src, chiikawa4.src, chiikawa5.src, chiikawa6.src])} style="display: none;"></div>
+		
+	</div>
+</Layout>
+
+<script>
+	// Canvas Animation
+	const canvas = document.getElementById('home-animation-canvas') as HTMLCanvasElement;
+	const ctx = canvas?.getContext('2d');
+
+	function resizeCanvas() {
+		if (canvas) {
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+		}
+	}
+	if (canvas) {
+		resizeCanvas();
+		window.addEventListener('resize', resizeCanvas);
+	}
+
+	const waveLayerCount = 4;
+	let increment = 0;
+	let waveXProgress = 0;
+	let isCanvasVisible = true;
+
+	/*sinewaves lfg*/
+
+	function animateWaves() {
+		if (!ctx || !canvas || !isCanvasVisible) return;
+
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		
+		const brightnessModifier = 0.7 + Math.sin(increment * 0.3) * 0.3;
+
+		if (waveXProgress < 1) {
+			waveXProgress += 0.0035 + (1 - waveXProgress) * 0.015;
+			if (waveXProgress > 1) waveXProgress = 1;
+		}
+
+		const baseYOffset = (canvas.height * 0.42) + 5;
+
+		for (let i = 0; i < waveLayerCount; i++) {
+			ctx.beginPath();
+			const baseAlpha = 0.8 - (i * 0.15);
+			const alpha = baseAlpha * brightnessModifier;
+			ctx.strokeStyle = i % 2 === 0 ? `rgba(188, 52, 164, ${alpha})` : `rgba(139, 92, 246, ${alpha})`;
+			ctx.lineWidth = 2.0 - (i * 0.3);
+
+			const drawWidthLimit = canvas.width * waveXProgress;
+
+			for (let x = 0; x <= drawWidthLimit; x += 2) {
+				const freq1 = Math.sin(x * (0.04 + (i * 0.01)) + (increment * (4 + i)));
+				const freq2 = Math.cos(x * 0.07 - (increment * 2));
+				const signal = freq1 * freq2;
+				const rawEnv = Math.sin(x * 0.0025 - increment + (i * 0.5));
+				const envelope = Math.pow(rawEnv, 2); 
+
+				const maxAmplitude = 120 - (i * 15);
+				const finalAmplitude = maxAmplitude * envelope * signal;
+				const y = baseYOffset + finalAmplitude;
+				
+				if (x === 0) ctx.moveTo(x, y);
+				else ctx.lineTo(x, y);
+			}
+			ctx.stroke();
+		}
+
+		increment += 0.0025;
+		requestAnimationFrame(animateWaves);
+	}
+
+	if (canvas) {
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				isCanvasVisible = entry.isIntersecting;
+				if (isCanvasVisible) animateWaves();
+			});
+		});
+		observer.observe(document.querySelector('.hero-section') as Element);
+	}
+
+	const indicator = document.getElementById('dynamic-scroll-indicator');
+	let isPermanentlyHidden = false;
+
+	window.addEventListener('scroll', () => {
+		if (!isPermanentlyHidden && indicator && window.scrollY > 40) {
+			isPermanentlyHidden = true; 
+			indicator.classList.add('hidden-fade');
+		}
+	}, { passive: true });
+
+	// Easter Egg CHIIKAWA
+	let typedString = '';
+
+	document.addEventListener('keydown', (e) => {
+		// capture single key presses
+		if (e.key.length === 1) {
+			typedString += e.key.toLowerCase();
+			
+			// cap string at 4
+			if (typedString.length > 4) {
+				typedString = typedString.slice(-4);
+			}
+			
+			// Check if they typed "anna"
+			if (typedString === 'anna') {
+				const chiikawaDataElement = document.getElementById('chiikawa-data');
+				if (chiikawaDataElement) {
+	
+					const chiikawaSrcs = JSON.parse(chiikawaDataElement.getAttribute('data-srcs') || '[]');
+					
+					if (chiikawaSrcs.length > 0) {
+						// reset string to allow rapid spamming
+						typedString = '';
+						
+						// create image
+						const img = document.createElement('img');
+						img.src = chiikawaSrcs[Math.floor(Math.random() * chiikawaSrcs.length)];
+						img.className = 'chiikawa-clone dance';
+						img.alt = 'Chiikawa Dance';
+						img.setAttribute('aria-hidden', 'true');
+						
+						const randomBottom = Math.floor(Math.random() * 55) + 5;
+						img.style.bottom = `${randomBottom}%`;
+						
+						document.body.appendChild(img);
+						
+						// cleanup
+						setTimeout(() => {
+							img.remove();
+						}, 4500);
+					}
+				}
+			}
+		}
+	});
+</script>
+
+<style>
+	/* fixed for mobile*/
+	.home-scroll-wrapper { width: 100%; display: flex; flex-direction: column; }
+	
+	.hero-section { height: 100dvh; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; z-index: 5; padding: 0 2rem; overflow: hidden; }
+	
+	#home-animation-canvas {
+		position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh; z-index: 1; pointer-events: none;
+	}
+
+	.title-group { position: relative; z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; padding: 0 1rem; }
+	
+	/*small phone mobile fix*/
+	.title { font-size: clamp(2rem, 10vw, 5rem); white-space: nowrap; font-weight: 700; margin: 0; color: #ffffff; line-height: 1.1; text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.9), 0px 10px 30px rgba(0, 0, 0, 0.9); animation: scaleEase 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+	
+	.portfolio-text { font-size: clamp(1.5rem, 5vw, 2.8rem); font-weight: 300; color: #ffffff; margin: 0; opacity: 0; letter-spacing: 4px; text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.8), 0px 8px 25px rgba(0, 0, 0, 0.85); animation: scaleEase 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards; }
+	.section-title { font-size: clamp(2.4rem, 8vw, 3.5rem); font-weight: 700; margin: 0 0 4rem 0; text-align: center; }
+
+	.divider-container { width: 100%; max-width: 800px; height: 3px; margin: calc(1rem + 15px) 0 1rem 0; display: flex; justify-content: center; filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.95)); }
+	.divider-line { height: 3px; width: 100%; background: linear-gradient(90deg, transparent 10%, #ffffff 50%, transparent 90%); animation: lineGrow 1.4s cubic-bezier(0.25, 1, 0.5, 1) 0.6s forwards; max-width: 0%; }
+
+	.scroll-indicator { position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%); display: flex; justify-content: center; align-items: center; z-index: 5; opacity: 0; animation: scaleEaseIndicator 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.5s forwards; will-change: opacity, transform, filter; }
+	.scroll-indicator.hidden-fade { animation: cinematicEvaporate 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards; pointer-events: none; }
+	
+	.scroll-text { 
+		font-size: clamp(0.7rem, 2.5vw, 0.85rem); 
+		font-weight: 400; color: #ffffff; margin: 0; letter-spacing: 2.5px; text-transform: uppercase; text-shadow: 0px 4px 12px rgba(0, 0, 0, 0.9); animation: rhythmicWave 2.4s ease-in-out infinite; will-change: transform; 
+		white-space: nowrap;
+	}
+
+	@keyframes scaleEaseIndicator { from { opacity: 0; transform: translateX(-50%) translateY(10px); } to { opacity: 0.7; transform: translateX(-50%) translateY(0); } }
+	@keyframes cinematicEvaporate { 0% { opacity: 0.7; transform: translateX(-50%) translateY(0); filter: blur(0px); } 100% { opacity: 0; transform: translateX(-50%) translateY(-20px); filter: blur(4px); visibility: hidden; } }
+	@keyframes rhythmicWave { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+	@keyframes scaleEase { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+	@keyframes lineGrow { from { max-width: 0%; } to { max-width: 100%; } }
+
+	/* About ME */
+	.about-section { background-color: #f8f8fc; color: #120924; width: 100%; display: flex; justify-content: center; padding: 6rem 2rem; box-shadow: 0 -15px 30px rgba(0, 0, 0, 0.05); position: relative; z-index: 5; }
+	.about-container { max-width: 1000px; width: 100%; }
+	.section-title.light-text { color: #ffffff; text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); }
+
+	.about-grid { display: flex; flex-direction: column; gap: 5rem; }
+	.about-row { display: flex; align-items: center; gap: 4rem; }
+	.about-row.reverse { flex-direction: row-reverse; }
+	
+	.about-image-wrapper { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; }
+	
+	.about-image { width: 100%; max-width: 400px; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); object-fit: cover; }
+	.photo-credit { font-size: 0.85rem; color: #888899; margin: 0; font-style: italic; letter-spacing: 0.5px; }
+
+	.about-text { flex: 1.2; font-size: 1.15rem; line-height: 1.8; color: #333; }
+	.signature-container { margin-top: 2rem; text-align: right; opacity: 0.9; }
+	.signature-image { max-width: 200px; height: auto; }
+
+	/* Explore */
+	.explore-section { 
+		background: transparent; 
+		color: #ffffff; 
+		width: 100%; 
+		padding-top: 6rem;
+		padding-bottom: 6rem;
+		position: relative; z-index: 5; 
+	}
+	
+	.explore-container-wrapper { 
+		max-width: 1000px; 
+		width: 100%; 
+		padding: 0 2rem;
+		margin: 0 auto;
+		text-align: center; 
+	}
+	
+	.explore-grid { 
+		display: grid; 
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+		gap: 2.5rem; 
+		margin-top: 4rem; 
+	}
+	
+	.explore-card { 
+		background: transparent; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 2.5rem 2rem; text-align: center; text-decoration: none; color: inherit; display: flex; flex-direction: column; justify-content: space-between; align-items: center; min-height: 230px; transition: transform 0.28s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.28s ease, box-shadow 0.28s ease; 
+	}
+	
+	.explore-card:hover { transform: scale(1.03); border-color: #bc34a4; box-shadow: 0 12px 30px rgba(188, 52, 164, 0.2); }
+	
+	.explore-card h3 { font-size: 1.8rem; font-weight: 600; color: #bc34a4; margin: 0; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+	.explore-desc { font-size: 1.05rem; line-height: 1.5; color: #e2e8f0; margin: auto 0; opacity: 0.85; max-width: 320px; text-wrap: balance; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); }
+	.explore-subtitle { font-size: 0.85rem; font-weight: 400; color: rgba(255, 255, 255, 0.3); margin: 0; letter-spacing: 0.5px; }
+
+	@media (max-width: 900px) { .about-row, .about-row.reverse { flex-direction: column; gap: 2.5rem; text-align: center; align-items: center; } .signature-container { text-align: center; } }
+	
+	@media (max-width: 768px) {
+		.explore-section { padding-bottom: 4rem; } 
+	}
+</style>
+
+<style is:global>
+	.chiikawa-clone {
+		position: fixed;
+		left: -200px;
+		width: 180px;
+		height: auto;
+		z-index: 10000;
+		pointer-events: none; /* Prevents it from blocking clicks */
+		opacity: 0;
+		will-change: transform;
+	}
+
+	.chiikawa-clone.dance {
+		opacity: 1;
+		animation: chiikawaHop 4.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+	}
+
+	@keyframes chiikawaHop {
+		0%   { transform: translate(0, 0) rotate(0deg); }
+		10%  { transform: translate(15vw, -50px) rotate(15deg); }
+		20%  { transform: translate(30vw, 0) rotate(0deg); }
+		30%  { transform: translate(45vw, -50px) rotate(-15deg); }
+		40%  { transform: translate(60vw, 0) rotate(0deg); }
+		50%  { transform: translate(75vw, -50px) rotate(15deg); }
+		60%  { transform: translate(90vw, 0) rotate(0deg); }
+		70%  { transform: translate(105vw, -50px) rotate(-15deg); }
+		80%  { transform: translate(120vw, 0) rotate(0deg); }
+		100% { transform: translate(150vw, 0) rotate(0deg); }
+	}
+</style>
+

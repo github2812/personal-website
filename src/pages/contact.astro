@@ -1,0 +1,200 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Brandon Naylor | Contact">
+	<div class="contact-page-fullscreen-wrapper">
+		<div class="page-container">
+			<h1 class="page-title">Contact</h1>
+
+			<section class="page-content">
+				<div class="contact-links-container">
+					
+					<button id="email-toggle-btn" class="contact-button">
+						View Email <span class="dropdown-icon">▼</span>
+					</button>
+					<div id="email-dropdown" class="contact-panel-dropdown">
+						<div class="inner-panel-content">
+							<a href="mailto:bnaylor0504@gmail.com" class="panel-link">bnaylor0504@gmail.com</a>
+							<button id="copy-email-btn" class="panel-copy-icon-btn" aria-label="Copy Email">
+								<svg viewBox="0 0 24 24" class="vector-svg"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+								<span id="copy-email-tooltip" class="tooltip-box">Copy</span>
+							</button>
+						</div>
+					</div>
+					
+					<button id="linkedin-toggle-btn" class="contact-button">
+						View LinkedIn <span class="dropdown-icon">▼</span>
+					</button>
+					<div id="linkedin-dropdown" class="contact-panel-dropdown">
+						<div class="inner-panel-content">
+							<a href="https://www.linkedin.com/in/brandon-naylor-08b488412" target="_blank" rel="noopener noreferrer" class="panel-link professional-anchor">LinkedIn</a>
+							<button id="copy-linkedin-btn" class="copy-button-container" aria-label="Copy LinkedIn URL">
+								<svg viewBox="0 0 24 24" class="vector-svg"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+								<span id="copy-linkedin-tooltip" class="tooltip-box">Copy</span>
+							</button>
+						</div>
+					</div>
+
+				</div>
+			</section>
+		</div>
+	</div>
+</Layout>
+
+<script>
+	// Email state handling actions
+	const emailBtn = document.getElementById('email-toggle-btn');
+	const emailDropdown = document.getElementById('email-dropdown');
+	const copyEmailBtn = document.getElementById('copy-email-btn');
+	const emailTooltip = document.getElementById('copy-email-tooltip');
+	const emailString = 'bnaylor0504@gmail.com';
+
+	if (emailBtn && emailDropdown) {
+		emailBtn.addEventListener('click', (e) => {
+			e.stopPropagation();
+			emailDropdown.classList.toggle('show');
+			emailBtn.classList.toggle('open'); // Flips the arrow
+			
+			// Close linkedin if open
+			document.getElementById('linkedin-dropdown')?.classList.remove('show');
+			document.getElementById('linkedin-toggle-btn')?.classList.remove('open');
+		});
+	}
+
+	if (copyEmailBtn && emailTooltip) {
+		copyEmailBtn.addEventListener('click', async (e) => {
+			e.stopPropagation();
+			try {
+				await navigator.clipboard.writeText(emailString);
+				emailTooltip.textContent = 'Copied!';
+				emailTooltip.classList.add('visible');
+				setTimeout(() => { emailTooltip.textContent = 'Copy'; emailTooltip.classList.remove('visible'); }, 1800);
+			} catch (err) { console.error('Failed to copy text: ', err); }
+		});
+	}
+
+	// LinkedIn State Handling Actions
+	const linkedinBtn = document.getElementById('linkedin-toggle-btn');
+	const linkedinDropdown = document.getElementById('linkedin-dropdown');
+	const copyLinkedinBtn = document.getElementById('copy-linkedin-btn');
+	const linkedinTooltip = document.getElementById('copy-linkedin-tooltip');
+	const linkedinString = 'https://www.linkedin.com/in/brandon-naylor-08b488412';
+
+	if (linkedinBtn && linkedinDropdown) {
+		linkedinBtn.addEventListener('click', (e) => {
+			e.stopPropagation();
+			linkedinDropdown.classList.toggle('show');
+			linkedinBtn.classList.toggle('open'); // Flips the arrow
+			
+			// Close Email if open
+			document.getElementById('email-dropdown')?.classList.remove('show');
+			document.getElementById('email-toggle-btn')?.classList.remove('open');
+		});
+	}
+
+	if (copyLinkedinBtn && linkedinTooltip) {
+		copyLinkedinBtn.addEventListener('click', async (e) => {
+			e.stopPropagation();
+			try {
+				await navigator.clipboard.writeText(linkedinString);
+				linkedinTooltip.textContent = 'Copied!';
+				linkedinTooltip.classList.add('visible');
+				setTimeout(() => { linkedinTooltip.textContent = 'Copy'; linkedinTooltip.classList.remove('visible'); }, 1800);
+			} catch (err) { console.error('Failed to copy link: ', err); }
+		});
+	}
+
+	// Close everything if clicking outside
+	document.addEventListener('click', () => {
+		emailDropdown?.classList.remove('show');
+		linkedinDropdown?.classList.remove('show');
+		emailBtn?.classList.remove('open');
+		linkedinBtn?.classList.remove('open');
+	});
+</script>
+
+<style>
+	.contact-page-fullscreen-wrapper {
+		width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100dvh; position: relative; overflow: hidden;
+	}
+	
+	.page-container {
+		display: flex; flex-direction: column; align-items: center; color: #ffffff; position: relative; z-index: 5; width: 100%;
+	}
+	
+	/* text scaling */
+	.page-title {
+		font-size: clamp(3.2rem, 10vw, 5rem); font-weight: 700; margin: 0 0 4rem 0; letter-spacing: 1px;
+		text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6); animation: scaleEase 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+	}
+	
+	.page-content { max-width: 600px; width: 100%; padding: 0 2rem; animation: scaleEase 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; opacity: 0; }
+	.contact-links-container { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: 100%; }
+	
+	/* button fix so it doesn't clamp */
+	.contact-button {
+		display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: clamp(280px, 80vw, 340px); height: 55px; border: none; border-radius: 6px;
+		background: #ffffff; color: #120924; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.5px; cursor: pointer; padding: 0 1.5rem;
+		transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	}
+	.contact-button:hover { transform: scale(1.04); box-shadow: 0 8px 24px rgba(188, 52, 164, 0.25); }
+	
+	/* dropdown arrow animate */
+	.dropdown-icon { font-size: 0.8rem; color: #bc34a4; transition: transform 0.3s ease; }
+	.contact-button.open .dropdown-icon { transform: rotate(180deg); }
+
+	.contact-panel-dropdown {
+		width: 100%; max-width: clamp(280px, 80vw, 340px); max-height: 0; opacity: 0; overflow: hidden; background: #1a0d33; border: 1px solid transparent; border-radius: 6px;
+		transition: max-height 0.34s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.22s ease;
+	}
+	
+	.contact-panel-dropdown.show { max-height: 57px; opacity: 1; overflow: visible; border-color: rgba(255, 255, 255, 0.12); margin: 0.2rem 0; }
+	.inner-panel-content { display: flex; justify-content: space-between; align-items: center; width: 100%; height: 55px; padding: 0 1.2rem; }
+	
+	.panel-link { color: #ffffff !important; text-decoration: none !important; font-size: 0.9rem; transition: color 0.2s ease; }
+	.panel-link:hover { color: #bc34a4 !important; }
+	.professional-anchor { font-weight: 600; text-decoration: underline !important; letter-spacing: 0.5px; font-size: 0.95rem; }
+	
+	.panel-copy-icon-btn,
+	.copy-button-container { 
+		position: relative; background: transparent; border: none; cursor: pointer; padding: 6px; 
+		display: flex; align-items: center; justify-content: center; 
+		flex-shrink: 0; width: 32px; height: 32px;
+	}
+	
+	.vector-svg { width: 18px; height: 18px; fill: rgba(255, 255, 255, 0.85); transition: fill 0.2s ease; }
+	.panel-copy-icon-btn:hover .vector-svg,
+	.copy-button-container:hover .vector-svg { fill: #bc34a4; }
+	
+	.tooltip-box {
+		position: absolute; 
+		bottom: calc(100% + 12px); 
+		left: 50%; 
+		transform: translateX(-50%) translateY(4px); 
+		background: #ffffff; 
+		color: #120924; 
+		font-size: 0.7rem; 
+		font-weight: 700; 
+		padding: 6px 10px; 
+		border-radius: 5px; 
+		opacity: 0; 
+		visibility: hidden;
+		pointer-events: none; 
+		transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease; 
+		box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+		z-index: 50;
+	}
+
+	.panel-copy-icon-btn:hover .tooltip-box,
+	.copy-button-container:hover .tooltip-box,
+	.tooltip-box.visible { 
+		opacity: 1; 
+		visibility: visible;
+		transform: translateX(-50%) translateY(0); 
+	}
+
+	.tooltip-box::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border-width: 5px; border-style: solid; border-color: #ffffff transparent transparent transparent; }
+
+	@keyframes scaleEase { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+</style>

@@ -1,0 +1,26 @@
+{
+  "name": "documents-personalwebsite",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "npm run build && wrangler dev",
+    "astro": "astro",
+    "generate-types": "wrangler types",
+    "deploy": "npm run build && wrangler deploy"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^13.6.0",
+    "astro": "^6.3.8"
+  },
+  "devDependencies": {
+    "wrangler": "^4.95.0"
+  },
+  "overrides": {
+    "vite": "^7"
+  }
+}

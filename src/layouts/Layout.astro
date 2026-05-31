@@ -1,0 +1,228 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Brandon Naylor - Personal Portfolio" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<div id="global-background-layer"></div>
+		
+		<canvas id="global-particle-canvas"></canvas>
+
+		<header class="site-header">
+			<nav class="main-nav">
+				<a href="/" class="nav-link">Home</a>
+				
+				<div class="nav-dropdown">
+					<a href="/portfolio" class="nav-link">Portfolio</a>
+					<div class="dropdown-content">
+						<a href="/portfolio#cs">CS Projects</a>
+						<a href="/portfolio#music">Music Projects</a>
+						<a href="/portfolio#passion">Passion Projects</a>
+					</div>
+				</div>
+
+				<div class="nav-dropdown">
+					<a href="/experience" class="nav-link">Experience</a>
+					<div class="dropdown-content">
+						<a href="/experience#resume">Resume</a>
+						<a href="/experience#skills">Skills</a>
+						<a href="/experience#work">Work/Volunteer</a>
+					</div>
+				</div>
+
+				<a href="/contact" class="nav-link">Contact</a>
+			</nav>
+		</header>
+
+		<div class="global-layout-wrapper">
+			<main class="global-main-content">
+				<slot />
+			</main>
+			
+			<footer class="site-footer">
+				<p>&copy; 2026 Brandon Naylor. All rights reserved.</p>
+			</footer>
+		</div>
+	</body>
+</html>
+
+<script>
+	const canvas = document.getElementById('global-particle-canvas') as HTMLCanvasElement;
+	const ctx = canvas?.getContext('2d');
+
+	function resizeCanvas() {
+		if (canvas) {
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+		}
+	}
+	
+	if (canvas) {
+		resizeCanvas();
+		window.addEventListener('resize', resizeCanvas);
+	}
+
+	let increment = 0;
+	const particles: any[] = [];
+	
+	for (let i = 0; i < 22; i++) {
+		particles.push({
+			x: Math.random() * window.innerWidth,
+			y: Math.random() * window.innerHeight,
+			radius: Math.random() * 5 + 2,
+			speed: Math.random() * 0.4 + 0.2,
+			offset: Math.random() * Math.PI * 2,
+			type: 'circle'
+		});
+	}
+	for (let i = 0; i < 12; i++) {
+		particles.push({
+			x: Math.random() * window.innerWidth,
+			y: Math.random() * window.innerHeight,
+			size: Math.random() * 6 + 4,
+			speed: Math.random() * 0.3 + 0.1,
+			offset: Math.random() * Math.PI * 2,
+			type: 'plus'
+		});
+	}
+
+	function animateParticles() {
+		if (!ctx || !canvas) return;
+
+		if (document.visibilityState !== 'visible') {
+			requestAnimationFrame(animateParticles);
+			return;
+		}
+
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+		const brightnessModifier = 0.7 + Math.sin(increment * 0.3) * 0.3;
+
+		particles.forEach(p => {
+			p.y -= p.speed;
+			if (p.y < -20) p.y = canvas.height + 20;
+
+			const currentX = p.x + Math.sin(increment * 0.5 + p.offset) * 15;
+
+			if (p.type === 'circle') {
+				ctx.beginPath();
+				ctx.arc(currentX, p.y, p.radius, 0, Math.PI * 2);
+				ctx.fillStyle = `rgba(188, 52, 164, ${0.35 * brightnessModifier})`;
+				ctx.fill();
+			} else {
+				ctx.beginPath();
+				ctx.moveTo(currentX - p.size, p.y);
+				ctx.lineTo(currentX + p.size, p.y);
+				ctx.moveTo(currentX, p.y - p.size);
+				ctx.lineTo(currentX, p.y + p.size);
+				ctx.strokeStyle = `rgba(139, 92, 246, ${0.4 * brightnessModifier})`;
+				ctx.lineWidth = p.size * 0.45; 
+				ctx.stroke();
+			}
+		});
+
+		increment += 0.0025;
+		requestAnimationFrame(animateParticles);
+	}
+
+	if (canvas) animateParticles();
+</script>
+
+<style is:global>
+	@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+	:root {
+		--bg-dark: #120924;
+		--bg-light: #ffffff; 
+		--text-dark: #1a1a2e;
+		--text-light: #ffffff;
+		--accent-magenta: #bc34a4;
+		--accent-violet: #8b5cf6;
+	}
+
+	html, body {
+		margin: 0; padding: 0; width: 100%; min-height: 100dvh;
+		background-color: var(--bg-dark); color: var(--text-light);
+	}
+
+	html, body, button, input, select, textarea, a, span, div, h1, h2, h3, h4 {
+		font-family: 'Poppins', sans-serif !important;
+	}
+
+	* { box-sizing: border-box; }
+
+	#global-background-layer {
+		position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh;
+		background-image: radial-gradient(circle at center, #2c1654 0%, #120924 100%);
+		z-index: 0; pointer-events: none;
+	}
+
+	#global-particle-canvas {
+		position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh; z-index: 1; pointer-events: none;
+	}
+
+	.global-layout-wrapper {
+		width: 100%; position: relative; z-index: 2; display: flex; flex-direction: column; min-height: 100dvh;
+	}
+
+	.global-main-content { width: 100%; position: relative; flex: 1; }
+
+	/* header+nav */
+	.site-header {
+		position: fixed; top: 0; left: 0; width: 100%; z-index: 4000; display: flex; justify-content: center; 
+		padding: clamp(1rem, 3vw, 1.8rem) clamp(1rem, 5vw, 2rem); 
+	}
+
+	.site-header::before {
+		content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+		background: linear-gradient(to bottom, rgba(18, 9, 36, 0.95) 0%, rgba(18, 9, 36, 0) 100%);
+		backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); z-index: -1; pointer-events: none;
+	}
+
+	.main-nav { display: flex; gap: clamp(1rem, 4vw, 3rem); align-items: center; }
+	
+	.nav-link {
+		color: var(--text-light); text-decoration: none; 
+		font-size: clamp(0.85rem, 2.5vw, 1.1rem); 
+		font-weight: 600; transition: color 0.2s ease; letter-spacing: 0.5px;
+	}
+	.nav-link:hover { color: var(--accent-magenta); }
+
+	.nav-dropdown { position: relative; display: inline-block; padding-bottom: 10px; margin-bottom: -10px; }
+
+	.dropdown-content {
+		position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(15px);
+		background: #1a0d33; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px;
+		display: flex; flex-direction: column; min-width: 195px; padding: 0.4rem 0; opacity: 0; visibility: hidden;
+		transition: all 0.2s ease; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); z-index: 4100;
+	}
+
+	.nav-dropdown:hover .dropdown-content { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+
+	.dropdown-content a {
+		color: var(--text-light); text-decoration: none; padding: 0.55rem 1.2rem; font-size: 0.9rem; font-weight: 400;
+		transition: background 0.2s ease, color 0.2s ease; text-align: center; white-space: nowrap;
+	}
+	.dropdown-content a:hover { background: rgba(255, 255, 255, 0.05); color: var(--accent-violet); }
+
+	/* footer */
+	.site-footer { width: 100%; text-align: center; padding: 1.5rem 2rem; background: transparent; position: relative; z-index: 10; margin-top: auto; }
+	.site-footer p { margin: 0; font-size: 0.8rem; font-weight: 400; color: rgba(255, 255, 255, 0.3); letter-spacing: 0.5px; }
+
+	.light-page-content + .site-footer p, .light-theme-footer-flag p { color: rgba(26, 26, 46, 0.4) !important; }
+</style>
