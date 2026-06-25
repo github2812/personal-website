@@ -1,0 +1,167 @@
+---
+// VigenereDemo.astro
+---
+<div class="cipher-container">
+  
+    <div class="input-group">
+      <label for="cipherKey">Encryption Key (Keyword)</label>
+      <input type="text" id="cipherKey" placeholder="e.g., SECRET" autocomplete="off" />
+    </div>
+  
+    <div class="split-layout">
+      
+      <div class="panel">
+        <label for="inputText">Message to Process</label>
+        <textarea id="inputText" rows="6" placeholder="Type your secret message here..."></textarea>
+        
+        <div class="button-row">
+          <button id="btnEncrypt" class="action-btn">Lock (Encrypt)</button>
+          <button id="btnDecrypt" class="action-btn outline">Unlock (Decrypt)</button>
+        </div>
+      </div>
+  
+      <div class="panel">
+        <label>Result</label>
+        <textarea id="outputText" rows="6" readonly placeholder="Output will appear here..."></textarea>
+        
+        <div class="button-row">
+          <button id="btnCopy" class="copy-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy to Clipboard
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <script>
+    WebAssembly.instantiateStreaming(fetch('/logic.wasm'))
+      .then(obj => {
+        console.log("Raw WAT Vigenere Loaded!");
+        
+        // Grab our raw function and the shared memory block!
+        const process_vigenere = obj.instance.exports.process_vigenere as Function;
+        const memory = obj.instance.exports.memory as WebAssembly.Memory;
+        
+        const keyInput = document.getElementById('cipherKey') as HTMLInputElement;
+        const textInput = document.getElementById('inputText') as HTMLTextAreaElement;
+        const textOutput = document.getElementById('outputText') as HTMLTextAreaElement;
+        
+        const btnEncrypt = document.getElementById('btnEncrypt');
+        const btnDecrypt = document.getElementById('btnDecrypt');
+        const btnCopy = document.getElementById('btnCopy');
+  
+        if (!btnEncrypt || !btnDecrypt || !btnCopy) return;
+  
+        const processText = (isEncrypt: number) => {
+          const text = textInput.value;
+          const key = keyInput.value;
+  
+          if (!text) {
+            textOutput.value = "Please enter a message!";
+            return;
+          }
+  
+          // 1. Translate strings to raw byte arrays
+          const encoder = new TextEncoder();
+          const textBytes = encoder.encode(text);
+          const keyBytes = encoder.encode(key);
+  
+          // 2. Write bytes into WebAssembly's Linear Memory
+          // We put the text at address 0, and the key immediately after it
+          const memoryView = new Uint8Array(memory.buffer);
+          memoryView.set(textBytes, 0); 
+          memoryView.set(keyBytes, textBytes.length); 
+  
+          // 3. Call the bare-metal assembly
+          // args: text_ptr, text_len, key_ptr, key_len, is_encrypt
+          process_vigenere(0, textBytes.length, textBytes.length, keyBytes.length, isEncrypt);
+  
+          // 4. Read the modified bytes back out of memory and translate to string
+          const decoder = new TextDecoder();
+          const resultBytes = new Uint8Array(memory.buffer, 0, textBytes.length);
+          textOutput.value = decoder.decode(resultBytes);
+        };
+  
+        btnEncrypt.addEventListener('click', () => processText(1));
+        btnDecrypt.addEventListener('click', () => processText(0));
+  
+        // Copy Button
+        btnCopy.addEventListener('click', () => {
+          if (!textOutput.value || textOutput.value === "Please enter a message!") return;
+          navigator.clipboard.writeText(textOutput.value).then(() => {
+            const originalText = btnCopy.innerHTML;
+            btnCopy.innerHTML = "Copied!";
+            setTimeout(() => btnCopy.innerHTML = originalText, 2000);
+          });
+        });
+      })
+      .catch(console.error);
+  </script>
+  
+  <script src="/logic.js" is:inline></script>
+  
+  <style>
+    .cipher-container {
+      background: #f8f8fc;
+      border: 1px solid #e2e2ec;
+      border-radius: 12px;
+      padding: 2rem;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #2a1454;
+      font-size: 0.95rem;
+    }
+  
+    .input-group { margin-bottom: 1.5rem; }
+    
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: monospace; /* Monospace is great for ciphers */
+      box-sizing: border-box;
+    }
+  
+    textarea { resize: vertical; }
+    textarea[readonly] { background: #f0f0f5; color: #333; }
+  
+    .split-layout {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .panel { flex: 1; min-width: 250px; }
+    .button-row { margin-top: 1rem; display: flex; gap: 0.8rem; }
+  
+    button {
+      cursor: pointer;
+      padding: 0.7rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      border: none;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+  
+    .action-btn { background: #2a1454; color: white; flex: 1; }
+    .action-btn:hover { background: #1a0c34; transform: translateY(-2px); }
+    
+    .action-btn.outline { background: transparent; color: #2a1454; border: 2px solid #2a1454; }
+    .action-btn.outline:hover { background: #f0f0f5; }
+  
+    .copy-btn { background: #e2e2ec; color: #2a1454; width: 100%; }
+    .copy-btn:hover { background: #d0d0dc; transform: translateY(-2px); }
+  </style>

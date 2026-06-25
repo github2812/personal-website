@@ -284,21 +284,25 @@ import galaxyImg from '../assets/portfolio/galaxy.jpeg';
 </Layout>
 
 <script>
-	document.addEventListener("DOMContentLoaded", () => {
-		// Smooth scroll implementation for jump links
-		document.querySelectorAll('.jump-btn').forEach(btn => {
-			btn.addEventListener('click', function(e) {
-				e.preventDefault();
-				const targetId = this.getAttribute('href')?.substring(1);
-				if (targetId) {
-					const targetElement = document.getElementById(targetId);
-					if (targetElement) {
-						targetElement.scrollIntoView({ behavior: 'smooth' });
-					}
-				}
-			});
-		});
-	});
+    document.addEventListener("DOMContentLoaded", () => {
+        // Smooth scroll implementation for jump links
+        document.querySelectorAll('.jump-btn').forEach(btn => {
+            // Changed to an arrow function
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // THE FIX: Replaced 'this' with 'btn'
+                const targetId = btn.getAttribute('href')?.substring(1);
+                
+                if (targetId) {
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    });
 </script>
 
 <style>

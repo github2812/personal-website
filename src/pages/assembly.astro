@@ -1,0 +1,121 @@
+---
+// src/pages/assembly.astro
+import Layout from '../layouts/Layout.astro';
+import AddDemo from '../components/AddDemo.astro';
+import WasmDemo from '../components/WasmDemo.astro';
+import VigenereDemo from '../components/VigenereDemo.astro';
+---
+
+<Layout title="Brandon Naylor | Assembly Projects">
+    <div class="split-page-wrapper">
+        
+        <section class="portfolio-hero">
+            <div class="hero-content-block">
+                <h1 class="page-title">Assembly Projects</h1>
+                <p class="hero-description-text">Exploring low-level memory and stack-based architecture in the browser.</p>
+            </div>
+        </section>
+        
+        <div class="light-page-content">
+            <div class="page-content-container">
+                
+                <section class="portfolio-section">
+                    <h2 class="section-heading">WebAssembly Demonstrations</h2>
+                    <div class="project-grid">
+                        
+                        <div class="project-card full-width-card">
+                            <div class="text-side">
+                                <h3 class="project-title">Vigenère Cipher</h3>
+                                <h4 class="project-subtitle">Pure WebAssembly Text (.wat)</h4>
+                                <p class="template-p" style="margin-bottom: 2rem;">
+                                    This tool translates text into an array of 8-bit integers, pushes it into an isolated block of Linear Memory, and loops over it using pure stack-based WebAssembly instructions before pulling the encrypted buffer back into the DOM.
+                                </p>
+                                
+                                <VigenereDemo />
+                                
+                            </div>
+                        </div>
+
+                        <div class="project-card full-width-card">
+                            <div class="text-side">
+                                <h3 class="project-title">Assembly Logic Calculator</h3>
+                                <h4 class="project-subtitle">C & x86 Inline Assembly</h4>
+                                <p class="template-p" style="margin-bottom: 2rem;">
+                                    This interactive component passes your input into a WebAssembly module, where it is calculated using bare-metal x86 inline assembly instructions via C before being returned to the browser.
+                                </p>
+                                
+                                <WasmDemo />
+                                
+                            </div>
+                        </div>
+
+                        <div class="project-card full-width-card">
+                            <div class="text-side">
+                                <h3 class="project-title">Adding Machine</h3>
+                                <h4 class="project-subtitle">C & x86 Inline Assembly</h4>
+                                <p class="template-p" style="margin-bottom: 2rem;">
+                                    Just an adding machine. 
+                                </p>
+                                
+                                <AddDemo />
+                                
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .split-page-wrapper { width: 100%; display: flex; flex-direction: column; }
+
+    .portfolio-hero {
+        height: 100dvh; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; z-index: 5; padding: 0 2rem;
+    }
+
+    .hero-content-block { position: relative; z-index: 5; max-width: 750px; width: 100%; display: flex; flex-direction: column; align-items: center; }
+
+    /* text scaling with canvas size */
+    .page-title { 
+        font-size: clamp(3.2rem, 10vw, 5rem); font-weight: 700; margin: 0 0 1.5rem 0; letter-spacing: 1px; color: #ffffff;
+        text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6); animation: scaleEase 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .hero-description-text {
+        font-size: 1.15rem; line-height: 1.6; color: rgba(255, 255, 255, 0.85); margin: 0; max-width: 620px; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); text-wrap: balance;
+        animation: scaleEase 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; opacity: 0;
+    }
+    
+    .light-page-content {
+        background-color: #ffffff; color: #1a1a2e; width: 100%; display: flex; justify-content: center; padding: 6rem 2rem; position: relative; z-index: 10;
+    }
+
+    .page-content-container { max-width: 1000px; width: 100%; }
+    .portfolio-section { margin-bottom: 6rem; }
+    
+    .section-heading { font-size: 2.2rem; font-weight: 700; color: #2a1454; margin-bottom: 2rem; border-bottom: 2px solid #f0f0f5; padding-bottom: 0.5rem; }
+    .project-grid { display: flex; flex-direction: column; gap: 2.5rem; }
+    
+    .project-card { 
+        display: flex; background: #ffffff; border: 1px solid #f0f0f5; border-radius: 12px; overflow: hidden; min-height: 220px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04); transition: transform 0.3s ease;
+    }
+    .project-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(188, 52, 164, 0.05); border-color: #e2e2ec; }
+
+    /* specific style for full width cards without an image */
+    .full-width-card .text-side { width: 100%; padding: 3rem; }
+
+    .text-side { flex: 1; padding: 2.2rem; display: flex; flex-direction: column; justify-content: center; }
+    .project-title { margin: 0 0 0.35rem 0; font-size: 1.6rem; font-weight: 700; color: #111111; line-height: 1.3; }
+    .project-subtitle { margin: 0 0 1rem 0; color: #555555; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; }
+    .template-p { color: #555555; line-height: 1.7; margin: 0; font-size: 1.05rem; }
+
+    @keyframes scaleEase { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+
+    @media (max-width: 850px) { 
+        .full-width-card .text-side { padding: 2rem 1.5rem; }
+    }
+</style>

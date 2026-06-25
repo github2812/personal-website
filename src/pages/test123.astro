@@ -1,0 +1,105 @@
+---
+// ==========================================
+// 1. THE FRONTMATTER (Server-Side JS)
+// ==========================================
+// This code runs on the server before the page loads.
+// It's a great place to store data you want to inject into your HTML.
+const userName = "Astro Learner"; /* Defines a string. Options: Numbers, Arrays, Objects */
+const userRole = "Web Developer"; 
+---
+
+<main class="page-wrapper">
+
+    <section class="profile-card">
+        
+        <div class="text-group">
+            
+            <h1 class="title-text">{userName}</h1> 
+            
+            <p class="role-text">{userRole}</p>
+            
+        </div>
+
+        <a href="#contact" class="primary-btn">Contact Me</a>
+
+    </section>
+
+</main>
+
+<style>
+    /* Targets the main wrapper of the whole page */
+    .page-wrapper {
+        /* BOX MODEL & SPACING */
+        min-height: 100vh;          /* Makes the box take up 100% of the Viewport Height */
+        padding: 2rem;              /* Pushes content 2rem inward from the edges. Options: px, %, em */
+        background-color: #f0f0f5;  /* The background color of the whole page */
+        
+        /* FLEXBOX LAYOUT */
+        display: flex;              /* Turns on Flexbox so we can easily center the card */
+        justify-content: center;    /* Centers the card horizontally. Options: flex-start (left), flex-end (right), space-between */
+        align-items: center;        /* Centers the card vertically. Options: flex-start (top), flex-end (bottom), stretch */
+        
+        /* TYPOGRAPHY */
+        font-family: sans-serif;    /* Sets the default font. Options: serif, monospace, 'Open Sans' */
+    }
+
+    /* Targets the white card itself */
+    .profile-card {
+        /* BOX MODEL */
+        background-color: white;    /* Makes the card white to stand out from the gray background */
+        padding: 3rem 2rem;         /* 3rem padding on Top/Bottom, 2rem on Left/Right */
+        border-radius: 16px;        /* Curves the corners. Options: 0px (sharp), 50% (circle) */
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* Adds a soft drop shadow (X offset, Y offset, Blur, Color) */
+        width: 100%;                /* Card takes up 100% of available space... */
+        max-width: 400px;           /* ...but stops growing once it hits 400px wide */
+        
+        /* FLEXBOX LAYOUT */
+        display: flex;              /* Turns the card into a flex container */
+        flex-direction: column;     /* Stacks the text and button top-to-bottom. Options: row (left-to-right) */
+        align-items: center;        /* Centers the text and button horizontally inside the card */
+        gap: 2rem;                  /* Puts exactly 2rem of empty space between the text-group and the button */
+        text-align: center;         /* Centers the actual text characters inside their boxes. Options: left, right, justify */
+    }
+
+    /* Targets the invisible box holding the h1 and p tags */
+    .text-group {
+        display: flex;              
+        flex-direction: column;     /* Stacks the h1 and p top-to-bottom */
+        gap: 0.5rem;                /* Puts a small space between the title and subtitle */
+    }
+
+    /* Targets the h1 tag */
+    .title-text {
+        font-size: 2.5rem;          /* Makes the text large */
+        color: #111;                /* Almost black text */
+        margin: 0;                  /* Removes the invisible margin that browsers add to h1 tags by default! */
+        font-weight: 800;           /* Makes it super bold. Options: 400 (normal), 300 (light) */
+    }
+
+    /* Targets the p tag */
+    .role-text {
+        font-size: 1.1rem;          
+        color: #666;                /* Medium gray text so it is less visually important than the title */
+        margin: 0;                  /* Removes default browser spacing */
+        text-transform: uppercase;  /* Forces text to be ALL CAPS. Options: lowercase, capitalize, none */
+        letter-spacing: 2px;        /* Spreads the letters slightly apart for a modern look */
+    }
+
+    /* Targets the <a> link to make it look like a button */
+    .primary-btn {
+        background-color: #bc34a4;  /* A nice purple background */
+        color: white;               /* White text inside the button */
+        padding: 0.8rem 2rem;       /* Top/Bottom padding, Left/Right padding to make it wide */
+        border-radius: 8px;         /* Slightly rounded corners */
+        text-decoration: none;      /* Removes the default blue underline from links! Options: underline, line-through */
+        font-weight: 600;           
+        transition: all 0.2s ease;  /* Tells the browser to smoothly animate any changes over 0.2 seconds */
+    }
+
+    /* The :hover pseudo-class activates ONLY when the mouse is over the button */
+    .primary-btn:hover {
+        background-color: #9e2a89;  /* Changes to a slightly darker purple */
+        transform: translateY(-4px);/* Moves the button 4 pixels UP along the Y axis. Options: translateX, scale(1.1) to grow */
+        box-shadow: 0 4px 15px rgba(188, 52, 164, 0.4); /* Adds a glowing shadow underneath */
+    }
+</style>

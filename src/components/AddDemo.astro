@@ -1,0 +1,88 @@
+---
+// AddDemo.astro
+---
+<div class="container">
+    <div class="split-layout">
+        <div class="panel">
+            <label for="input1">Number 1</label>
+            <div class = "text-wrapper">
+                <textarea id="input1" rows="1" placeholder="Type number here..."></textarea>
+            </div>
+        </div>
+        <div class = "panel">
+            <label for="input2">Number 2</label>
+            <div class = "text-wrapper">
+                <textarea id="input2" rows="1" placeholder = "Type number here..."></textarea>
+            </div>
+        </div>
+    </div>
+    <div class = "button-row">
+        <button id="addBTN" class="add-btn">Add</button>
+    </div>
+</div>
+
+<style>
+    .container {
+      background: #f8f8fc;
+      border: 1px solid #e2e2ec;
+      border-radius: 12px;
+      padding: 2rem;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    .split-layout {
+        display: flex;
+        gap: 2rem; /* Space between the two columns */
+        flex-wrap: wrap; /* Allows stacking on small screens/mobile */
+        justify-content: center;
+        align-items: center;
+    }
+
+    .panel{
+        display: flex; 
+        flex-direction: column; 
+        gap: 0.75rem; 
+        flex: 1; 
+        min-width: 200px; 
+        max-width: 400px; 
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #2a1454;
+      font-size: 0.95rem;
+    }
+
+    .text-wrapper{
+        width: 100%; 
+    }
+
+    textarea{
+        width: 100%; 
+        box-sizing: border-box; 
+        padding: 0.75rem; 
+        border: 1px solid #e2e2ec; 
+        border-radius: 12px; 
+        resize: vertical; 
+    }
+
+    textarea[readonly] { background: #f0f0f5; color: #333; }
+    .button-row { margin-top: 1rem; display: flex; gap: 0.8rem; }
+
+    button {
+      cursor: pointer;
+      padding: 0.7rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      border: none;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: left;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .add-btn { background: #2a1454; color: white; flex: 1; }
+    .add-btn:hover { background: #1a0c34; transform: translateY(-2px); }
+</style>

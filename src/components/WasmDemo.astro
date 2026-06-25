@@ -1,0 +1,24 @@
+<script>
+    WebAssembly.instantiateStreaming(fetch('/logic.wasm'))
+      .then(obj => {
+        console.log("Raw Wasm Assembly Loaded!");
+        
+        // THE FIX: Tell TypeScript this specific export is a Function
+        const add_numbers = obj.instance.exports.add_numbers as Function;
+        
+        const btn = document.getElementById('calcBtn');
+        const output = document.getElementById('resultOutput');
+        
+        if (!btn || !output) return;
+        
+        btn.addEventListener('click', () => {
+          const valA = parseInt((document.getElementById('numA') as HTMLInputElement).value, 10);
+          const valB = parseInt((document.getElementById('numB') as HTMLInputElement).value, 10);
+          
+          // Now TypeScript knows this is safe to call!
+          const finalResult = add_numbers(valA, valB);
+          output.innerText = finalResult.toString();
+        });
+      })
+      .catch(console.error);
+  </script>
